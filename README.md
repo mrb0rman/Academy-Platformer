@@ -1,1 +1,1 @@
-# Academy-Platformer
+# AcademyPlatformer
