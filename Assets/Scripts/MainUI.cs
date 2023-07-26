@@ -12,6 +12,8 @@ namespace DefaultNamespace
         {
             _uiService = new UIService(_uiRoot);
             _uiService.Init();
+            
+            _uiService.Show<MainMenu>();
         }
     }
 }

@@ -9,7 +9,7 @@ public class UIService : IUIService
 {
     private UIRoot _uiRoot;
     private Dictionary<Type, UIWindow> _loadedWindows;
-
+    
     public UIService(UIRoot uiRoot)
     {
         _loadedWindows = new Dictionary<Type, UIWindow>();
@@ -20,9 +20,9 @@ public class UIService : IUIService
     {
         foreach (UIWindow uiWindow in Resources.LoadAll<UIWindow>(""))
         {
-            GameObject newWindow = GameObject.Instantiate(uiWindow.gameObject, _uiRoot.deactivateContainer);
+            UIWindow newWindow = GameObject.Instantiate(uiWindow, _uiRoot.deactivateContainer);
             Type key = uiWindow.GetType();
-            _loadedWindows.Add(key, uiWindow);
+            _loadedWindows.Add(key, newWindow);
         }
     }
 

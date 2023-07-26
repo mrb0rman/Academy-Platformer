@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class UIRoot
+    public class UIRoot : MonoBehaviour
     {
         [SerializeField] private Transform _activateContainer;
         
