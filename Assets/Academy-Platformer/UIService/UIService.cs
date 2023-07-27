@@ -16,7 +16,7 @@ namespace UIServiceNamespace
     
         public void Init(string path)
         {
-            foreach (UIWindow uiWindow in Resources.LoadAll<UIWindow>(path))
+            foreach (var uiWindow in Resources.LoadAll<UIWindow>(path))
             {
                 var newWindow = GameObject.Instantiate(uiWindow.gameObject, _uiRoot.deactivateContainer);
                 var key = uiWindow.GetType();
