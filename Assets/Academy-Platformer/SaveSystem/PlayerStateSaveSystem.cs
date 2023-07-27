@@ -32,4 +32,9 @@ public class PlayerState
         Score = score;
         LifeState = lifeState;
     }
+    public PlayerState()
+    {
+        Score = 0;
+        LifeState = 0;
+    }
 }
