@@ -5,7 +5,7 @@ namespace Interfaces
     public interface ISceneObjectStorage
     {
         GameObject Create(string path);
-        void Add(GameObject gameObject);
+        bool Add(GameObject gameObject);
         void Delete(GameObject gameObject);
     }
 }
