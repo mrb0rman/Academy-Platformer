@@ -3,7 +3,7 @@ namespace Command
 {
     public interface ICommand
     {
-        event Action OnCommandExecuteNotify; 
+        event Action OnCommandExecuteNotify;
         void Execute();
         void Undo();
     }
