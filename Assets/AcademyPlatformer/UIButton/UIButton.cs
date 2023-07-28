@@ -3,30 +3,42 @@ using UnityEngine.UI;
 
 public class UIButton : MonoBehaviour
 {
-    [SerializeField] private Button _button;
+    [SerializeField] private Button button;
     [SerializeField] private Color downColor;
     [SerializeField] private Sprite downImage;
-    void OnEnable()
+    
+    public void OnEnable()
     {
-        if (_button.transition == Selectable.Transition.ColorTint)
+        button.onClick.AddListener(()=>OnClick());
+        
+    }
+    public void OnClick()
+    {
+        if (button.transition == Selectable.Transition.ColorTint)
         {
-            _button.onClick.AddListener(() => ChangeColor(downColor));
+            ChangeColor();
         }
-        else if (_button.transition == Selectable.Transition.SpriteSwap)
+        else if (button.transition == Selectable.Transition.SpriteSwap)
         {
-            _button.onClick.AddListener(() => ChangeSprite(downImage));
+            ChangeSprite();
         }
     }
-    private void ChangeColor(Color colorDown)
+    public void OnDisable()
+    {
+        button.onClick.RemoveAllListeners();
+    }
+    
+    private void ChangeColor()
     { 
-        var buttonColors = _button.colors;
-        buttonColors.selectedColor = colorDown;
-        _button.colors = buttonColors;
+        var buttonColors = button.colors;
+        buttonColors.selectedColor = downColor;
+        button.colors = buttonColors;
     }
-    private void ChangeSprite(Sprite spriteDown)
+    private void ChangeSprite()
     {
-        var buttonSprite = _button.spriteState;
-        buttonSprite.selectedSprite = spriteDown;
-        _button.spriteState = buttonSprite;
+        var buttonSprite = button.spriteState;
+        buttonSprite.selectedSprite = downImage;
+        button.spriteState = buttonSprite;
     }
+    
 }
