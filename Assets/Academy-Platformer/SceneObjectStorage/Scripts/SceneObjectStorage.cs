@@ -1,59 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Interfaces;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class SceneObjectStorage : ISceneObjectStorage
 {
-    private List<GameObject> _storage = new();
-    private Dictionary<string, GameObject> _prefabs = new();
-
-    public GameObject Create(string path)
+    private Dictionary<Type, Object> _storage = new();
+    public Object Create<T>(string path) where T : Object
     {
-        var prefab = Resources.Load<GameObject>(path);
+        var prefab = Resources.Load<T>(path);
         if (prefab is null)
         {
             Debug.LogError($"prefab is null {path}");
             return null;
         }
-
-        if (_prefabs.TryAdd(path, prefab))
+        if (_storage.Keys.Contains(typeof(T)))
         {
-            var gameObject = GameObject.Instantiate(prefab);
-            Add(gameObject);
-            return gameObject;
+            Debug.LogError($"This Item already created: {prefab}");
+            return _storage[typeof(T)];
+        }
+        var obj = Object.Instantiate(prefab);
+        if (_storage.TryAdd(typeof(T), obj))
+        {
+            return obj;
         }
         else
         {
-            Debug.LogError($"This Item already created: {prefab}");
+            Debug.Log($"Item {prefab} doesn't adding to dictionary");
         }
-
         return null;
     }
 
-    public bool Add(GameObject gameObject)
+    public bool Add<T>(T Object) where T : Object
     {
-        if (!_storage.Contains(gameObject))
+        if (_storage.TryAdd(typeof(T), Object))
         {
-            _storage.Add(gameObject);
             return true;
         }
         else
         {
-            Debug.LogError($"The storage already has this item:{gameObject}");
+            Debug.LogError($"Item not added:{Object}");
+            return false;
         }
 
-        return false;
+ 
     }
 
-    public void Delete(GameObject gameObject)
+    public void Delete<T>() where T : Object
     {
-        if (!_storage.Contains(gameObject))
+        if (!_storage.Remove(typeof(T)))
         {
-            Debug.LogError("storage don't contains gameObject");
+            Debug.LogError($"Item not removed Key(Type): {typeof(T)}");
         }
-
-        GameObject.Destroy(gameObject);
-        _storage.Remove(gameObject);
     }
 }

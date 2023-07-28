@@ -4,8 +4,8 @@ namespace Interfaces
 {
     public interface ISceneObjectStorage
     {
-        GameObject Create(string path);
-        bool Add(GameObject gameObject);
-        void Delete(GameObject gameObject);
+        Object Create<T>(string path)where T : Object;
+        bool Add<T>(T gameObject)where T : Object;
+        void Delete<T>() where T : Object;
     }
 }
