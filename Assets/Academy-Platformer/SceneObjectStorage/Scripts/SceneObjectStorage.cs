@@ -44,8 +44,6 @@ public class SceneObjectStorage : ISceneObjectStorage
             Debug.LogError($"Item not added:{Object}");
             return false;
         }
-
- 
     }
 
     public void Delete<T>() where T : Object
