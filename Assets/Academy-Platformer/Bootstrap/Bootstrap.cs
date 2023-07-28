@@ -6,9 +6,10 @@ namespace Bootstrap
 {
     public class Bootstrap : IBootstrap
     {
-        private Queue<ICommand> _queueCommands = new Queue<ICommand>();
         public event Action OnExecuteAllComandsNotify;
         
+        private Queue<ICommand> _queueCommands = new Queue<ICommand>();
+
         public void Add(ICommand command)
         {
             if (command == null)
