@@ -1,6 +1,4 @@
-using UnityEngine.PlayerLoop;
-
-namespace UIServiceNamespace
+namespace UIService
 {
     public interface IUIService
     {

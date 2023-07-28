@@ -1,4 +1,4 @@
-namespace UIServiceNamespace
+namespace UIService
 {
     public interface IUIWindow
     {

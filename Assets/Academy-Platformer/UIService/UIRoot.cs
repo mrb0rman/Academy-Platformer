@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace UIServiceNamespace
+namespace UIService
 {
     public class UIRoot : MonoBehaviour
     {
-        public Transform activateContainer => _activateContainer;
-        public Transform deactivateContainer => _deactivateContainer;
+        public Transform ActivateContainer => activateContainer;
+        public Transform DeactivateContainer => deactivateContainer;
         
-        [SerializeField] private Transform _activateContainer;
-        [SerializeField] private Transform _deactivateContainer;
+        [SerializeField] private Transform activateContainer;
+        [SerializeField] private Transform deactivateContainer;
     }
 }

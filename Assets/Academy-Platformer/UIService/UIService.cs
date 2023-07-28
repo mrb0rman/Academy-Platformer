@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UIServiceNamespace
+namespace UIService
 {
     public class UIService : IUIService
     {
@@ -16,37 +16,39 @@ namespace UIServiceNamespace
     
         public void Init(string path)
         {
-            foreach (var uiWindow in Resources.LoadAll<UIWindow>(path))
+            var windows = Resources.LoadAll<UIWindow>(path);
+            if (windows.Length > 0)
             {
-                var newWindow = GameObject.Instantiate(uiWindow.gameObject, _uiRoot.deactivateContainer);
-                var key = uiWindow.GetType();
-                _loadedWindows.Add(key, uiWindow);
+                foreach (var uiWindow in windows)
+                {
+                    var newWindow = GameObject.Instantiate(uiWindow, _uiRoot.DeactivateContainer);
+                    var key = newWindow.GetType();
+                    _loadedWindows.Add(key, newWindow);
+                }
             }
         }
 
         public void Hide<T>() where T : UIWindow
         {
-            var window = _loadedWindows[typeof(T)];
-            if (window != null)
+            if (_loadedWindows.TryGetValue(typeof(T), out UIWindow value))
             {
-                window.gameObject.transform.SetParent(_uiRoot.deactivateContainer);
+                value.gameObject.transform.SetParent(_uiRoot.DeactivateContainer);
             }
             else
             {
-                throw new Exception($"Window of type {typeof(T)} was not found");
+                Debug.LogError($"Window of type {typeof(T)} was not found");
             }
         }
 
         public void Show<T>() where T : UIWindow
         {
-            var window = _loadedWindows[typeof(T)];
-            if (window != null)
+            if (_loadedWindows.TryGetValue(typeof(T), out UIWindow value))
             {
-                window.gameObject.transform.SetParent(_uiRoot.activateContainer);
+                value.gameObject.transform.SetParent(_uiRoot.ActivateContainer);
             }
             else
             {
-                throw new Exception($"Window of type {typeof(T)} was not found");
+                Debug.LogError($"Window of type {typeof(T)} was not found");
             }
         }
     }

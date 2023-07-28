@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 
-namespace UIServiceNamespace
+namespace UIService
 {
     public abstract class UIWindow : MonoBehaviour, IUIWindow
     {
