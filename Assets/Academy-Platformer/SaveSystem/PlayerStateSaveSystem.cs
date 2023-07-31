@@ -4,39 +4,42 @@ using UnityEngine;
 
 public class PlayerStateSaveSystem : ISaveSystem<PlayerState>
 {
-    private const string Key = "PlayerStateKey";
-    void Start()
+    private const string PlayerStateKey = "PlayerStateKey";
+
+    public void Save(PlayerState date)
     {
-        Load();
+        Save(key: PlayerStateKey, date: date);
     }
-    public  void Save(PlayerState date)
-    {
-        Save(key: Key, date: date);
-    }
+
     public PlayerState Load()
     {
-        return Load(key: Key);
+        return Load(key: PlayerStateKey);
     }
-    public  void Clear()
+
+    public void Clear()
     {
-        Clear(key: Key);
+        Clear(key: PlayerStateKey);
     }
-    protected void Save(string key, PlayerState date)
+
+    private void Save(string key, PlayerState date)
     {
-        string json = JsonUtility.ToJson(date);
+        var json = JsonUtility.ToJson(date);
         PlayerPrefs.SetString(key: key, value: json);
     }
-    protected PlayerState Load(string key)
+
+    private PlayerState Load(string key)
     {
         if (PlayerPrefs.HasKey(key))
         {
             return default;
         }
-        string json = PlayerPrefs.GetString(key);
-        var date = JsonUtility.FromJson<PlayerState>(json);
-        return date;
+
+        var json = PlayerPrefs.GetString(key);
+        var playerState = JsonUtility.FromJson<PlayerState>(json);
+        return playerState;
     }
-    protected void Clear(string key)
+
+    private void Clear(string key)
     {
         if (PlayerPrefs.HasKey(key))
         {
@@ -45,7 +48,7 @@ public class PlayerStateSaveSystem : ISaveSystem<PlayerState>
     }
 }
 
-public class PlayerState
+public struct PlayerState
 {
     public int Score;
     public int LifeState;
@@ -53,10 +56,5 @@ public class PlayerState
     {
         Score = score;
         LifeState = lifeState;
-    }
-    public PlayerState()
-    {
-        Score = 0;
-        LifeState = 0;
     }
 }
