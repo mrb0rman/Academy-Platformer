@@ -7,8 +7,9 @@ using Object = UnityEngine.Object;
 
 public class SceneObjectStorage : ISceneObjectStorage
 {
-    private Dictionary<Type, Object> _storage = new();
-    public Object Create<T>(string path) where T : Object
+    private Dictionary<Type, Component> _storage = new();
+
+    public T Create<T>(string path) where T : Component
     {
         var prefab = Resources.Load<T>(path);
         if (prefab is null)
@@ -16,11 +17,13 @@ public class SceneObjectStorage : ISceneObjectStorage
             Debug.LogError($"prefab is null {path}");
             return null;
         }
+
         if (_storage.Keys.Contains(typeof(T)))
         {
             Debug.LogError($"This Item already created: {prefab}");
-            return _storage[typeof(T)];
+            return (T)_storage[typeof(T)];
         }
+
         var obj = Object.Instantiate(prefab);
         if (_storage.TryAdd(typeof(T), obj))
         {
@@ -28,12 +31,33 @@ public class SceneObjectStorage : ISceneObjectStorage
         }
         else
         {
-            Debug.Log($"Item {prefab} doesn't adding to dictionary");
+            Debug.LogError($"Item {prefab} doesn't adding to dictionary");
         }
+
         return null;
     }
 
-    public bool Add<T>(T Object) where T : Object
+    public T Get<T>() where T : Component
+    {
+        if (!_storage.ContainsKey(typeof(T)))
+        {
+            Debug.LogError($"The dictionary doesn't contains key {typeof(T)}");
+        }
+
+        Component component;
+        if (_storage.TryGetValue(typeof(T), out component))
+        {
+            return (T)component;
+        }
+        else
+        {
+            Debug.LogError($"Item not got. Type: {typeof(T)}");
+        }
+
+        return null;
+    }
+
+    public bool Add<T>(T Object) where T : Component
     {
         if (_storage.TryAdd(typeof(T), Object))
         {
@@ -46,11 +70,11 @@ public class SceneObjectStorage : ISceneObjectStorage
         }
     }
 
-    public void Delete<T>() where T : Object
+    public void Delete<T>() where T : Component
     {
         if (!_storage.Remove(typeof(T)))
         {
-            Debug.LogError($"Item not removed Key(Type): {typeof(T)}");
+            Debug.LogError($"Item not removed. Key(Type): {typeof(T)}");
         }
     }
 }
