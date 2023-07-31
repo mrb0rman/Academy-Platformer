@@ -6,24 +6,20 @@ namespace UIService
 {
     public abstract class UIWindow : MonoBehaviour, IUIWindow
     {
-        private float duration = 1f;
-        private Sequence showAnimation;
-        private Sequence hideAnimation;
+        private const float duration = 1f;
+        private Tween _showAnimation;
+        private Tween _hideAnimation;
         
         public void Show()
         {
-            showAnimation?.Kill();
-            showAnimation = DOTween.Sequence();
-            showAnimation.Append(this.transform.DOScale(Vector3.one, duration));
-            showAnimation = DOTween.Sequence();
+            _showAnimation?.Kill();
+            _showAnimation = this.transform.DOScale(Vector3.one, duration);
         }
 
         public void Hide()
         {
-            hideAnimation?.Kill();
-            hideAnimation = DOTween.Sequence();
-            hideAnimation.Append(this.transform.DOScale(Vector3.zero, duration));
-            hideAnimation = DOTween.Sequence();
+            _hideAnimation?.Kill();
+            _hideAnimation = this.transform.DOScale(Vector3.zero, duration);
         }
     }
 }
