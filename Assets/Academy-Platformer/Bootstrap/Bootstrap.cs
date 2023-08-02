@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Command;
 using UnityEngine;
+
 namespace Bootstrap
 {
     public class Bootstrap : IBootstrap
@@ -19,6 +20,7 @@ namespace Bootstrap
             }
             _queueCommands.Enqueue(command);
         }
+        
         public void Execute()
         {
             if (_queueCommands.Count == 0)
