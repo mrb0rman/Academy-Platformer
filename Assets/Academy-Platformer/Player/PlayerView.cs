@@ -6,8 +6,5 @@ namespace FactoryPlayer
     {
         public float health;
         public float speed;
-        public Transform Transform => transform;
-        
-        [SerializeField] private Transform transform;
     }
 }
