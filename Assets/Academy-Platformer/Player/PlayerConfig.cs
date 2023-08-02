@@ -19,5 +19,6 @@ namespace FactoryPlayer
     {
         public int health;
         public int speed;
+        public Sprite sprite;
     }
 }

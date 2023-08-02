@@ -17,8 +17,6 @@ namespace FactoryPlayer
         {
             var player = GameObject.Instantiate(_playerPrefab);
             var model = _playerConfig.Get();
-            player.health = model.health;
-            player.speed = model.speed;
             return player;
         }
     }
