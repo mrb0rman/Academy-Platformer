@@ -1,4 +1,5 @@
-﻿using Bootstrap;
+﻿using System;
+using Bootstrap;
 using UnityEngine;
 
 namespace ApplicationStartup
@@ -6,16 +7,19 @@ namespace ApplicationStartup
     public class ApplicationStartup : MonoBehaviour
     {
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
-        
+
         private void Start()
         {
-            Destroy(gameObject);
+            StartBootstrap();
         }
-        
-        private void NotifyOfCompletion()
+
+        private void StartBootstrap()
         {
-            Debug.Log("The end");
+            _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
+            _bootstrap.Execute();
         }
-        
+
+        private void NotifyOfCompletion()
+        { }
     }
 }
