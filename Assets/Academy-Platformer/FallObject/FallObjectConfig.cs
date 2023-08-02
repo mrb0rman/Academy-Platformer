@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Academy_Platformer.FallObject
 {
     [CreateAssetMenu(fileName = "FallObjectConfig", menuName = "FallObjectConfig")]
-    public class FallObjectConfig
+    public class FallObjectConfig : ScriptableObject
     {
-        [Serialize] private FallObjectModel[] _fallObjectModels;
+        [SerializeField] private FallObjectModel[] _fallObjectModels;
         private Dictionary<FallObjectType, FallObjectModel> _dict = new Dictionary<FallObjectType, FallObjectModel>();
         [NonSerialized] private bool _inited;
 

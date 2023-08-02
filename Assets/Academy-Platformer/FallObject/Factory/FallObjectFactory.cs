@@ -12,13 +12,13 @@ namespace Academy_Platformer.FallObject.Factory
 
         public FallObjectView Create(FallObjectType type)
         {
-            var prefab = GameObject.Instantiate(_objectView);
+            var view = GameObject.Instantiate(_objectView);
             var model = _objectConfig.Get(type);
 
-            prefab.PointsPerObject = model.PointsPerObject;
-            prefab.Damage = model.Damage;
+            view.PointsPerObject = model.PointsPerObject;
+            view.Damage = model.Damage;
 
-            return prefab;
+            return view;
         }
     }
 }
