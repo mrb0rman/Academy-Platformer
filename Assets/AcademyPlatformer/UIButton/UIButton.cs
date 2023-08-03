@@ -1,44 +1,57 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIButton : MonoBehaviour
+namespace UIButton
 {
-    [SerializeField] private Button button;
-    [SerializeField] private Color downColor;
-    [SerializeField] private Sprite downImage;
-    
-    public void OnEnable()
+    public class UIButton : MonoBehaviour,IPointerClickHandler
     {
-        button.onClick.AddListener(()=>OnClick());
+        [SerializeField] private Button button;
+
+        [SerializeField] private bool UseColor = true;
+        [SerializeField] private Color downColor;
         
-    }
-    public void OnClick()
-    {
-        if (button.transition == Selectable.Transition.ColorTint)
+        [SerializeField] private bool UseSprite;
+        [SerializeField] private Sprite downImage;
+
+        public delegate void OnClickEventHandler();
+        public event OnClickEventHandler OnClickButton;
+
+        private void OnEnable()
         {
-            ChangeColor();
+            OnClickButton += OnClick;
         }
-        else if (button.transition == Selectable.Transition.SpriteSwap)
+
+        private void OnDisable()
         {
-            ChangeSprite();
+            OnClickButton -= OnClick;
+        }
+        
+        private void OnClick()
+        {
+            if (UseColor) ChangeColor();
+            if (UseSprite) ChangeSprite();
+        }
+        
+        private void ChangeColor()
+        {
+            button.transition = Selectable.Transition.ColorTint;
+            var buttonColors = button.colors;
+            buttonColors.selectedColor = downColor;
+            button.colors = buttonColors;
+        }
+
+        private void ChangeSprite()
+        {
+            button.transition = Selectable.Transition.SpriteSwap;
+            var buttonSprite = button.spriteState;
+            buttonSprite.selectedSprite = downImage;
+            button.spriteState = buttonSprite;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnClickButton?.Invoke();
         }
     }
-    public void OnDisable()
-    {
-        button.onClick.RemoveAllListeners();
-    }
-    
-    private void ChangeColor()
-    { 
-        var buttonColors = button.colors;
-        buttonColors.selectedColor = downColor;
-        button.colors = buttonColors;
-    }
-    private void ChangeSprite()
-    {
-        var buttonSprite = button.spriteState;
-        buttonSprite.selectedSprite = downImage;
-        button.spriteState = buttonSprite;
-    }
-    
 }
