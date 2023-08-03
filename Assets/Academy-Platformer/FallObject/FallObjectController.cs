@@ -5,11 +5,23 @@ namespace Academy_Platformer.FallObject
 {
     public class FallObjectController
     {
+        private const string ConfigPath = "FallObjectConfig";
+        
         private readonly FallObjectFactory _factory = new();
+        
+        private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ConfigPath);
+
+        private int _pointsPerObject;
+        
+        private int _damage;
 
         public GameObject CreateObject(FallObjectType type)
         {
             var view = _factory.Create(type);
+            var model = _objectConfig.Get(type);
+
+            _pointsPerObject = model.PointsPerObject;
+            _damage = model.Damage;
 
             return view.gameObject;
         }
