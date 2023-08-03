@@ -3,21 +3,23 @@ using UnityEngine.Events;
 
 namespace Scenes
 {
-    public class InputController: MonoBehaviour
+    public partial class InputController: MonoBehaviour
     {
-        public UnityEvent onLeftEvent;
-        public UnityEvent onRightEvent;
+        public UnityEvent OnLeftEvent;
+        public UnityEvent OnRightEvent;
+        
         [SerializeField] private KeyCode moveLeft;
         [SerializeField] private KeyCode moveRight;
+        
         private void Update()
         {
             if (Input.GetKeyDown(moveLeft))
             {
-                onLeftEvent.Invoke();
+                OnLeftEvent.Invoke();
             }
             if (Input.GetKeyDown(moveRight))
             {
-                onRightEvent.Invoke();
+                OnRightEvent.Invoke();
             }
         }
     }
