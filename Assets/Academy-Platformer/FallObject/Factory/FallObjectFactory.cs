@@ -15,10 +15,6 @@ namespace Academy_Platformer.FallObject.Factory
             var view = GameObject.Instantiate(_objectView);
             var model = _objectConfig.Get(type);
 
-            view.PointsPerObject = model.PointsPerObject;
-            view.Damage = model.Damage;
-            view.ObjectSprite = model.ObjectSprite;
-            
             return view;
         }
     }

@@ -5,16 +5,19 @@ using UnityEngine;
 
 namespace Academy_Platformer.FallObject
 {
-    [CreateAssetMenu(fileName = "FallObjectConfig", menuName = "FallObjectConfig")]
+    [CreateAssetMenu(fileName = "FallObjectConfig", menuName = "Configs/FallObjectConfig")]
     public class FallObjectConfig : ScriptableObject
     {
         [SerializeField] private FallObjectModel[] _fallObjectModels;
+        
         private Dictionary<FallObjectType, FallObjectModel> _dict = new Dictionary<FallObjectType, FallObjectModel>();
+        
         [NonSerialized] private bool _inited;
 
         private void Init()
         {
             _inited = true;
+            
             foreach (var model in _fallObjectModels)
             {
                 _dict.Add(model.Type, model);
@@ -44,6 +47,5 @@ namespace Academy_Platformer.FallObject
         public FallObjectType Type;
         public int PointsPerObject;
         public int Damage;
-        public Sprite ObjectSprite;
     }
 }
