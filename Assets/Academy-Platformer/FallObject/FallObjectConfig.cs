@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Academy_Platformer.FallObject
@@ -12,7 +11,7 @@ namespace Academy_Platformer.FallObject
         
         private Dictionary<FallObjectType, FallObjectModel> _dict = new Dictionary<FallObjectType, FallObjectModel>();
         
-        [NonSerialized] private bool _inited;
+        private bool _inited;
 
         private void Init()
         {

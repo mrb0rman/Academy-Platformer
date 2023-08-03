@@ -5,11 +5,11 @@ namespace Academy_Platformer.FallObject
 {
     public class FallObjectController
     {
-        private const string ConfigPath = "FallObjectConfig";
-        
         private readonly FallObjectFactory _factory = new();
         
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ConfigPath);
+        
+        private const string ConfigPath = "FallObjectConfig";
 
         private int _pointsPerObject;
         
