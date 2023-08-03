@@ -4,21 +4,22 @@ using UnityEngine;
 namespace FactoryPlayer
 {
     [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Configs/PlayerConfig", order = 0)]
+    
     public class PlayerConfig : ScriptableObject
     {
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerModel player;
 
-        public Player Get()
+        public PlayerModel Get()
         {
             return player;
         }
     }
 
     [Serializable]
-    public struct Player
+    public struct PlayerModel
     {
-        public int health;
-        public int speed;
-        public Sprite sprite;
+        public int Health;
+        public int Speed;
+        public Sprite Sprite;
     }
 }
