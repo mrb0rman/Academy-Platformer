@@ -1,40 +1,30 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scenes
 {
-    public delegate void Handler(KeyCode code);
     public class InputController: MonoBehaviour
     {
-        [SerializeField] private KeyCode MoveLeft;
-        [SerializeField] private KeyCode MoveRight;
+        [SerializeField] private KeyCode moveLeft;
+        [SerializeField] private KeyCode moveRight;
         
-        public static event Handler OnMove;
-
+        public UnityEvent OnLeftEvent;
+        public UnityEvent OnRightEvent;
+        
+        
         private void Update()
         {
-            if (Input.GetKeyDown(MoveLeft))
+            if (Input.GetKeyDown(moveLeft))
             {
-                OnMove += MovePlatform;
+                OnLeftEvent.Invoke();
             }
-            else
+            if (Input.GetKeyDown(moveRight))
             {
-                OnMove -= MovePlatform;
+                OnRightEvent.Invoke();
             }
-            if (Input.GetKeyDown(MoveRight))
-            {
-                OnMove += MovePlatform;
-            }
-            else
-            {
-                OnMove -= MovePlatform;
-            }
-        }
 
-        public void MovePlatform(KeyCode code)
-        {
-            
         }
+        
     }
 }
