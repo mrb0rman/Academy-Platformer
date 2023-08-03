@@ -1,22 +1,27 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UIButton
 {
-    public class UIButton : MonoBehaviour,IPointerClickHandler
+    public class UIButton : MonoBehaviour, IPointerClickHandler
     {
+        public Action OnClickButton;
+        
         [SerializeField] private Button button;
 
-        [SerializeField] private bool UseColor = true;
+        [SerializeField] private bool useColor = true;
         [SerializeField] private Color downColor;
         
-        [SerializeField] private bool UseSprite;
+        [SerializeField] private bool useSprite;
         [SerializeField] private Sprite downImage;
 
-        public delegate void OnClickEventHandler();
-        public event OnClickEventHandler OnClickButton;
-
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnClickButton?.Invoke();
+        }
+        
         private void OnEnable()
         {
             OnClickButton += OnClick;
@@ -29,8 +34,14 @@ namespace UIButton
         
         private void OnClick()
         {
-            if (UseColor) ChangeColor();
-            if (UseSprite) ChangeSprite();
+            if (useColor)
+            {
+                ChangeColor();
+            }
+            if (useSprite)
+            {
+                ChangeSprite();
+            }
         }
         
         private void ChangeColor()
@@ -47,11 +58,6 @@ namespace UIButton
             var buttonSprite = button.spriteState;
             buttonSprite.selectedSprite = downImage;
             button.spriteState = buttonSprite;
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            OnClickButton?.Invoke();
         }
     }
 }
