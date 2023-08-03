@@ -15,6 +15,8 @@ namespace Academy_Platformer.FallObject.Factory
             var view = GameObject.Instantiate(_objectView);
             var model = _objectConfig.Get(type);
 
+            view.SpriteRenderer.sprite = model.ObjectSprite;
+
             return view;
         }
     }
