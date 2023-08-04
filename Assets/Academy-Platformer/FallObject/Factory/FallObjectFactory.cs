@@ -4,11 +4,8 @@ namespace Academy_Platformer.FallObject.Factory
 {
     public class FallObjectFactory
     {
-        private const string ConfigPath = "FallObjectConfig";
-        private const string ViewPath = "FallObject";
-        
-        private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ConfigPath);
-        private FallObjectView _objectView = Resources.Load<FallObjectView>(ViewPath);
+        private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.ConfigPath);
+        private FallObjectView _objectView = Resources.Load<FallObjectView>(ResourcesConst.ResourcesConst.ViewPath);
 
         public FallObjectView Create(FallObjectType type)
         {

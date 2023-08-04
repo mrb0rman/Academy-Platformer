@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Academy_Platformer.FallObject
 {
     [CreateAssetMenu(fileName = "FallObjectConfig", menuName = "Configs/FallObjectConfig")]
     public class FallObjectConfig : ScriptableObject
     {
-        [SerializeField] private FallObjectModel[] _fallObjectModels;
+        [SerializeField] private FallObjectModel[] fallObjectModels;
         
         private Dictionary<FallObjectType, FallObjectModel> _dict = new Dictionary<FallObjectType, FallObjectModel>();
         
@@ -17,7 +18,7 @@ namespace Academy_Platformer.FallObject
         {
             _inited = true;
             
-            foreach (var model in _fallObjectModels)
+            foreach (var model in fallObjectModels)
             {
                 _dict.Add(model.Type, model);
             }
