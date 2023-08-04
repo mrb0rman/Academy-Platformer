@@ -11,7 +11,7 @@ namespace Academy_Platformer.FallObject
         
         private Dictionary<FallObjectType, FallObjectModel> _dict = new Dictionary<FallObjectType, FallObjectModel>();
         
-        private bool _inited;
+        [NonSerialized] private bool _inited;
 
         private void Init()
         {
@@ -41,7 +41,7 @@ namespace Academy_Platformer.FallObject
     }
 
     [Serializable]
-    public class FallObjectModel
+    public struct FallObjectModel
     {
         public FallObjectType Type;
         public int PointsPerObject;
