@@ -7,6 +7,8 @@ namespace FactoryPlayer
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
+        public event Action<float> OnChangeHealht;
+        public event Action OnDeath;
         
         private PlayerConfig _playerConfig;
         private IFactoryCharacter _factoryPlayer;
@@ -35,11 +37,11 @@ namespace FactoryPlayer
             _currentHealth -= damage;
             if (_currentHealth > 0)
             {
-                _playerView.ChangeHealth(_currentHealth);
+                OnChangeHealht?.Invoke(_currentHealth);
             }
             else
             {
-                _playerView.Death();
+                OnDeath?.Invoke();
             }
         }
 
