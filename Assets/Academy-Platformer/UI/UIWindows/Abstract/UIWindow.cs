@@ -13,13 +13,13 @@ namespace UIService
         public void Show()
         {
             _showAnimation?.Kill();
-            _showAnimation = this.transform.DOScale(Vector3.one, Duration);
+            _showAnimation = transform.DOScale(Vector3.one, Duration);
         }
 
         public void Hide()
         {
             _hideAnimation?.Kill();
-            _hideAnimation = this.transform.DOScale(Vector3.zero, Duration);
+            _hideAnimation = transform.DOScale(Vector3.zero, Duration);
         }
     }
 }
