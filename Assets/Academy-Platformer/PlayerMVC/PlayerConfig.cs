@@ -15,8 +15,9 @@ namespace FactoryPlayer
     [Serializable]
     public struct PlayerModel
     {
+        public Sprite Sprite;
+        
         public int Health;
         public int Speed;
-        public Sprite Sprite;
     }
 }

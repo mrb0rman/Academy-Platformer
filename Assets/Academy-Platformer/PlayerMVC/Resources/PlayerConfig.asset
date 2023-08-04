@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebabde68d94a86808d144fed7f6ba7, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  player:
-    health: 100
-    speed: 5
-    sprite: {fileID: 21300000, guid: 69c5688aa8f1c124f8f7246c6b30709e, type: 3}
+  playerModel:
+    Sprite: {fileID: 21300000, guid: 69c5688aa8f1c124f8f7246c6b30709e, type: 3}
+    Health: 100
+    Speed: 1

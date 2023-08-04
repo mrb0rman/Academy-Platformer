@@ -19,7 +19,7 @@ namespace FactoryPlayer
        
         public PlayerController()
         {
-            _playerConfig = Resources.Load<PlayerConfig>("PlayerConfig");
+            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
             
             _factoryPlayer = new FactoryPlayer();
         }
