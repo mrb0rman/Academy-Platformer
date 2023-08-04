@@ -18,16 +18,16 @@ namespace FactoryPlayer
         public PlayerController()
         {
             _playerConfig = Resources.Load<PlayerConfig>("PlayerConfig");
-
-            _factoryPlayer = new FactoryPlayer(_playerConfig);
+            
+            _factoryPlayer = new FactoryPlayer();
         }
         
         public void Spawn()
         {
-            var model = _playerConfig.Get();
+            var model = _playerConfig.PlayerModel;
             _currentHealth = model.Health;
             _currentSpeed = model.Speed;
-            _playerView = _factoryPlayer.Create();
+            _playerView = _factoryPlayer.Create(model, _playerView);
         }
         
         public void ChangeHealth(float damage)

@@ -4,6 +4,6 @@ namespace Interface
 {
     public interface IFactoryCharacter
     {
-        PlayerView Create();
+        PlayerView Create(PlayerModel playerModel, PlayerView playerView);
     }
 }

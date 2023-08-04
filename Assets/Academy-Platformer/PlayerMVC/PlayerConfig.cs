@@ -7,12 +7,9 @@ namespace FactoryPlayer
     
     public class PlayerConfig : ScriptableObject
     {
-        [SerializeField] private PlayerModel player;
-
-        public PlayerModel Get()
-        {
-            return player;
-        }
+        public PlayerModel PlayerModel => playerModel;
+        
+        [SerializeField] private PlayerModel playerModel;
     }
 
     [Serializable]

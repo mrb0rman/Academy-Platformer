@@ -5,21 +5,18 @@ namespace FactoryPlayer
 {
     public class FactoryPlayer : IFactoryCharacter
     {
-        private PlayerConfig _playerConfig;
         private PlayerView _playerPrefab;
 
-        public FactoryPlayer(PlayerConfig playerConfig)
+        public FactoryPlayer()
         {
             _playerPrefab = Resources.Load<PlayerView>("Player");
-            _playerConfig = playerConfig;
         }
         
-        public PlayerView Create()
+        public PlayerView Create(PlayerModel playerModel, PlayerView playerView)
         {
-            var player = GameObject.Instantiate(_playerPrefab);
-            var model = _playerConfig.Get();
-            player.SpriteRenderer.sprite = model.Sprite;
-            return player;
+            playerView = GameObject.Instantiate(_playerPrefab);
+            playerView.SpriteRenderer.sprite = playerModel.Sprite;
+            return playerView;
         }
     }
 }
