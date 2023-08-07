@@ -6,31 +6,42 @@ using UnityEngine;
 
 public class FallObjectStorage
 {
-    private Dictionary<FallObjectType, FallObjectController> _controllers;
-    private Dictionary<FallObjectType, FallObjectView[]> _storage;
+    public int StorageCount => _storage.Count;
+    
+    private List<FallObjectView> _storage = new List<FallObjectView>();
 
-    public FallObjectStorage()
+    public void Add(FallObjectView fallObjectView)
     {
-        _storage = new Dictionary<FallObjectType, FallObjectView[]>();
-        _controllers = new Dictionary<FallObjectType, FallObjectController>()
+        if (fallObjectView == null)
         {
-            { FallObjectType.Type1, new FallObjectController() },
-            { FallObjectType.Type2, new FallObjectController() },
-        };
+            Debug.LogError("[FallObjectStorage.Add] Fall object is null");
+            return;
+        }
+        
+        _storage.Add(fallObjectView);
     }
 
-    public void Add(FallObjectType type)
+    public FallObjectView Get(int index)
     {
-        
+        if (index >= StorageCount || index < 0)
+        {
+            Debug.LogError("[FallObjectStorage.Get] Index is out of range");
+
+            return null;
+        }
+
+        return _storage[index];
     }
 
-    public void Get()
+    public void Delete(int index)
     {
-        
-    }
+        if (index >= StorageCount || index < 0)
+        {
+            Debug.LogError("[FallObjectStorage.Delete] Index is out of range");
 
-    public void Delete()
-    {
-        
+            return;
+        }
+
+        _storage.Remove(Get(index));
     }
 }
