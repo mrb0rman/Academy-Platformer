@@ -35,13 +35,9 @@ public class FallObjectStorage
 
     public void Delete(int index)
     {
-        if (index >= StorageCount || index < 0)
+        if (!_storage.Remove(Get(index)))
         {
-            Debug.LogError("[FallObjectStorage.Delete] Index is out of range");
-
-            return;
+            Debug.LogError("[FallObjectStorage.Delete] Object is not removed");
         }
-
-        _storage.Remove(Get(index));
     }
 }
