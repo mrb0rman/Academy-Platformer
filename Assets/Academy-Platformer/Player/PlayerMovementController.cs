@@ -7,11 +7,10 @@ namespace Academy.Platformer.Player
 {
     public class PlayerMovementController
     {
-        [SerializeField] private float speed = 1f;
-        
         private readonly InputController _inputController;
         private readonly PlayerView _playerView;
         
+        private float Offset = 3f;
         private const float Epsilon = 0.1f;
         
         private float _playerLength;
@@ -38,22 +37,22 @@ namespace Academy.Platformer.Player
             var playerTransform = _playerView.gameObject.transform;
             var playerLeftEdgeX = playerTransform.position.x - _offsetFromEdge;
             
-            if (playerLeftEdgeX + Vector3.left.x * speed + _cameraHalfWidth > Epsilon)
-                playerTransform.DOMove(playerTransform.position + Vector3.left * speed, 1f);
+            if (playerLeftEdgeX + Vector3.left.x * Offset + _cameraHalfWidth > Epsilon)
+                playerTransform.DOMove(playerTransform.position + Vector3.left * Offset, 1f);
             else
-                playerTransform.DOMove(new Vector3(-_cameraHalfWidth + _offsetFromEdge, 
-                    playerTransform.position.y, 0f), 1f);
+                playerTransform.DOMove(new Vector3(-_cameraHalfWidth + _offsetFromEdge,
+                    playerTransform.position.y, 0f), 1f).SetEase(Ease.Linear);
         }
         private void MoveRight()
         {
             var playerTransform = _playerView.gameObject.transform;
             var playerRightEdgeX = playerTransform.position.x + _offsetFromEdge;
             
-            if (_cameraHalfWidth + Vector3.left.x * speed - playerRightEdgeX > Epsilon)
-                playerTransform.DOMove(playerTransform.position + Vector3.right * speed, 1f);
+            if (_cameraHalfWidth + Vector3.left.x * Offset - playerRightEdgeX > Epsilon)
+                playerTransform.DOMove(playerTransform.position + Vector3.right * Offset, 1f);
             else
-                playerTransform.DOMove(new Vector3(_cameraHalfWidth - _offsetFromEdge, 
-                    playerTransform.position.y, 0f), 1f);
+                playerTransform.DOMove(new Vector3(_cameraHalfWidth - _offsetFromEdge,
+                    playerTransform.position.y, 0f), 1f).SetEase(Ease.Linear);
         }
     }
 }

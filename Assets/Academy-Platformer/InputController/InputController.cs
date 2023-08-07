@@ -1,3 +1,5 @@
+using System;
+using Academy.Platformer.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +12,7 @@ namespace Scenes
         
         [SerializeField] private KeyCode moveLeft;
         [SerializeField] private KeyCode moveRight;
-        
+
         private void Update()
         {
             if (Input.GetKeyDown(moveLeft))
