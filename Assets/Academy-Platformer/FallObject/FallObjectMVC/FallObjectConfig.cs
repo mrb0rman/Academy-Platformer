@@ -8,7 +8,7 @@ namespace Academy_Platformer.FallObject
     [CreateAssetMenu(fileName = "FallObjectConfig", menuName = "Configs/FallObjectConfig")]
     public class FallObjectConfig : ScriptableObject
     {
-        [SerializeField] private FallObjectModel[] fallObjectModels;
+        [SerializeField] private FallObjectModel[] _fallObjectModels;
         
         private Dictionary<FallObjectType, FallObjectModel> _dict = new Dictionary<FallObjectType, FallObjectModel>();
         
