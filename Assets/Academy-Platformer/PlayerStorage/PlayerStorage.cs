@@ -13,12 +13,14 @@ namespace PlayerStorage
             if (playerView == null)
             {
                 Debug.LogError($"Component {playerView} is null");
+                
                 return;
             }
 
             if (_dictObject.ContainsKey(playerView.GetInstanceID()))
             {
                 Debug.LogError($"Component {playerView} has already been written to the dictionary");
+                
                 return;
             }
             
