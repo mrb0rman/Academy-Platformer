@@ -18,7 +18,7 @@ namespace Academy_Platformer.FallObject
         {
             _inited = true;
             
-            foreach (var model in fallObjectModels)
+            foreach (var model in _fallObjectModels)
             {
                 _dict.Add(model.Type, model);
             }
