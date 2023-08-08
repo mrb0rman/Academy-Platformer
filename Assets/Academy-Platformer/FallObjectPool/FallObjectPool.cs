@@ -10,7 +10,7 @@ public class FallObjectPool
     
     private FallObjectController _fallObjectController;
 
-    private List<FallObjectView> _pool;
+    private List<GameObject> _pool;
 
     private Transform _container;
 
@@ -18,10 +18,10 @@ public class FallObjectPool
     {
         _fallObjectController = controller;
         _container = container;
-        _pool = new List<FallObjectView>();
+        _pool = new List<GameObject>();
     }
 
-    private FallObjectView CreateObject(bool setToActive = false)
+    private GameObject CreateObject(bool setToActive = false)
     {
         var createdObject = CreateRandomObject();
         createdObject.gameObject.SetActive(setToActive);
@@ -30,7 +30,7 @@ public class FallObjectPool
         return createdObject;
     }
 
-    private FallObjectView CreateRandomObject()
+    private GameObject CreateRandomObject()
     {
         var random = Random.Range(0, 2);
 
@@ -42,7 +42,7 @@ public class FallObjectPool
         return _fallObjectController.CreateObject(FallObjectType.Type2);
     }
 
-    private bool TryGetFreeElement(out FallObjectView element)
+    private bool TryGetFreeElement(out GameObject element)
     {
         foreach (var fallObject in _pool)
         {
@@ -58,7 +58,7 @@ public class FallObjectPool
         return false;
     }
 
-    public FallObjectView Get()
+    public GameObject Get()
     {
         if (TryGetFreeElement(out var element))
             return element;
