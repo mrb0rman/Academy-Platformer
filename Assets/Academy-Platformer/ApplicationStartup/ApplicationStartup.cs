@@ -11,6 +11,19 @@ namespace ApplicationStartup
         private void Start()
         {
             StartBootstrap();
+            CreateScene();
+        }
+
+        private void CreateScene()
+        {
+            CreateGameObject(ResourcesConst.ResourcesConst.EventMananger);
+        }
+
+        private GameObject CreateGameObject(string resourcesConst)
+        {
+            var prefab = Resources.Load<GameObject>(resourcesConst);
+            var gameObject = GameObject.Instantiate(prefab);
+            return gameObject; 
         }
 
         private void StartBootstrap()
