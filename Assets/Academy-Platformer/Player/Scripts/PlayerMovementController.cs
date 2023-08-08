@@ -10,28 +10,25 @@ namespace Academy.Platformer.Player
         private readonly InputController _inputController;
         private readonly PlayerView _playerView;
 
-        private const float Speed = 5f;
+        private const float Speed = 100f;
         private const float Offset = 3f;
-        private const float Epsilon = 0.1f;
-        
+        private const float Epsilon = 0.01f;
+
         private float _playerLength;
         private float _cameraHalfWidth;
         private float _offsetFromEdge;
-
-        private bool _touchesLeftWall;
-        private bool _touchesRightWall;
+        private float _step;
 
         public PlayerMovementController(
             InputController inputController,
             PlayerView playerView)
         {
             _playerLength = playerView.gameObject.transform.localScale.x;
-            _offsetFromEdge = _playerLength / 2;
+            _offsetFromEdge = 2 * _playerLength;
             _playerView = playerView;
             _inputController = inputController;
             _cameraHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
-            _touchesLeftWall = false;
-            _touchesRightWall = false;
+            _step = Speed * Time.deltaTime;
 
             _inputController.OnLeftEvent.AddListener(MoveLeft);
             _inputController.OnRightEvent.AddListener(MoveRight);
@@ -40,35 +37,35 @@ namespace Academy.Platformer.Player
         private void MoveLeft()
         {
             var playerTransform = _playerView.gameObject.transform;
+            var playerPosition = playerTransform.position;
             var playerLeftEdgeX = playerTransform.position.x - _offsetFromEdge;
 
-            _touchesLeftWall = playerTransform.position.x == -_cameraHalfWidth + _offsetFromEdge;
-            
-            if (playerLeftEdgeX + Vector3.left.x * Offset + _cameraHalfWidth > Epsilon && !_touchesLeftWall)
-                playerTransform.DOMove(playerTransform.position + Vector3.left * Offset, Speed).
-                    SetSpeedBased().SetEase(Ease.Linear);
+            if (playerLeftEdgeX + Vector3.left.x * Offset + _cameraHalfWidth > Epsilon)
+            {
+                var target = playerPosition + Vector3.left * Offset;
+                playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
+            }
             else
             {
-                playerTransform.DOMove(new Vector3(-_cameraHalfWidth + _offsetFromEdge, 
-                    playerTransform.position.y, 0f), Speed).
-                    SetSpeedBased().SetEase(Ease.Linear);
+                var target = new Vector3(-_cameraHalfWidth + _offsetFromEdge, playerPosition.y, 0f);
+                playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
             }
         }
         private void MoveRight()
         {
             var playerTransform = _playerView.gameObject.transform;
+            var playerPosition = playerTransform.position;
             var playerRightEdgeX = playerTransform.position.x + _offsetFromEdge;
-            
-            _touchesRightWall = playerTransform.position.x == _cameraHalfWidth - _offsetFromEdge;
 
-            if (_cameraHalfWidth + Vector3.left.x * Offset - playerRightEdgeX > Epsilon && !_touchesRightWall)
-                playerTransform.DOMove(playerTransform.position + Vector3.right * Offset, Speed).
-                    SetSpeedBased().SetEase(Ease.Linear);
+            if (_cameraHalfWidth + Vector3.left.x * Offset - playerRightEdgeX > Epsilon)
+            {
+                var target = playerTransform.position + Vector3.right * Offset;
+                playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
+            }
             else
             {
-                playerTransform.DOMove(new Vector3(_cameraHalfWidth - _offsetFromEdge,
-                    playerTransform.position.y, 0f), Speed).
-                    SetSpeedBased().SetEase(Ease.Linear);
+                var target = new Vector3(_cameraHalfWidth - _offsetFromEdge, playerPosition.y, 0f);
+                playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
             }
         }
     }

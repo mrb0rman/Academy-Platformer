@@ -1,5 +1,3 @@
-using System;
-using Academy.Platformer.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
