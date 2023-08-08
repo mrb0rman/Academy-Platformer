@@ -6,20 +6,20 @@ namespace PlayerStorage
 {
     public class PlayerStorage
     {
-        private Dictionary<int, Component> _dictObject = new Dictionary<int, Component>();
+        private Dictionary<int, PlayerView> _dictObject = new Dictionary<int, PlayerView>();
 
-        public void Add(Component playerView)
+        public void Add(PlayerView playerView)
         {
             if (playerView == null)
             {
-                Debug.LogError($"Component {playerView} is null");
+                Debug.Log($"Component {playerView} is null");
                 
                 return;
             }
 
             if (_dictObject.ContainsKey(playerView.GetInstanceID()))
             {
-                Debug.LogError($"Component {playerView} has already been written to the dictionary");
+                Debug.Log($"Component {playerView} has already been written to the dictionary");
                 
                 return;
             }
@@ -27,23 +27,23 @@ namespace PlayerStorage
             _dictObject.Add(playerView.GetInstanceID(), playerView);
         }
 
-        public T Get<T>(int id) where T: Component
+        public PlayerView Get(int id)
         {
             if (!_dictObject.ContainsKey(id))
             {
-                Debug.LogError($"the component with this id = {id} is not in the dictionary"); 
+                Debug.Log($"The component with this id = {id} is not in the dictionary"); 
                 
                 return null;
             }
 
-            return (T)_dictObject[id];
+            return _dictObject[id];
         }
         
         public void Delete(int id)
         {
             if (!_dictObject.ContainsKey(id))
             {
-                Debug.LogError($"the component with this id = {id} is not in the dictionary"); 
+                Debug.Log($"The component with this id = {id} is not in the dictionary"); 
                 
                 return;
             }
