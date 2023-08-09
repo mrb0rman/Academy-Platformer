@@ -6,6 +6,8 @@ namespace UIService
 {
     public abstract class UIWindow : MonoBehaviour, IUIWindow
     {
+        public UIService uiService;
+        
         private const float Duration = 1f;
         private Tween _showAnimation;
         private Tween _hideAnimation;
@@ -13,7 +15,11 @@ namespace UIService
         public void Show()
         {
             _showAnimation?.Kill();
-            _showAnimation = transform.DOScale(Vector3.one, Duration);
+            _showAnimation = transform.DOScale(Vector3.one, Duration)
+                .OnComplete(() =>
+                {
+                    uiService.Show<typeWindow>;
+                });
         }
 
         public void Hide()

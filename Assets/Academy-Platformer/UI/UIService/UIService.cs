@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace UIService
@@ -21,7 +22,8 @@ namespace UIService
             {
                 foreach (var uiWindow in windows)
                 {
-                    var newWindow = GameObject.Instantiate(uiWindow, _uiRoot.DeactivateContainer);
+                    var newWindow = GameObject.Instantiate(uiWindow, _uiRoot.DeactivateContainer, false);
+                    newWindow.uiService = this;
                     var key = newWindow.GetType();
                     _loadedWindows.Add(key, newWindow);
                 }
@@ -33,6 +35,7 @@ namespace UIService
             if (_loadedWindows.TryGetValue(typeof(T), out UIWindow value))
             {
                 value.gameObject.transform.SetParent(_uiRoot.DeactivateContainer);
+                //value.Hide();
             }
             else
             {
@@ -43,8 +46,9 @@ namespace UIService
         public void Show<T>() where T : UIWindow
         {
             if (_loadedWindows.TryGetValue(typeof(T), out UIWindow value))
-            {
+            { 
                 value.gameObject.transform.SetParent(_uiRoot.ActivateContainer);
+                //value.Show();
             }
             else
             {
