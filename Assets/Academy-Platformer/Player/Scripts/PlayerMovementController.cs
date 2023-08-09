@@ -23,12 +23,13 @@ namespace Academy.Platformer.Player
             InputController inputController,
             PlayerView playerView)
         {
-            _playerLength = playerView.gameObject.transform.localScale.x;
-            _offsetFromEdge = 2 * _playerLength;
             _playerView = playerView;
             _inputController = inputController;
-            _cameraHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
+            
+            _playerLength = playerView.gameObject.transform.localScale.x;
+            _offsetFromEdge = 2 * _playerLength;
             _step = Speed * Time.deltaTime;
+            _cameraHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
 
             _inputController.OnLeftEvent.AddListener(MoveLeft);
             _inputController.OnRightEvent.AddListener(MoveRight);
