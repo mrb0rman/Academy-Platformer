@@ -1,7 +1,4 @@
-﻿using FactoryPlayer;
-using UnityEngine;
-
-namespace ResourcesConst
+﻿namespace ResourcesConst
 {
     public static class ResourcesConst
     {

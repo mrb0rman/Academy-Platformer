@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using Academy_Platformer.FallObject;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FallObjectPool
@@ -12,7 +10,9 @@ public class FallObjectPool
 
     private Transform _container;
 
-    public FallObjectPool(Transform container, FallObjectController controller)
+    public FallObjectPool(
+        Transform container, 
+        FallObjectController controller)
     {
         _fallObjectController = controller;
         _container = container;
@@ -21,10 +21,12 @@ public class FallObjectPool
 
     public FallObjectView CreateObject(FallObjectType type)
     {
-        var freeObject = Get();
+        var freeObject = GetFreeElement();
 
         if (freeObject)
+        {
             return freeObject;
+        }
         
         var createdObject = _fallObjectController.CreateObject(type);
         _pool.Add(createdObject);
@@ -32,7 +34,7 @@ public class FallObjectPool
         return createdObject;
     }
 
-    private FallObjectView Get()
+    private FallObjectView GetFreeElement()
     {
         foreach (var fallObject in _pool)
         {
