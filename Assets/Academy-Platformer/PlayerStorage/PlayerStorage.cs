@@ -6,7 +6,7 @@ namespace PlayerStorage
 {
     public class PlayerStorage
     {
-        private Dictionary<int, PlayerView> _dictObject = new Dictionary<int, PlayerView>();
+        private List<PlayerView> _listObject = new List<PlayerView>();
 
         public void Add(PlayerView playerView)
         {
@@ -17,40 +17,28 @@ namespace PlayerStorage
                 return;
             }
 
-            if (_dictObject.ContainsKey(playerView.GetInstanceID()))
+            if (_listObject.Contains(playerView))
             {
-                Debug.Log($"Component {playerView} has already been written to the dictionary");
+                Debug.Log($"Component {playerView} has already been written to the list");
                 
                 return;
             }
             
-            _dictObject.Add(playerView.GetInstanceID(), playerView);
+            _listObject.Add(playerView);
         }
 
-        public PlayerView Get(int id)
+        public void Delete(PlayerView playerView)
         {
-            if (!_dictObject.ContainsKey(id))
+            if (!_listObject.Contains(playerView))
             {
-                Debug.Log($"The component with this id = {id} is not in the dictionary"); 
-                
-                return null;
-            }
-
-            return _dictObject[id];
-        }
-        
-        public void Delete(int id)
-        {
-            if (!_dictObject.ContainsKey(id))
-            {
-                Debug.Log($"The component with this id = {id} is not in the dictionary"); 
+                Debug.Log($"The component {playerView} is not in the list"); 
                 
                 return;
             }
             
-            Object.Destroy(_dictObject[id]);
+            Object.Destroy(playerView);
             
-            _dictObject.Remove(id);
+            _listObject.Remove(playerView);
         }
     }
 }
