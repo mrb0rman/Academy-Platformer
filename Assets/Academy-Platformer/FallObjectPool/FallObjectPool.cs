@@ -6,11 +6,9 @@ using UnityEngine;
 
 public class FallObjectPool
 {
-    public int PoolCount => _pool.Count;
-    
     private FallObjectController _fallObjectController;
 
-    private List<GameObject> _pool;
+    private List<FallObjectView> _pool;
 
     private Transform _container;
 
@@ -18,52 +16,33 @@ public class FallObjectPool
     {
         _fallObjectController = controller;
         _container = container;
-        _pool = new List<GameObject>();
+        _pool = new List<FallObjectView>();
     }
 
-    private GameObject CreateObject(bool setToActive = false)
+    public FallObjectView CreateObject(FallObjectType type)
     {
-        var createdObject = CreateRandomObject();
-        createdObject.gameObject.SetActive(setToActive);
+        var freeObject = Get();
+
+        if (freeObject)
+            return freeObject;
+        
+        var createdObject = _fallObjectController.CreateObject(type);
         _pool.Add(createdObject);
 
         return createdObject;
     }
 
-    private GameObject CreateRandomObject()
-    {
-        var random = Random.Range(0, 2);
-
-        if (random == 0)
-        {
-            return _fallObjectController.CreateObject(FallObjectType.Type1);
-        }
-
-        return _fallObjectController.CreateObject(FallObjectType.Type2);
-    }
-
-    private bool TryGetFreeElement(out GameObject element)
+    private FallObjectView Get()
     {
         foreach (var fallObject in _pool)
         {
             if (!fallObject.gameObject.activeInHierarchy)
             {
                 fallObject.gameObject.SetActive(true);
-                element = fallObject;
-                return true;
+                return fallObject;
             }
         }
-
-        element = null;
-        return false;
-    }
-
-    public GameObject Get()
-    {
-        if (TryGetFreeElement(out var element))
-            return element;
-
-        var newObject = CreateObject();
-        return newObject;
+        
+        return null;
     }
 }
