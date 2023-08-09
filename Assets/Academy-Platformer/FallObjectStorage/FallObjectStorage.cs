@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using Academy_Platformer.FallObject;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FallObjectStorage
@@ -17,7 +15,6 @@ public class FallObjectStorage
         }
         _storage.Add(fallObjectView.GetInstanceID(), fallObjectView);
     }
-    
 
     public FallObjectView Get(int index)
     {
