@@ -47,4 +47,17 @@ public class FallObjectPool
         
         return null;
     }
+
+    public void ReturnToPool(FallObjectView fallObject)
+    {
+        var objectToReturn = _pool.Find(i => i == fallObject);
+
+        if (!objectToReturn)
+        {
+            Debug.Log("There is no such object in pool");
+            return;
+        }
+
+        objectToReturn.gameObject.SetActive(false);
+    }
 }
