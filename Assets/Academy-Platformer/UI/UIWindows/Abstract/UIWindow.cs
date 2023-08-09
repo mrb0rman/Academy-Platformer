@@ -1,31 +1,16 @@
-using System;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.Events;
 
 namespace UIService
 {
     public abstract class UIWindow : MonoBehaviour, IUIWindow
     {
-        public UIService uiService;
+        [HideInInspector] public UnityEvent OnShowEvent;        
+        [HideInInspector] public UnityEvent OnHideEvent;  
         
-        private const float Duration = 1f;
-        private Tween _showAnimation;
-        private Tween _hideAnimation;
+        public IUIService UIService { get; set; }
         
-        public void Show()
-        {
-            _showAnimation?.Kill();
-            _showAnimation = transform.DOScale(Vector3.one, Duration)
-                .OnComplete(() =>
-                {
-                    uiService.Show<typeWindow>;
-                });
-        }
-
-        public void Hide()
-        {
-            _hideAnimation?.Kill();
-            _hideAnimation = transform.DOScale(Vector3.zero, Duration);
-        }
+        public abstract void Show();
+        public abstract void Hide();
     }
 }

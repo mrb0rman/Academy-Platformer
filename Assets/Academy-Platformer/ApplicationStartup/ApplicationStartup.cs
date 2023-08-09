@@ -1,4 +1,5 @@
 ﻿using System;
+using Academy_Platformer.UI.UIWindows.NewLogic;
 using Bootstrap;
 using UIService;
 using UnityEngine;
@@ -8,23 +9,21 @@ namespace ApplicationStartup
     public class ApplicationStartup : MonoBehaviour
     {
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
-        public UIRoot root;
-        public Transform UIParent;
-
+        
         private void Start()
         {
             StartBootstrap();
             StartUIServer();
-            
         }
 
         private void StartUIServer()
         {
-            root = Instantiate(root, UIParent, false);
-            var UIWindows = new UIService.UIService(root);
-            UIWindows.Init("");
-            UIWindows.Show<UIMainMenuWindow>();
-            
+            var UIService = new UIService.UIService();
+         
+            UIService.Show<UIMainMenuWindow>();
+
+            var mainMenuContrroler = new UIMainMenuController(UIService);
+
         }
 
         private void StartBootstrap()

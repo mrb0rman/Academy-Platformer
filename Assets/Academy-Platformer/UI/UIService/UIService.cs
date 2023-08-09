@@ -1,58 +1,116 @@
 using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UIService
 {
-    public class UIService : IUIService
+       public class UIService : IUIService
     {
-        private UIRoot _uiRoot;
-        private Dictionary<Type, UIWindow> _loadedWindows = new Dictionary<Type, UIWindow>();
+        private Transform _deactivatedContainer;
+        
+        private readonly IUIRoot _uIRoot;
+        private readonly Dictionary<Type,UIWindow> _viewStorage = new Dictionary<Type,UIWindow>();
+        private readonly Dictionary<Type, GameObject> _initWindows= new Dictionary<Type, GameObject>();
 
-        public UIService(UIRoot uiRoot)
+        private const string UISource = "UIWindows";
+        
+        public UIService()
         {
-            _uiRoot = uiRoot;
+            _uIRoot = Resources.Load<UIRoot>("UIRoot");
+            
+            LoadWindows(UISource);
+            InitWindows(_uIRoot.PoolContainer);
         }
-    
-        public void Init(string path)
+
+        public T Show<T>() where T : UIWindow
         {
-            var windows = Resources.LoadAll<UIWindow>(path);
-            if (windows.Length > 0)
+            var window = Get<T>();
+            if(window != null)
             {
-                foreach (var uiWindow in windows)
+                Transform transform;
+                (transform = window.transform).SetParent(_uIRoot.Container, false);
+                transform.localScale = Vector3.one;
+                transform.localRotation = Quaternion.identity;
+                transform.localPosition = Vector3.zero;
+
+                var component = window.GetComponent<T>();
+                
+                //always resize to screen size
+                var rect = component.transform as RectTransform;
+                if (rect != null)
                 {
-                    var newWindow = GameObject.Instantiate(uiWindow, _uiRoot.DeactivateContainer, false);
-                    newWindow.uiService = this;
-                    var key = newWindow.GetType();
-                    _loadedWindows.Add(key, newWindow);
+                    rect.offsetMax = Vector2.zero;
+                    rect.offsetMin = Vector2.zero;
                 }
+                
+                component.Show();
+                return component;
+            }
+            return null;
+        }
+        
+        public T Get<T>() where T : UIWindow
+        {
+            var type = typeof(T);
+            if (_initWindows.ContainsKey(type))
+            {
+                var view = _initWindows[type];            
+                return view.GetComponent<T>();
+            }
+            return null;
+        }
+
+        public void Hide<T>(Action onEnd = null) where T : UIWindow
+        {
+            var window = Get<T>();
+            if(window!=null)
+            {
+                window.transform.SetParent(_uIRoot.PoolContainer);
+                window.Hide();
+                onEnd?.Invoke();
             }
         }
 
-        public void Hide<T>() where T : UIWindow
+        public void InitWindows(Transform poolDeactiveContiner)
         {
-            if (_loadedWindows.TryGetValue(typeof(T), out UIWindow value))
+            _deactivatedContainer = poolDeactiveContiner == null ? _uIRoot.PoolContainer : poolDeactiveContiner;
+            foreach (var windowKVP in _viewStorage)
             {
-                value.gameObject.transform.SetParent(_uiRoot.DeactivateContainer);
-                //value.Hide();
-            }
-            else
-            {
-                Debug.LogError($"Window of type {typeof(T)} was not found");
+                Init(windowKVP.Key, _deactivatedContainer);
             }
         }
 
-        public void Show<T>() where T : UIWindow
+        public void LoadWindows(string source)
         {
-            if (_loadedWindows.TryGetValue(typeof(T), out UIWindow value))
-            { 
-                value.gameObject.transform.SetParent(_uiRoot.ActivateContainer);
-                //value.Show();
-            }
-            else
+            var windows = Resources.LoadAll(source, typeof(UIWindow));
+
+            foreach (var window in windows)
             {
-                Debug.LogError($"Window of type {typeof(T)} was not found");
+                var windowType = window.GetType();
+
+                _viewStorage.Add(windowType, (UIWindow)window);
+            }
+        }    
+    
+        private void Init(Type t, Transform parent = null)
+        {
+            if(_viewStorage.ContainsKey(t))
+            {
+                GameObject view = null;
+                if(parent!=null)
+                {
+                    view = Object.Instantiate(_viewStorage[t].gameObject, parent);
+                }
+                else
+                {
+                    view = Object.Instantiate(_viewStorage[t].gameObject);
+                }
+
+                var uiWindow = view.GetComponent<UIWindow>();
+                uiWindow.UIService = this;
+                
+                _initWindows.Add(t, view);
             }
         }
     }
