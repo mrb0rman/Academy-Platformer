@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1561202631233638913}
   - component: {fileID: 6344817865710253623}
   m_Layer: 0
-  m_Name: EventManager
+  m_Name: TickableManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

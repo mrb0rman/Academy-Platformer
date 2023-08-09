@@ -24,7 +24,7 @@ namespace Academy_Platformer.FallObject
 
             _pointsPerObject = model.PointsPerObject;
             _damage = model.Damage;
-            EventManager.FixedUpdateEventHandler += FixedUpdate;
+            TickableManager.FixedUpdateEventHandler += FixedUpdate;
             
             return _view.gameObject;
         }

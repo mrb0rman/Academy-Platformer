@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class TickableManager : MonoBehaviour
 {
     public static event Action UpdateEventHandler;
     public static event Action FixedUpdateEventHandler;
