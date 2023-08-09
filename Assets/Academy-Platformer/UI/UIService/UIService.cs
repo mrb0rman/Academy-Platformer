@@ -9,7 +9,7 @@ namespace UIService
     {
         private Transform _deactivatedContainer;
         
-        private readonly IUIRoot _uIRoot;
+        private readonly UIRoot _uIRoot;
         private readonly Dictionary<Type,UIWindow> _viewStorage = new Dictionary<Type,UIWindow>();
         private readonly Dictionary<Type, GameObject> _initWindows= new Dictionary<Type, GameObject>();
 
@@ -18,7 +18,8 @@ namespace UIService
         public UIService()
         {
             _uIRoot = Resources.Load<UIRoot>("UIRoot");
-            
+            _uIRoot = Object.Instantiate<UIRoot>(_uIRoot);
+
             LoadWindows(UISource);
             InitWindows(_uIRoot.PoolContainer);
         }
@@ -30,11 +31,9 @@ namespace UIService
             {
                 Transform transform;
                 (transform = window.transform).SetParent(_uIRoot.Container, false);
-                transform.localScale = Vector3.one;
-                transform.localRotation = Quaternion.identity;
-                transform.localPosition = Vector3.zero;
 
                 var component = window.GetComponent<T>();
+                component.Show();
                 
                 //always resize to screen size
                 var rect = component.transform as RectTransform;
@@ -43,8 +42,6 @@ namespace UIService
                     rect.offsetMax = Vector2.zero;
                     rect.offsetMin = Vector2.zero;
                 }
-                
-                component.Show();
                 return component;
             }
             return null;
@@ -64,10 +61,14 @@ namespace UIService
         public void Hide<T>(Action onEnd = null) where T : UIWindow
         {
             var window = Get<T>();
+            
             if(window!=null)
             {
-                window.transform.SetParent(_uIRoot.PoolContainer);
+                Action changeParent = () => window.transform.SetParent(_uIRoot.PoolContainer);
+                window.OnHideEvent += changeParent;
                 window.Hide();
+                window.OnHideEvent -= changeParent;
+                
                 onEnd?.Invoke();
             }
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using Academy_Platformer.UI.UIWindows.NewLogic;
-using Bootstrap;
+﻿using Bootstrap;
 using UIService;
 using UnityEngine;
 
@@ -19,11 +17,12 @@ namespace ApplicationStartup
         private void StartUIServer()
         {
             var UIService = new UIService.UIService();
-         
+            
+            var mainMenuWindowContrroler = new UIMainMenuController(UIService);
+            var gameWindowController = new UIGameWindowController(UIService);
+            var endMenuWindowController = new UIEndGameWindowController(UIService);
+            
             UIService.Show<UIMainMenuWindow>();
-
-            var mainMenuContrroler = new UIMainMenuController(UIService);
-
         }
 
         private void StartBootstrap()

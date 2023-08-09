@@ -1,12 +1,12 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace UIService
 {
     public abstract class UIWindow : MonoBehaviour, IUIWindow
     {
-        [HideInInspector] public UnityEvent OnShowEvent;        
-        [HideInInspector] public UnityEvent OnHideEvent;  
+        [HideInInspector] public Action OnShowEvent;        
+        [HideInInspector] public Action OnHideEvent;  
         
         public IUIService UIService { get; set; }
         

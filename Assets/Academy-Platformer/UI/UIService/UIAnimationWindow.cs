@@ -28,7 +28,7 @@ namespace UIService
                 .OnComplete(() =>
                 {
                     OnHideEvent.Invoke();
-                });;
+                });
         }
     }
 }

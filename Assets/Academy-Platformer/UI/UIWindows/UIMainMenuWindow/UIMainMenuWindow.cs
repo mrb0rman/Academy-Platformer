@@ -1,9 +1,7 @@
 ﻿using System;
-using UIService;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Academy_Platformer.UI.UIWindows.NewLogic
+namespace UIService
 {
     public class UIMainMenuWindow : UIAnimationWindow
     {
@@ -12,16 +10,16 @@ namespace Academy_Platformer.UI.UIWindows.NewLogic
         public override void Show()
         {
             base.Show();
-            startButton.OnClickButton += Method;
+            startButton.OnClickButton += StartButtonClickEvent;
         }
 
         public override void Hide()
         {
             base.Hide();
-            startButton.OnClickButton -= Method;
+            startButton.OnClickButton -= StartButtonClickEvent;
         }
 
-        private void Method()
+        private void StartButtonClickEvent()
         {
             OnStartButtonClickEvent.Invoke();
         }
