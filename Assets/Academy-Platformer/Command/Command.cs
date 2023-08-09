@@ -3,8 +3,12 @@ namespace Command
 {
     public abstract class Command : ICommand
     {
-        public abstract event Action OnCommandExecuteNotify;
-        public abstract void Execute();
+        public virtual event Action OnCommandExecuteNotify;
+
+        public virtual void Execute()
+        {
+            OnCommandExecuteNotify?.Invoke();
+        }
         public abstract void Undo();
     }
 }
