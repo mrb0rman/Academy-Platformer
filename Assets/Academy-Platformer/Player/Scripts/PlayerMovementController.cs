@@ -1,4 +1,3 @@
-using DG.Tweening;
 using FactoryPlayer;
 using Scenes;
 using UnityEngine;
@@ -9,16 +8,16 @@ namespace Academy.Platformer.Player
     {
         private readonly InputController _inputController;
         private readonly PlayerView _playerView;
-
+        
         private const float Speed = 100f;
         private const float Offset = 3f;
         private const float Epsilon = 0.01f;
-
+        
         private float _playerLength;
         private float _cameraHalfWidth;
         private float _offsetFromEdge;
         private float _step;
-
+        
         public PlayerMovementController(
             InputController inputController,
             PlayerView playerView)
@@ -31,8 +30,8 @@ namespace Academy.Platformer.Player
             _step = Speed * Time.deltaTime;
             _cameraHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
 
-            _inputController.OnLeftEvent.AddListener(MoveLeft);
-            _inputController.OnRightEvent.AddListener(MoveRight);
+            _inputController.OnLeftEvent += MoveLeft;
+            _inputController.OnRightEvent += MoveRight;
         }
         
         private void MoveLeft()
@@ -40,7 +39,7 @@ namespace Academy.Platformer.Player
             var playerTransform = _playerView.gameObject.transform;
             var playerPosition = playerTransform.position;
             var playerLeftEdgeX = playerTransform.position.x - _offsetFromEdge;
-
+            
             if (playerLeftEdgeX + Vector3.left.x * Offset + _cameraHalfWidth > Epsilon)
             {
                 var target = playerPosition + Vector3.left * Offset;
@@ -57,7 +56,7 @@ namespace Academy.Platformer.Player
             var playerTransform = _playerView.gameObject.transform;
             var playerPosition = playerTransform.position;
             var playerRightEdgeX = playerTransform.position.x + _offsetFromEdge;
-
+            
             if (_cameraHalfWidth + Vector3.left.x * Offset - playerRightEdgeX > Epsilon)
             {
                 var target = playerTransform.position + Vector3.right * Offset;

@@ -1,31 +1,31 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Scenes
 {
-    public partial class InputController: MonoBehaviour
+    public class InputController
     {
-        public UnityEvent OnLeftEvent;
-        public UnityEvent OnRightEvent;
+        private EventManager _eventManager;
         
-        [SerializeField] private KeyCode moveLeft;
-        [SerializeField] private KeyCode moveRight;
-
-        private void OnEnable()
+        public event Action OnLeftEvent;
+        public event Action OnRightEvent;
+        
+        private KeyCode moveLeft = KeyCode.LeftArrow;
+        private KeyCode moveRight = KeyCode.RightArrow;
+        
+        public InputController(EventManager eventManager)
         {
-            EventManager.UpdateEventHandler += CheckInput;
-        }
-        private void OnDisable()
-        {
-            EventManager.UpdateEventHandler -= CheckInput;
+            _eventManager = eventManager;
+            _eventManager.UpdateEventHandler += CheckInput;
         }
         
         private void CheckInput()
         {
             if (Input.GetKeyDown(moveLeft))
-                OnLeftEvent.Invoke();
+                OnLeftEvent?.Invoke();
             if (Input.GetKeyDown(moveRight))
-                OnRightEvent.Invoke();
+                OnRightEvent?.Invoke();
         }
     }
 }

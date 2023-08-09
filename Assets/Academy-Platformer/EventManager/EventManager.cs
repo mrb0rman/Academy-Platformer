@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    public static event Action UpdateEventHandler;
-    public static event Action FixedUpdateEventHandler;
-
+    public event Action UpdateEventHandler;
+    public event Action FixedUpdateEventHandler;
+    
     private void Update()
     {
         UpdateEventHandler?.Invoke();
     }
-
+    
     private void FixedUpdate()
     {
         FixedUpdateEventHandler?.Invoke();
