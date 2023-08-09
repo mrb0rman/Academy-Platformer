@@ -13,7 +13,7 @@ namespace Academy_Platformer.FallObject
         
         private int _damage;
 
-        public GameObject CreateObject(FallObjectType type)
+        public FallObjectView CreateObject(FallObjectType type)
         {
             var view = _factory.Create(type);
             var model = _objectConfig.Get(type);
@@ -21,7 +21,7 @@ namespace Academy_Platformer.FallObject
             _pointsPerObject = model.PointsPerObject;
             _damage = model.Damage;
 
-            return view.gameObject;
+            return view;
         }
     }
 }
