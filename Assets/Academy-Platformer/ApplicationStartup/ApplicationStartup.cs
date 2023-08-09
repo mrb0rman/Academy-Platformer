@@ -1,5 +1,4 @@
-﻿using System;
-using Bootstrap;
+﻿using Bootstrap;
 using UnityEngine;
 
 namespace ApplicationStartup
@@ -11,6 +10,14 @@ namespace ApplicationStartup
         private void Start()
         {
             StartBootstrap();
+            Create<TickableManager>(ResourcesConst.ResourcesConst.TickableManager);
+        }
+        
+        private T Create<T>(string resourcesConst) where T: Object
+        {
+            var prefab = Resources.Load<T>(resourcesConst);
+            var obj = Instantiate(prefab);
+            return obj; 
         }
 
         private void StartBootstrap()
