@@ -6,38 +6,37 @@ using UnityEngine;
 
 public class FallObjectStorage
 {
-    public int StorageCount => _storage.Count;
-    
-    private List<FallObjectView> _storage = new List<FallObjectView>();
+    private Dictionary<int, FallObjectView> _storage = new Dictionary<int, FallObjectView>();
 
     public void Add(FallObjectView fallObjectView)
     {
         if (fallObjectView == null)
         {
-            Debug.LogError("[FallObjectStorage.Add] Fall object is null");
+            Debug.Log("[FallObjectStorage.Add] Fall object is null");
             return;
         }
-        
-        _storage.Add(fallObjectView);
+        _storage.Add(fallObjectView.GetInstanceID(), fallObjectView);
     }
+    
 
     public FallObjectView Get(int index)
     {
-        if (index >= StorageCount || index < 0)
+        if (_storage.TryGetValue(index, out var value))
         {
-            Debug.LogError("[FallObjectStorage.Get] Index is out of range");
-
-            return null;
+            return value;
         }
-
-        return _storage[index];
+        
+        Debug.Log("[FallObjectStorage.Get] Failed to get value by that id. Try another id.");
+        return null;
     }
 
     public void Delete(int index)
     {
-        if (!_storage.Remove(Get(index)))
+        if (_storage.Remove(index))
         {
-            Debug.LogError("[FallObjectStorage.Delete] Object is not removed");
+            return;
         }
+        
+        Debug.Log("[FallObjectStorage.Delete] Failed to delete value by that id.Try another id.");
     }
 }
