@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1561202631233638913}
-  - component: {fileID: 6344817865710253623}
+  - component: {fileID: 7674265503512097117}
   m_Layer: 0
   m_Name: TickableManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6344817865710253623
+--- !u!114 &7674265503512097117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5427473114270912027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e8bc30ca6fdf0a409cc4d2f9b1382a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8457e87dd65a41e4faba10c6cc985a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
