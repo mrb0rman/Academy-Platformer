@@ -36,9 +36,9 @@ namespace PlayerStorage
                 return;
             }
             
-            Object.Destroy(playerView);
-            
             _listObject.Remove(playerView);
+            
+            Object.Destroy(playerView.gameObject);
         }
     }
 }
