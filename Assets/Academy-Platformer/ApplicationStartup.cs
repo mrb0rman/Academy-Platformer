@@ -1,5 +1,4 @@
-﻿using System;
-using Bootstrap;
+﻿using Bootstrap;
 using UnityEngine;
 
 namespace ApplicationStartup
@@ -11,19 +10,14 @@ namespace ApplicationStartup
         private void Start()
         {
             StartBootstrap();
-            CreateScene();
+            Create<TickableManager>(ResourcesConst.ResourcesConst.TickableManager);
         }
-
-        private void CreateScene()
+        
+        private T Create<T>(string resourcesConst) where T: Object
         {
-            CreateGameObject(ResourcesConst.ResourcesConst.EventMananger);
-        }
-
-        private GameObject CreateGameObject(string resourcesConst)
-        {
-            var prefab = Resources.Load<GameObject>(resourcesConst);
-            var gameObject = GameObject.Instantiate(prefab);
-            return gameObject; 
+            var prefab = Resources.Load<T>(resourcesConst);
+            var obj = Instantiate(prefab);
+            return obj; 
         }
 
         private void StartBootstrap()
