@@ -3,7 +3,7 @@ namespace Command
 {
     public abstract class Command : ICommand
     {
-        public virtual event Action OnCommandExecuteNotify;
+        public event Action OnCommandExecuteNotify;
 
         public virtual void Execute()
         {
