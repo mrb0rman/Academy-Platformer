@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace UIService
 {
-    public class UIRoot : MonoBehaviour
+    public class UIRoot : MonoBehaviour, IUIRoot
     {
-        public Transform ActivateContainer => activateContainer;
-        public Transform DeactivateContainer => deactivateContainer;
+        public Transform Container => activateContainer;
+        public Transform PoolContainer => deactivateContainer;
         
         [SerializeField] private Transform activateContainer;
         [SerializeField] private Transform deactivateContainer;
