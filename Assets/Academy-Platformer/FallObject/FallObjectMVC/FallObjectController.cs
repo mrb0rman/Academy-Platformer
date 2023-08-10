@@ -20,7 +20,7 @@ namespace Academy_Platformer.FallObject
         
         private int _damage;
 
-        public GameObject CreateObject(FallObjectType type, TickableManager tickableManager)
+        public FallObjectView CreateObject(FallObjectType type, TickableManager tickableManager)
         {
             _view = _factory.Create(type);
             var model = _objectConfig.Get(type);
