@@ -5,7 +5,9 @@ namespace Academy_Platformer.FallObject
 {
     public class FallObjectController
     {
-        public float FallSpeed = 1.0f;
+        public float FallSpeed => _fallSpeed;
+        
+        private float _fallSpeed = 1.0f;
         
         private  FallObjectView _view;
         private TickableManager _eventManager;
@@ -28,7 +30,7 @@ namespace Academy_Platformer.FallObject
             _eventManager = tickableManager;
             _eventManager.FixedUpdateEventHandler += FixedUpdate;
             
-            return _view.gameObject;
+            return _view;
         }
         private void FixedUpdate()
         {
