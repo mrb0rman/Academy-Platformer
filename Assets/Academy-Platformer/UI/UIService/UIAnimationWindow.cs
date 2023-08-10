@@ -5,7 +5,7 @@ namespace UIService
 {
     public class UIAnimationWindow : UIWindow
     {
-        private const float Duration = 1f;
+        private const float Duration = 5f;
         
         private Tween _showAnimation;
         private Tween _hideAnimation;

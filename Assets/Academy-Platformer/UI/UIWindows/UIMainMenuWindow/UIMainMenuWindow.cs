@@ -6,6 +6,7 @@ namespace UIService
     public class UIMainMenuWindow : UIAnimationWindow
     {
         public Action OnStartButtonClickEvent;
+        
         [SerializeField] private UIButton.UIButton startButton;
         public override void Show()
         {

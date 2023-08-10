@@ -6,6 +6,7 @@ namespace UIService
     public class UIEndGameWindow : UIAnimationWindow
     {
         public Action OnReturnButtonClickEvent;
+        
         [SerializeField] private UIButton.UIButton returnButton;
         public override void Show()
         {
