@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Scenes
 {
-    public partial class InputController: MonoBehaviour
+    public class InputController: MonoBehaviour
     {
         public UnityEvent OnLeftEvent;
         public UnityEvent OnRightEvent;

@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5299e43f9114487f9c428918bcd0360d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateContainer: {fileID: 0}
-  deactivateContainer: {fileID: 0}
+  activateContainer: {fileID: 3286500697283641713}
+  deactivateContainer: {fileID: 3286500697820836082}
 --- !u!1 &3286500697283641714
 GameObject:
   m_ObjectHideFlags: 0

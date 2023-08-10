@@ -1,28 +1,28 @@
-﻿using System;
-using UnityEngine;
-using Object = UnityEngine.Object;
+﻿using UIService;
 
 namespace CreatingCommand
 {
     public class CreateUICommand : Command.Command
     {
-        private readonly GameObject _uiPrefab;
-        private GameObject _ui;
-
         public CreateUICommand()
         {
-            _uiPrefab = Resources.Load<GameObject>(ResourcesConst.ResourcesConst.UI);
+            var UIService = new UIService.UIService();
+            
+            var mainMenuWindowContrroler = new UIMainMenuController(UIService);
+            var gameWindowController = new UIGameWindowController(UIService);
+            var endMenuWindowController = new UIEndGameWindowController(UIService);
+            
+            UIService.Show<UIMainMenuWindow>();
         }
 
         public override void Execute()
         {
-            _ui = Object.Instantiate(_uiPrefab);
             base.Execute();
         }
 
         public override void Undo()
         {
-            Object.Destroy(_ui);
+            throw new System.NotImplementedException();
         }
     }
 }

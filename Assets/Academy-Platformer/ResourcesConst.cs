@@ -1,7 +1,4 @@
-﻿using FactoryPlayer;
-using UnityEngine;
-
-namespace ResourcesConst
+﻿namespace ResourcesConst
 {
     public static class ResourcesConst
     {
@@ -11,6 +8,5 @@ namespace ResourcesConst
         public const string PlayerConfig = "PlayerConfig";
         public const string TickableManager = "TickableManager";
         public const string MainCamera = "Main Camera";
-        public const string UI = "UI";
     }
 }
