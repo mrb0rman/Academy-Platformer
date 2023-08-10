@@ -1,9 +1,15 @@
+using System;
+using UnityEngine;
+
 namespace UIService
 {
     public interface IUIService
     {
-        void Init(string path);
-        void Hide<T>() where T : UIWindow;
-        void Show<T>() where T : UIWindow;
+        T Show<T>() where T : UIWindow;
+        void Hide<T>(Action onEnd = null) where T : UIWindow;
+        T Get<T>() where T : UIWindow;
+
+        void InitWindows(Transform poolDeactiveContiner);
+        void LoadWindows(string source);
     }
 }
