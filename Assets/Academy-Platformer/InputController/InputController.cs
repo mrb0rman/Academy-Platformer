@@ -6,7 +6,7 @@ namespace Scenes
 {
     public class InputController
     {
-        private EventManager _eventManager;
+        private TickableManager _tickableManager;
         
         public event Action OnLeftEvent;
         public event Action OnRightEvent;
@@ -14,10 +14,10 @@ namespace Scenes
         private KeyCode moveLeft = KeyCode.LeftArrow;
         private KeyCode moveRight = KeyCode.RightArrow;
         
-        public InputController(EventManager eventManager)
+        public InputController(TickableManager tickableManager)
         {
-            _eventManager = eventManager;
-            _eventManager.UpdateEventHandler += CheckInput;
+            _tickableManager = tickableManager;
+            _tickableManager.UpdateEventHandler += CheckInput;
         }
         
         private void CheckInput()

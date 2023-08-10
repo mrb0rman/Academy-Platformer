@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Creator : MonoBehaviour
 {
-    [SerializeField] private EventManager eventManager;
+    [SerializeField] private TickableManager tickableManager;
     [SerializeField] private PlayerView playerView;
     
     private InputController _inputController;
@@ -13,7 +13,7 @@ public class Creator : MonoBehaviour
     
     private void Start()
     {
-        _inputController = new InputController(eventManager);
+        _inputController = new InputController(tickableManager);
         _playerMovementController = new PlayerMovementController(_inputController, playerView);
     }
 }
