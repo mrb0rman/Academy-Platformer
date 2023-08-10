@@ -8,14 +8,9 @@ public class FallObjectPool
 
     private List<FallObjectView> _pool;
 
-    private Transform _container;
-
-    public FallObjectPool(
-        Transform container, 
-        FallObjectController controller)
+    public FallObjectPool(FallObjectController controller)
     {
         _fallObjectController = controller;
-        _container = container;
         _pool = new List<FallObjectView>();
     }
 
