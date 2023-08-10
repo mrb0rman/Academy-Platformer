@@ -1,14 +1,12 @@
-﻿using System;
-using FactoryPlayer;
+﻿using FactoryPlayer;
 
-namespace Command
+namespace CreatingCommand
 {
-    public class CommandPlayerSpawn : Command
+    public class CommandPlayerSpawn : Command.Command
     {
-        public override event Action OnCommandExecuteNotify;
-
         private PlayerController _playerController;
         private PlayerStorage _playerStorage;
+        private PlayerView _playerView;
 
         public CommandPlayerSpawn(PlayerController playerController, PlayerStorage playerStorage)
         {
@@ -18,12 +16,14 @@ namespace Command
         
         public override void Execute()
         {
-            _playerStorage.Add(_playerController.Spawn());
-            
-            OnCommandExecuteNotify?.Invoke();
+            _playerView = _playerController.Spawn();
+            _playerStorage.Add(_playerView);
+            base.Execute();
         }
 
         public override void Undo()
-        { }
+        {
+            _playerStorage.Delete(_playerView);
+        }
     }
 }
