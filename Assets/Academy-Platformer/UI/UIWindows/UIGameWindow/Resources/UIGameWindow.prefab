@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3933033723578176613}
   - component: {fileID: 1312414747256142367}
   - component: {fileID: 710558244688735209}
-  - component: {fileID: 7237139925919112923}
+  - component: {fileID: 8233945324243333733}
   m_Layer: 5
   m_Name: UIGameWindow
   m_TagString: Untagged
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7237139925919112923
+--- !u!114 &8233945324243333733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,15 +151,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 85258073413217145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6890c10eb3ecd7489d3887d8ddfd9ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 243d08c2ae5b413bb985e3a757bc8f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnShowEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHideEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &176329541278376064
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace UIService
         private readonly Dictionary<Type,UIWindow> _viewStorage = new Dictionary<Type,UIWindow>();
         private readonly Dictionary<Type, GameObject> _initWindows= new Dictionary<Type, GameObject>();
 
-        private const string UISource = "UIWindows";
+        private const string UISource = "";
         
         public UIService()
         {
@@ -66,8 +66,8 @@ namespace UIService
             {
                 Action changeParent = () => window.transform.SetParent(_uIRoot.PoolContainer);
                 window.OnHideEvent += changeParent;
+                window.OnHideEvent += ()=> window.OnHideEvent = null;
                 window.Hide();
-                window.OnHideEvent -= changeParent;
                 
                 onEnd?.Invoke();
             }

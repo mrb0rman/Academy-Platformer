@@ -9,10 +9,8 @@
         public UIMainMenuController(UIService uiService)
         {
             _uiService = uiService;
-            
             _mainMenuWindow = uiService.Get<UIMainMenuWindow>();
-
-
+            
             _mainMenuWindow.OnStartButtonClickEvent += ShowGameWindow;
         }
 
