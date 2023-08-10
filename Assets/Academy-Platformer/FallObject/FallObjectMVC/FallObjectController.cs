@@ -5,7 +5,9 @@ namespace Academy_Platformer.FallObject
 {
     public class FallObjectController
     {
-        public float FallSpeed = 1.0f;
+        public float FallSpeed => _fallSpeed;
+        
+        private float _fallSpeed = 1.0f;
         
         private  FallObjectView _view;
 
