@@ -11,23 +11,12 @@ namespace ApplicationStartup
         private void Start()
         {
             StartBootstrap();
-            Create<TickableManager>(ResourcesConst.ResourcesConst.TickableManager);
         }
-
-        private T Create<T>(string resourcesConst) where T : Object
-        {
-            var prefab = Resources.Load<T>(resourcesConst);
-            var obj = Instantiate(prefab);
-            return obj;
-        }
-
         private void StartBootstrap()
         {
-            var mainCamera = Resources.Load<Camera>(ResourcesConst.ResourcesConst.MainCamera);
-            var ui = Resources.Load<GameObject>(ResourcesConst.ResourcesConst.UI);
-
-            _bootstrap.Add(new CreateMainCameraCommand(mainCamera));
-            _bootstrap.Add(new CreateUICommand(ui));
+            _bootstrap.Add(new CreateTickableManagerCommand());
+            _bootstrap.Add(new CreateMainCameraCommand());
+            _bootstrap.Add(new CreateUICommand());
 
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();

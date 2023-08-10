@@ -9,9 +9,9 @@ namespace CreatingCommand
         private readonly GameObject _uiPrefab;
         private GameObject _ui;
 
-        public CreateUICommand(GameObject ui)
+        public CreateUICommand()
         {
-            _uiPrefab = ui;
+            _uiPrefab = Resources.Load<GameObject>(ResourcesConst.ResourcesConst.UI);
         }
 
         public override void Execute()
