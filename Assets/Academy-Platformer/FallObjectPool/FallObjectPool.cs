@@ -5,14 +5,12 @@ using UnityEngine;
 public class FallObjectPool
 {
     private FallObjectController _fallObjectController;
-    private TickableManager _tickableManager;
 
     private List<FallObjectView> _pool;
 
-    public FallObjectPool(FallObjectController controller, TickableManager tickableManager)
+    public FallObjectPool(FallObjectController controller)
     {
         _fallObjectController = controller;
-        _tickableManager = tickableManager;
         _pool = new List<FallObjectView>();
     }
 
@@ -25,7 +23,7 @@ public class FallObjectPool
             return freeObject;
         }
         
-        var createdObject = _fallObjectController.CreateObject(type, _tickableManager);
+        var createdObject = _fallObjectController.CreateObject(type);
         _pool.Add(createdObject);
 
         return createdObject;
