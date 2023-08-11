@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class PlayerMovementCreator : MonoBehaviour
 {
-    private TickableManager tickableManager;
-    private PlayerView playerView;
+    private TickableManager _tickableManager;
+    private PlayerView _playerView;
     
     private InputController _inputController;
     
     private void Start()
     {
-        _inputController = new InputController(tickableManager);
-        new PlayerMovementController(_inputController, playerView);
+        _tickableManager = GameObjectsStorage.GetInstance().TickableManager;
+        _playerView = FindFirstObjectByType<PlayerView>();
+        
+        _inputController = new InputController(_tickableManager);
+        new PlayerMovementController(_inputController, _playerView);
     }
 }
