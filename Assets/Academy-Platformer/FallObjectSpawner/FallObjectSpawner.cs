@@ -38,7 +38,7 @@ public class FallObjectSpawner
 
         if (_spawnPeriod <= 0)
         {
-            SpawnNewObject(Random.Range(0, 3));
+            SpawnNewObject(Random.Range(0, _spawnPoints.Length));
             _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         }
     }
