@@ -18,7 +18,6 @@ namespace Academy_Platformer.FallObject
         public FallObjectView CreateObject(FallObjectType type)
         {
             _view = _factory.Create(type);
-            var model = _objectConfig.Get(type);
 
             return _view;
         }

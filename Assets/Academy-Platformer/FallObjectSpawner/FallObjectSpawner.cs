@@ -8,18 +8,20 @@ using Random = UnityEngine.Random;
 public class FallObjectSpawner
 {
     private Transform[] _spawnPoints;
+    
+    private FallObjectPool _pool;
 
     private float _spawnPeriodMin;
     
     private float _spawnPeriodMax;
+    
+    private float _spawnPeriod;
 
     private int _typesCount;
 
-    private float _spawnPeriod;
-
-    private FallObjectPool _pool;
-    // Start is called before the first frame update
-    public FallObjectSpawner(Transform[] spawnPoints, float spawnPeriodMin, float spawnPeriodMax)
+    public FallObjectSpawner(Transform[] spawnPoints, 
+        float spawnPeriodMin, 
+        float spawnPeriodMax)
     {
         _spawnPoints = spawnPoints;
         _spawnPeriodMin = spawnPeriodMin;
@@ -29,9 +31,8 @@ public class FallObjectSpawner
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void Update()
     {
         _spawnPeriod -= Time.deltaTime;
 
