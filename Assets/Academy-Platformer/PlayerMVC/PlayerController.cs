@@ -24,12 +24,14 @@ namespace FactoryPlayer
             _factoryPlayer = new FactoryPlayer();
         }
         
-        public void Spawn()
+        public PlayerView Spawn()
         {
             var model = _playerConfig.PlayerModel;
             _currentHealth = model.Health;
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
+            
+            return _playerView;
         }
         
         public void ChangeHealth(float damage)

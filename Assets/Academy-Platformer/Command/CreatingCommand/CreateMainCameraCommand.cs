@@ -1,6 +1,4 @@
 using UnityEngine;
-using Object = UnityEngine.Object;
-
 
 namespace CreatingCommand
 {
