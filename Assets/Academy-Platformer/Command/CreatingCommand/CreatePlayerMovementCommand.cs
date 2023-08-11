@@ -1,3 +1,4 @@
+using Academy.Platformer.Player;
 using UnityEngine;
 
 namespace CreatingCommand

@@ -18,6 +18,7 @@ namespace CreatingCommand
         {
             _playerView = _playerController.Spawn();
             _playerStorage.Add(_playerView);
+            GameObjectStorage.GetInstance().PlayerView = _playerView;
             base.Execute();
         }
 

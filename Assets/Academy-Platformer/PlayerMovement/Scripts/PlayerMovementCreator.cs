@@ -1,21 +1,23 @@
-using Academy.Platformer.Player;
 using FactoryPlayer;
 using Scenes;
 using UnityEngine;
 
-public class PlayerMovementCreator : MonoBehaviour
+namespace Academy.Platformer.Player
 {
-    private TickableManager _tickableManager;
-    private PlayerView _playerView;
-    
-    private InputController _inputController;
-    
-    private void Start()
+    public class PlayerMovementCreator : MonoBehaviour
     {
-        _tickableManager = GameObjectsStorage.GetInstance().TickableManager;
-        _playerView = FindFirstObjectByType<PlayerView>();
+        private TickableManager _tickableManager;
+        private PlayerView _playerView;
+    
+        private InputController _inputController;
+    
+        private void Start()
+        {
+            _tickableManager = GameObjectStorage.GetInstance().TickableManager;
+            _playerView = GameObjectStorage.GetInstance().PlayerView;
         
-        _inputController = new InputController(_tickableManager);
-        new PlayerMovementController(_inputController, _playerView);
+            _inputController = new InputController(_tickableManager);
+            new PlayerMovementController(_inputController, _playerView);
+        }
     }
 }
