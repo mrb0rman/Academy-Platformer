@@ -18,9 +18,7 @@ namespace Academy.Platformer.Player
         private float _offsetFromEdge;
         private float _step;
         
-        public PlayerMovementController(
-            InputController inputController,
-            PlayerView playerView)
+        public PlayerMovementController(InputController inputController, PlayerView playerView)
         {
             _playerView = playerView;
             _inputController = inputController;

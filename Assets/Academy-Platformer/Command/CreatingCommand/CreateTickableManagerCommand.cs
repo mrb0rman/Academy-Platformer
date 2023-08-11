@@ -14,7 +14,6 @@ namespace CreatingCommand
         public override void Execute()
         {
             _tickableManager = Object.Instantiate(_tickableManagerPrefab);
-            GameObjectStorage.GetInstance().TickableManager = _tickableManager;
             base.Execute();
         }
 
