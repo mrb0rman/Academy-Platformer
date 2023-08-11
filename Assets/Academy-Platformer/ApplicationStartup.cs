@@ -1,4 +1,5 @@
-﻿using Bootstrap;
+﻿using Academy_Platformer.FallObject;
+using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
 using UnityEngine;
@@ -10,10 +11,10 @@ namespace ApplicationStartup
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
         private PlayerController _playerController;
         private PlayerStorage _playerStorage;
+        private FallObjectController _fallObjectController;
         
         private void Start()
         {
-           
             StartBootstrap();
         }
         private void StartBootstrap()
@@ -26,6 +27,10 @@ namespace ApplicationStartup
             _playerController = new PlayerController();
             var spawnPlayerCommand = new CommandPlayerSpawn(_playerController, _playerStorage);
             _bootstrap.Add(spawnPlayerCommand);
+
+            _fallObjectController = new FallObjectController();
+            _bootstrap.Add(new CreateScoreCounterCommand(_fallObjectController));
+            
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
