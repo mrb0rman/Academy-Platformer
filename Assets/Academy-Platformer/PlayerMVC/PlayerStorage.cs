@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using FactoryPlayer;
 using UnityEngine;
 
-namespace PlayerStorage
+namespace FactoryPlayer
 {
     public class PlayerStorage
     {

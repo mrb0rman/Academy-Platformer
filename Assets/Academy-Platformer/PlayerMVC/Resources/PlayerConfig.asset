@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ebabde68d94a86808d144fed7f6ba7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d6dfbff0557f82438f61f0bf3543296, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   playerModel:
-    Sprite: {fileID: 21300000, guid: 69c5688aa8f1c124f8f7246c6b30709e, type: 3}
-    Health: 100
-    Speed: 1
+    Sprite: {fileID: 0}
+    Health: 0
+    Speed: 0
