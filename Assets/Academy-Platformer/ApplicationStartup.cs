@@ -9,11 +9,11 @@ namespace ApplicationStartup
     {
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
         private PlayerController _playerController;
-        private PlayerStorage _playerStorage = new PlayerStorage();
+        private PlayerStorage _playerStorage;
         
         private void Start()
         {
-            _playerController = new PlayerController();
+           
             StartBootstrap();
         }
         private void StartBootstrap()
@@ -21,7 +21,11 @@ namespace ApplicationStartup
             _bootstrap.Add(new CreateTickableManagerCommand());
             _bootstrap.Add(new CreateMainCameraCommand());
             _bootstrap.Add(new CreateUICommand());
-            _bootstrap.Add(new CommandPlayerSpawn(_playerController, _playerStorage));
+
+            _playerStorage = new PlayerStorage();
+            _playerController = new PlayerController();
+            var spawnPlayerCommand = new CommandPlayerSpawn(_playerController, _playerStorage);
+            _bootstrap.Add(spawnPlayerCommand);
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
