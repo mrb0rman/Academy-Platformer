@@ -15,18 +15,10 @@ namespace Academy_Platformer.FallObject
         
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
 
-        private int _pointsPerObject;
-        
-        private int _damage;
-
         public FallObjectView CreateObject(FallObjectType type)
         {
             _view = _factory.Create(type);
-            var model = _objectConfig.Get(type);
 
-            _pointsPerObject = model.PointsPerObject;
-            _damage = model.Damage;
-            
             return _view;
         }
         private void FixedUpdate()

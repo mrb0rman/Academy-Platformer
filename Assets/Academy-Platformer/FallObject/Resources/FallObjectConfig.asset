@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6c71e7a5a841289cf04e4677479cf7, type: 3}
   m_Name: FallObjectConfig
   m_EditorClassIdentifier: 
-  _fallObjectModels: []
+  fallObjectModels:
+  - Type: 0
+    PointsPerObject: 0
+    Damage: 0
+    ObjectSprite: {fileID: 21300000, guid: 6a05ba137ea24134885b86121d15518a, type: 3}
+  - Type: 1
+    PointsPerObject: 0
+    Damage: 0
+    ObjectSprite: {fileID: 21300000, guid: f0c86c9071442284b8f3574e3b8475d7, type: 3}
