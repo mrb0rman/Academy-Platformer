@@ -13,7 +13,6 @@ namespace ApplicationStartup
         
         private void Start()
         {
-           
             StartBootstrap();
         }
         private void StartBootstrap()
