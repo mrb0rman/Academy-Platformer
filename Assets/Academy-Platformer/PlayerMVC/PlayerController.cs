@@ -9,6 +9,8 @@ namespace FactoryPlayer
         public event Action<float> OnChangeSpeed;
         public event Action<float> OnChangeHealth;
         public event Action OnDeath;
+        public event Action OnSpawn;
+        public event Action OnGetDamage;
         
         private InputController _inputController;
         private PlayerConfig _playerConfig;
@@ -16,6 +18,7 @@ namespace FactoryPlayer
         private IFactoryCharacter _factoryPlayer;
         private PlayerStorage _playerStorage;
         private PlayerMovementController _playerMovementController;
+        private PlayerAnimator _playerAnimator;
         
         private float _currentHealth;
         private float _currentSpeed;
@@ -45,6 +48,10 @@ namespace FactoryPlayer
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
             
+            _playerAnimator = new PlayerAnimator(this, _playerView);
+            
+            AnimationSpawn();
+            
             return _playerView;
         }
         
@@ -66,6 +73,21 @@ namespace FactoryPlayer
             _currentSpeed = newSpeed;
             
             OnChangeSpeed?.Invoke(_currentSpeed);
+        }
+        
+        public void AnimationSpawn()
+        {
+            OnSpawn?.Invoke();
+        }
+        
+        public void AnimationGetDamage()
+        {
+            OnGetDamage?.Invoke();
+        }
+
+        public void AnimationDeath()
+        {
+            OnDeath?.Invoke();
         }
     }
 }
