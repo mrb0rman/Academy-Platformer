@@ -1,7 +1,6 @@
 ﻿using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
-using Scenes;
 using UnityEngine;
 
 namespace ApplicationStartup
@@ -32,17 +31,11 @@ namespace ApplicationStartup
         {
             _bootstrap.Add(new CreateMainCameraCommand());
             _bootstrap.Add(new CreateUICommand());
-
-            _playerStorage = new PlayerStorage();
-            _playerController = new PlayerController();
-            var spawnPlayerCommand = new CommandPlayerSpawn(
-                _playerController,
-                _playerStorage,
-                _inputController);
-            _bootstrap.Add(spawnPlayerCommand);
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
+            
+            _playerController = new PlayerController(_inputController);
         }
 
         private void NotifyOfCompletion()

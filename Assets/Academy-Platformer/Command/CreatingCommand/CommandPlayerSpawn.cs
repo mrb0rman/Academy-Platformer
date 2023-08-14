@@ -1,10 +1,8 @@
-﻿using Academy.Platformer.Player;
-using FactoryPlayer;
-using Scenes;
+﻿using FactoryPlayer;
 
 namespace CreatingCommand
 {
-    public class CommandPlayerSpawn : Command.Command
+    public class CommandPlayerSpawn : global::Command.Command
     {
         private InputController _inputController;
         private PlayerController _playerController;
