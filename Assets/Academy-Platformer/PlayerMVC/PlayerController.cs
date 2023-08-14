@@ -11,23 +11,39 @@ namespace FactoryPlayer
         
         public HPController HpController => _hpController;
         
+        private InputController _inputController;
         private PlayerConfig _playerConfig;
-        private IFactoryCharacter _factoryPlayer;
         private PlayerView _playerView;
         private HPController _hpController;
+        private IFactoryCharacter _factoryPlayer;
+        private PlayerStorage _playerStorage;
+        private PlayerMovementController _playerMovementController;
         
         private float _currentHealth;
         private float _currentSpeed;
-       
-        public PlayerController()
+
+        public PlayerController(InputController inputController)
         {
             _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
 
             _hpController = new HPController(_playerConfig.PlayerModel.Health);
+          
+            _inputController = inputController;
             
+            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
+            _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
+
+            PlayerSpawn();
         }
-        
+
+        private void PlayerSpawn()
+        {
+            _playerView = Spawn();
+            _playerStorage.Add(_playerView);
+            _playerMovementController = new PlayerMovementController(_inputController, _playerView);
+        }
+
         public PlayerView Spawn()
         {
             var model = _playerConfig.PlayerModel;
@@ -37,7 +53,6 @@ namespace FactoryPlayer
             
             return _playerView;
         }
-        
 
         public void SetSpeed(float newSpeed)
         {
