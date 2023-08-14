@@ -5,7 +5,7 @@ namespace UIService
 {
     public class UIAnimationWindow : UIWindow
     {
-        private const float Duration = 5f;
+        private const float Duration = 1f;
         
         private Tween _showAnimation;
         private Tween _hideAnimation;
@@ -13,7 +13,7 @@ namespace UIService
         {
             _showAnimation?.Kill();
             _showAnimation = transform
-                .DOScale(Vector3.one, Duration)
+                .DOMoveY(0, Duration).SetEase(Ease.OutBack)
                 .OnComplete(() =>
                 {
                     OnShowEvent.Invoke();
@@ -22,9 +22,11 @@ namespace UIService
 
         public override void Hide()
         {
+            var transformLocalPosition = transform.localPosition;
+            
             _hideAnimation?.Kill();
             _hideAnimation = transform
-                .DOScale(Vector3.zero, Duration)
+                .DOMoveY(-transformLocalPosition.y*2, Duration)
                 .OnComplete(() =>
                 {
                     OnHideEvent.Invoke();

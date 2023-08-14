@@ -1,26 +1,21 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Scenes
+public class InputController
 {
-    public class InputController: MonoBehaviour
+    public event Action OnLeftEvent;
+    public event Action OnRightEvent;
+
+    public InputController(TickableManager tickableManager)
     {
-        public UnityEvent OnLeftEvent;
-        public UnityEvent OnRightEvent;
-        
-        [SerializeField] private KeyCode moveLeft;
-        [SerializeField] private KeyCode moveRight;
-        
-        private void Update()
-        {
-            if (Input.GetKeyDown(moveLeft))
-            {
-                OnLeftEvent.Invoke();
-            }
-            if (Input.GetKeyDown(moveRight))
-            {
-                OnRightEvent.Invoke();
-            }
-        }
+        tickableManager.UpdateEventHandler += CheckInput;
+    }
+
+    private void CheckInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            OnLeftEvent?.Invoke();
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            OnRightEvent?.Invoke();
     }
 }

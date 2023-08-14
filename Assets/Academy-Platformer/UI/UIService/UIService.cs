@@ -32,16 +32,15 @@ namespace UIService
                 Transform transform;
                 (transform = window.transform).SetParent(_uIRoot.Container, false);
 
+                Vector3 scale = window.transform.localScale;
+                scale.Set(1, 1, 1);
+                window.transform.localScale = scale;
+                
+                transform.localRotation = Quaternion.identity;
+                transform.localPosition = new Vector3(-_uIRoot.Container.localPosition.x,-_uIRoot.Container.localPosition.y * 3,0);
+                
                 var component = window.GetComponent<T>();
                 component.Show();
-                
-                //always resize to screen size
-                var rect = component.transform as RectTransform;
-                if (rect != null)
-                {
-                    rect.offsetMax = Vector2.zero;
-                    rect.offsetMin = Vector2.zero;
-                }
                 return component;
             }
             return null;

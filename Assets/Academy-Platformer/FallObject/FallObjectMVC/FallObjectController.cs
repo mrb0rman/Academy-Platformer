@@ -15,6 +15,7 @@ namespace Academy_Platformer.FallObject
 
         private float _fallSpeed = 1.0f;
         
+
         private List<FallObject> _fallObjects;
         
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
