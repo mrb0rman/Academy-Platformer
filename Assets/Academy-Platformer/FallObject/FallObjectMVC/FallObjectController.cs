@@ -8,16 +8,21 @@ namespace Academy_Platformer.FallObject
 {
     public class FallObjectController
     {
-        public event Action<FallObjectModel> PlayerCatchFallingObjectNoyify; 
+        public event Action<FallObjectModel> PlayerCatchFallingObjectNotify; 
         public float FallSpeed => _fallSpeed;
         
+        private readonly FallObjectFactory _factory = new();
+
         private float _fallSpeed = 1.0f;
         
         private List<FallObject> _fallObjects;
-
-        private readonly FallObjectFactory _factory = new();
         
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
+
+        public FallObjectController()
+        {
+            TickableManager.FixedUpdateNotify += FixedUpdate;
+        }
 
         public FallObjectView CreateObject(FallObjectType type)
         {
@@ -37,15 +42,14 @@ namespace Academy_Platformer.FallObject
             if (player != null)
             {
                 var model = _fallObjects.Find(fallObject => fallObject.View == view).Model;
-                PlayerCatchFallingObjectNoyify?.Invoke(model);
+                PlayerCatchFallingObjectNotify?.Invoke(model);
             }          
         }
         private void FixedUpdate()
         {
             foreach (var fallObject in _fallObjects)
             {
-                var position = fallObject.View.transform.position;
-                position += new Vector3(0, -0.001f, 0) * FallSpeed;
+                fallObject.View.transform.position += new Vector3(0, -0.001f, 0) * FallSpeed;
             }
         }
     }

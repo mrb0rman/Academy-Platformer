@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class TickableManager : MonoBehaviour
 {
-    public static event Action UpdateEventHandler;
-    public static event Action FixedUpdateEventHandler;
+    public static event Action UpdateNotify;
+    public static event Action FixedUpdateNotify;
     
     void Update()
     {
-        UpdateEventHandler?.Invoke();
+        UpdateNotify?.Invoke();
     }
     void FixedUpdate()
     {
-        FixedUpdateEventHandler?.Invoke();
+        FixedUpdateNotify?.Invoke();
     }
 }

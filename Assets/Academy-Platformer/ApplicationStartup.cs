@@ -11,8 +11,7 @@ namespace ApplicationStartup
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
         private PlayerController _playerController;
         private PlayerStorage _playerStorage;
-        private FallObjectController _fallObjectController;
-        
+
         private void Start()
         {
             StartBootstrap();
@@ -27,10 +26,6 @@ namespace ApplicationStartup
             _playerController = new PlayerController();
             var spawnPlayerCommand = new CommandPlayerSpawn(_playerController, _playerStorage);
             _bootstrap.Add(spawnPlayerCommand);
-
-            _fallObjectController = new FallObjectController();
-            _bootstrap.Add(new CreateScoreCounterCommand(_fallObjectController));
-            
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
