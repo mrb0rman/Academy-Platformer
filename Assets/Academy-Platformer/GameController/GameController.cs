@@ -8,26 +8,30 @@ public class GameController
     private FallObjectSpawner _spawner;
 
     private PlayerController _playerController;
+
+    private TickableManager _tickableManager;
     
     public GameController(
         FallObjectSpawner spawner,
-        PlayerController playerController)
+        PlayerController playerController,
+        TickableManager tickableManager)
     {
         _spawner = spawner;
         _playerController = playerController;
+        _tickableManager = tickableManager;
     }
 
     public void StartGame()
     {
         _playerController.Spawn();
-        TickableManager.UpdateEventHandler += Update;
+        _tickableManager.UpdateEventHandler += Update;
     }
 
     public void StopGame()
     {
         _playerController.DestroyView();
         _spawner.Pool.ClearPool();
-        TickableManager.UpdateEventHandler -= Update;
+        _tickableManager.UpdateEventHandler -= Update;
     }
     
     void Update()
