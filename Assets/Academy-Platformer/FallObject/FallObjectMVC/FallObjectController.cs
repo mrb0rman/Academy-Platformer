@@ -10,6 +10,7 @@ namespace Academy_Platformer.FallObject
         private float _fallSpeed = 1.0f;
         
         private  FallObjectView _view;
+        private TickableManager _eventManager;
 
         private readonly FallObjectFactory _factory = new();
         
