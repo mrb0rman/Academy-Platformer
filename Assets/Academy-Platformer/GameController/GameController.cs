@@ -30,7 +30,7 @@ public class GameController
     public void StopGame()
     {
         _playerController.DestroyView();
-        _spawner.Pool.ClearPool();
+        _spawner.Pool.AllReturnToPool();
         _tickableManager.UpdateEventHandler -= Update;
     }
     

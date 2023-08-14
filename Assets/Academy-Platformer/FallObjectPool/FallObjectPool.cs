@@ -56,12 +56,14 @@ public class FallObjectPool
         objectToReturn.gameObject.SetActive(false);
     }
 
-    public void ClearPool()
+    public void AllReturnToPool()
     {
         foreach (var fallObject in _pool)
         {
-            GameObject.Destroy(fallObject.gameObject);
+            if (fallObject.gameObject.activeInHierarchy)
+            {
+                ReturnToPool(fallObject);
+            }
         }
-        _pool.Clear();
     }
 }
