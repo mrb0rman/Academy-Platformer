@@ -1,4 +1,5 @@
 ﻿using System;
+using Academy_Platformer.HPController;
 using Interface;
 using UnityEngine;
 
@@ -7,12 +8,13 @@ namespace FactoryPlayer
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
-        public event Action<float> OnChangeHealht;
-        public event Action OnDeath;
+        
+        public HPController HpController => _hpController;
         
         private PlayerConfig _playerConfig;
         private IFactoryCharacter _factoryPlayer;
         private PlayerView _playerView;
+        private HPController _hpController;
         
         private float _currentHealth;
         private float _currentSpeed;
@@ -20,6 +22,8 @@ namespace FactoryPlayer
         public PlayerController()
         {
             _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
+
+            _hpController = new HPController(_playerConfig.PlayerModel.Health);
             
             _factoryPlayer = new FactoryPlayer();
         }
@@ -34,18 +38,6 @@ namespace FactoryPlayer
             return _playerView;
         }
         
-        public void ChangeHealth(float damage)
-        {
-            _currentHealth -= damage;
-            if (_currentHealth > 0)
-            {
-                OnChangeHealht?.Invoke(_currentHealth);
-            }
-            else
-            {
-                OnDeath?.Invoke();
-            }
-        }
 
         public void SetSpeed(float newSpeed)
         {
