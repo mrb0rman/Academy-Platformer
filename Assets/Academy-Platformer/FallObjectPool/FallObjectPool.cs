@@ -55,4 +55,13 @@ public class FallObjectPool
 
         objectToReturn.gameObject.SetActive(false);
     }
+
+    public void ClearPool()
+    {
+        foreach (var fallObject in _pool)
+        {
+            GameObject.Destroy(fallObject.gameObject);
+        }
+        _pool.Clear();
+    }
 }

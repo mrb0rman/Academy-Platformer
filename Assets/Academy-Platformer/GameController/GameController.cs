@@ -9,7 +9,8 @@ public class GameController
 
     private PlayerController _playerController;
     
-    public GameController(FallObjectSpawner spawner,
+    public GameController(
+        FallObjectSpawner spawner,
         PlayerController playerController)
     {
         _spawner = spawner;
@@ -25,6 +26,7 @@ public class GameController
     public void StopGame()
     {
         _playerController.DestroyView();
+        _spawner.Pool.ClearPool();
         TickableManager.UpdateEventHandler -= Update;
     }
     

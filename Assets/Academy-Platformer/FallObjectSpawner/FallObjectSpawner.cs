@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class FallObjectSpawner
 {
+    public FallObjectPool Pool => _pool;
+    
     private Transform[] _spawnPoints;
     
     private FallObjectPool _pool;
