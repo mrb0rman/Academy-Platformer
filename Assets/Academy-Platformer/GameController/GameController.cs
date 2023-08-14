@@ -8,8 +8,6 @@ public class GameController
     private FallObjectSpawner _spawner;
 
     private PlayerController _playerController;
-
-    private PlayerView _playerView;
     
     public GameController(FallObjectSpawner spawner,
         PlayerController playerController)
@@ -20,13 +18,13 @@ public class GameController
 
     public void StartGame()
     {
-        _playerView = _playerController.Spawn();
+        _playerController.Spawn();
         TickableManager.UpdateEventHandler += Update;
     }
 
     public void StopGame()
     {
-        GameObject.Destroy(_playerView.gameObject);
+        _playerController.DestroyView();
         TickableManager.UpdateEventHandler -= Update;
     }
     
