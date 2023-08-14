@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 99975090566337492}
   - component: {fileID: 2270585160415931559}
   - component: {fileID: 5066791484778967471}
+  - component: {fileID: 8469088241440730636}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -336,6 +337,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8469088241440730636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356361766206929104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7902e2737e96f04eadc23965870bb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentScore: 0
+  text: {fileID: 5806177640835265351}
+  healthsBar: {fileID: 6207461006960227207}
 --- !u!1 &2583045805960411889
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +367,7 @@ GameObject:
   - component: {fileID: 1078458988285951521}
   - component: {fileID: 2770971345830911877}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HealthsBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -374,9 +390,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 119.441315, y: -25}
+  m_AnchoredPosition: {x: -0.000061035156, y: -25}
   m_SizeDelta: {x: 238.8827, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!223 &5863040727837052434
 Canvas:
   m_ObjectHideFlags: 0
