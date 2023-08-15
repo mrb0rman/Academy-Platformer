@@ -11,6 +11,7 @@ namespace Academy_Platformer.FallObject
         
         private  FallObjectView _view;
         private TickableManager _eventManager;
+        private FallObjectAnimator _animator;
 
         private readonly FallObjectFactory _factory = new();
         
