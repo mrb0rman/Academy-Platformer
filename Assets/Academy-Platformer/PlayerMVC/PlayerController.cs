@@ -60,5 +60,11 @@ namespace FactoryPlayer
             
             OnChangeSpeed?.Invoke(_currentSpeed);
         }
+
+        public void DestroyView()
+        {
+            GameObject.Destroy(_playerView.gameObject);
+            _playerView = null;
+        }
     }
 }
