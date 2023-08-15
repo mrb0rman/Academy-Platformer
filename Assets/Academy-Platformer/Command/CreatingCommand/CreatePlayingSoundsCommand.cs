@@ -2,24 +2,24 @@
 
 namespace CreatingCommand
 {
-    public class CreatePlayingSoundsCommand: Command.Command
+    public class CreateSoundManagerCommand: Command.Command
     {
-        private readonly PlayingSounds _playingSoundsPrefab;
-        private PlayingSounds _playingSounds;
+        private readonly SoundManager _soundManagerPrefab;
+        private SoundManager _soundManager;
         
-        public CreatePlayingSoundsCommand()
+        public CreateSoundManagerCommand()
         {
-            _playingSoundsPrefab = Resources.Load<PlayingSounds>(ResourcesConst.ResourcesConst.PlayingSounds);
+            _soundManagerPrefab = Resources.Load<SoundManager>(ResourcesConst.ResourcesConst.SoundManager);
         }
         public override void Execute()
         {
-            _playingSounds = Object.Instantiate(_playingSoundsPrefab);
+            _soundManager = Object.Instantiate(_soundManagerPrefab);
             base.Execute();
         }
 
         public override void Undo()
         {
-            Object.Destroy(_playingSounds);
+            Object.Destroy(_soundManager);
         }
     }
 }
