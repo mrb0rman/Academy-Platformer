@@ -1,5 +1,4 @@
-﻿using Academy_Platformer.HPController;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace FactoryPlayer
