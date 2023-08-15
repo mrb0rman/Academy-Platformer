@@ -8,7 +8,9 @@
         private FallObjectView _view;
         private FallObjectModel _model;
 
-        public FallObject(FallObjectView view, FallObjectModel model)
+        public FallObject(
+            FallObjectView view, 
+            FallObjectModel model)
         {
             _view = view;
             _model = model;

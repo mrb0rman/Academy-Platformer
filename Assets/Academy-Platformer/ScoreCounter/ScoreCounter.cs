@@ -7,7 +7,7 @@ namespace Academy_Platformer.ScoreCounter
     {
         public int Score => _score;
         
-        [SerializeField] private int _score;
+        private int _score;
 
         public ScoreCounter(FallObjectController fallObjectController)
         {

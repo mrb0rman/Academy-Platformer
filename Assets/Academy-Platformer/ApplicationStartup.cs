@@ -9,7 +9,6 @@ namespace ApplicationStartup
     {
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
         private InputController _inputController;
-        private PlayerController _playerController;
         private PlayerStorage _playerStorage;
 
         private void Start()
@@ -27,7 +26,8 @@ namespace ApplicationStartup
             _bootstrap.Execute();
             
             _inputController = new InputController();
-            _playerController = new PlayerController(_inputController);
+            
+            new PlayerController(_inputController);
         }
 
         private void NotifyOfCompletion()

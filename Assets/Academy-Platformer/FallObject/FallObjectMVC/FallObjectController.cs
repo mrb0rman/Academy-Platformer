@@ -10,14 +10,15 @@ namespace Academy_Platformer.FallObject
     {
         public event Action<FallObjectModel> PlayerCatchFallingObjectNotify; 
         public event Action<FallObjectModel> ObjectFellNotify; 
-        public float FallSpeed => _fallSpeed;
         
         private readonly FallObjectFactory _factory = new();
 
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
         private List<FallObject> _fallObjects;
         
-        private float _fallSpeed = 1.0f;
+        private const float FallSpeed = 1.0f;
+
+        private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
 
         public FallObjectController()
         {
@@ -49,7 +50,7 @@ namespace Academy_Platformer.FallObject
         {
             foreach (var fallObject in _fallObjects)
             {
-                fallObject.View.transform.position += new Vector3(0, -0.001f, 0) * FallSpeed;
+                fallObject.View.transform.position += _deltaVector * FallSpeed;
             }
         }
     }
