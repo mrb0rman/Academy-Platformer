@@ -6,9 +6,9 @@ public class InputController
     public event Action OnLeftEvent;
     public event Action OnRightEvent;
 
-    public InputController(TickableManager tickableManager)
+    public InputController()
     {
-        tickableManager.UpdateEventHandler += CheckInput;
+        TickableManager.UpdateNotify += CheckInput;
     }
 
     private void CheckInput()
