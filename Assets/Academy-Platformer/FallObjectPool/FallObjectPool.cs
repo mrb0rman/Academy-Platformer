@@ -55,4 +55,15 @@ public class FallObjectPool
 
         objectToReturn.gameObject.SetActive(false);
     }
+
+    public void AllReturnToPool()
+    {
+        foreach (var fallObject in _pool)
+        {
+            if (fallObject.gameObject.activeInHierarchy)
+            {
+                ReturnToPool(fallObject);
+            }
+        }
+    }
 }
