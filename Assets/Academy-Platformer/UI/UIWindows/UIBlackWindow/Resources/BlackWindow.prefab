@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 6475816890166747079}
   - component: {fileID: 8698687472018481896}
   - component: {fileID: 2411393921910697264}
-  - component: {fileID: 2752510678652062464}
   - component: {fileID: 7472599164653441833}
   m_Layer: 5
   m_Name: BlackWindow
@@ -137,7 +136,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &8698687472018481896
 MonoBehaviour:
@@ -179,18 +178,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!225 &2752510678652062464
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6436488473214904213}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &7472599164653441833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,4 +190,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78117bfae66a8ec40b350e9e739a3ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlackImage: {fileID: 2752510678652062464}
+  BlackImage: {fileID: 7456516964842260077}

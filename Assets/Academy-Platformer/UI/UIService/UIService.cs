@@ -41,7 +41,6 @@ namespace UIService
                 
                 var component = window.GetComponent<T>();
                 component.Show();
-                //DarkeningWindow(LighteningWindow);
                 return component;
             }
             return null;
@@ -93,27 +92,6 @@ namespace UIService
             }
         }
 
-        public void DarkeningWindow(Action afterDarkening = null)
-        {
-            var blackWindow = Get<UIBlackWindow>();
-            Vector3 scale = blackWindow.transform.localScale;
-            scale.Set(1, 1, 1);
-            blackWindow.transform.localScale = scale;
-
-            blackWindow.OnShowEvent += afterDarkening;
-            blackWindow.transform.SetParent(_uIRoot.Container, false);
-            blackWindow.Show();
-        }
-        
-        public void LighteningWindow()
-        {
-            var blackWindow = Get<UIBlackWindow>();
-            
-            Action changeParent = () => blackWindow.transform.SetParent(_uIRoot.PoolContainer);
-            blackWindow.OnHideEvent += changeParent;
-            blackWindow.Hide();
-        }
-    
         private void Init(Type t, Transform parent = null)
         {
             if(_viewStorage.ContainsKey(t))
@@ -133,6 +111,8 @@ namespace UIService
                 
                 _initWindows.Add(t, view);
             }
+            var blackWindow = Get<UIBlackWindow>();
+            blackWindow.transform.SetParent(new RectTransform());
         }
     }
 }
