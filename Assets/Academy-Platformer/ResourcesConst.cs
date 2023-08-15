@@ -8,6 +8,7 @@
         public const string PlayerConfig = "PlayerConfig";
         public const string TickableManager = "TickableManager";
         public const string MainCamera = "Main Camera";
+        public const string PlayingSounds = "PlayingSounds";
         public const string ScoreCounter = "Score Counter";
     }
 }
