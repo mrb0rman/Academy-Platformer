@@ -5,31 +5,61 @@ namespace FactoryPlayer
 {
     public class PlayerAnimator
     {
-        private PlayerView _playerView;
-        
+        private readonly PlayerView _playerView;
+
         private Sequence _sequenceSpawn;
         private Sequence _sequenceGetDamage;
         private Sequence _sequenceDeath;
 
-        private float _durationGetDamage = 0.1f;
-        private float _durationDeath = 1f;
+        private readonly Vector3 _startPositionPlayer;
+        private readonly Vector3 _endPositionPlayer;
+
+        private const float FactorOffsetX = 10f;
+        private const float FactorPixelHeight = 5f;
+        private const float FactorPixelWidth = 2f;
+        private const float DurationSpawn = 5f;
+        private const float DurationGetDamage = 0.1f;
+        private const float DurationDeath = 1f;
+        private const float DelaySpawn = 1f;
+        private const float VisibilityAlphaGetDamage = 0f;
+        private const float InvisibilityAlphaGetDamage = 1f;
+        private const float IncreasePlayerDeath = 0.7f;
+        private const float DecreasePlayerDeath = 0f;
+        private const int NumberRepetitionsGetDamage = 5;
         
-        public PlayerAnimator(PlayerView playerView)
+        public PlayerAnimator(PlayerView playerView, CameraView cameraView)
         {
             _playerView = playerView;
+
+            if (cameraView != null)
+            {
+                _startPositionPlayer = cameraView.MainCamera.ScreenToWorldPoint(new Vector3(
+                    -FactorOffsetX*playerView.SpriteRenderer.size.x, 
+                    cameraView.MainCamera.pixelHeight / FactorPixelHeight, 
+                    -cameraView.transform.position.z));
+                _endPositionPlayer =  cameraView.MainCamera.ScreenToWorldPoint(new Vector3(
+                    cameraView.MainCamera.pixelWidth / FactorPixelWidth, 
+                    cameraView.MainCamera.pixelHeight / FactorPixelHeight, 
+                    -cameraView.transform.position.z));
+            }
+            else
+            {
+                Debug.LogError("Component cameraView is null");
+            }
         }
         
         public void Spawn()
         {
-            _playerView.transform.position = new Vector3(-14, -3, 0);
-            
+            _playerView.transform.position = _startPositionPlayer;
+
             _sequenceSpawn?.Kill();
             
             _sequenceSpawn = DOTween.Sequence();
             
-            _sequenceSpawn.Append(_playerView.transform.
-                DOMove(new Vector3(0, -3, 0), 5f).
-                SetEase(Ease.OutBack).SetDelay(1f));
+            _sequenceSpawn.Append(_playerView.transform
+                .DOMove(_endPositionPlayer, DurationSpawn)
+                .SetEase(Ease.OutBack)
+                .SetDelay(DelaySpawn));
         }
         
         public void GetDamage()
@@ -38,15 +68,10 @@ namespace FactoryPlayer
             
             _sequenceGetDamage = DOTween.Sequence();
             
-            _sequenceGetDamage.Append(_playerView.SpriteRenderer.DOColor(new Color(
-                _playerView.SpriteRenderer.color.r,
-                _playerView.SpriteRenderer.color.g,
-                _playerView.SpriteRenderer.color.b,
-                0), _durationGetDamage)).Append(_playerView.SpriteRenderer.DOColor(new Color(
-                _playerView.SpriteRenderer.color.r,
-                _playerView.SpriteRenderer.color.g,
-                _playerView.SpriteRenderer.color.b,
-                1), _durationGetDamage)).SetLoops(5);
+            _sequenceGetDamage
+                .Append(_playerView.SpriteRenderer.DOFade(VisibilityAlphaGetDamage, DurationGetDamage))
+                .Append(_playerView.SpriteRenderer.DOFade(InvisibilityAlphaGetDamage, DurationGetDamage))
+                .SetLoops(NumberRepetitionsGetDamage);
         }
 
         public void Death()
@@ -54,11 +79,10 @@ namespace FactoryPlayer
             _sequenceDeath?.Kill();
                 
             _sequenceDeath = DOTween.Sequence();
-            
-            _sequenceDeath.Append(_playerView.transform.DOScale(0.7f, _durationDeath).
-                SetEase(Ease.InOutBounce)
-                .OnComplete(() => _playerView.transform.DOScale(0f, _durationDeath).
-                    SetEase(Ease.InBounce)));
+
+            _sequenceDeath
+                .Append(_playerView.transform.DOScale(IncreasePlayerDeath, DurationDeath).SetEase(Ease.InOutBounce))
+                .Append(_playerView.transform.DOScale(DecreasePlayerDeath, DurationDeath).SetEase(Ease.InBounce));
         }
     }
 }
