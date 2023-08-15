@@ -13,12 +13,10 @@ namespace Academy_Platformer.FallObject
         
         private readonly FallObjectFactory _factory = new();
 
-        private float _fallSpeed = 1.0f;
-        
-
+        private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
         private List<FallObject> _fallObjects;
         
-        private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
+        private float _fallSpeed = 1.0f;
 
         public FallObjectController()
         {
