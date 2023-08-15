@@ -8,8 +8,6 @@ namespace FactoryPlayer
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
-        public event Action OnSpawn;
-        public event Action OnGetDamage;
 
         public HPController HpController => _hpController;
         
@@ -45,11 +43,6 @@ namespace FactoryPlayer
             _playerView = Spawn();
             _playerStorage.Add(_playerView);
             _playerMovementController = new PlayerMovementController(_inputController, _playerView);
-            
-            _playerAnimator = new PlayerAnimator(
-                this, 
-                _playerView, 
-                _hpController);
         }
 
         public PlayerView Spawn()
@@ -59,31 +52,14 @@ namespace FactoryPlayer
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
             
-            AnimationSpawn();
-
             return _playerView;
         }
 
         public void SetSpeed(float newSpeed)
         {
             _currentSpeed = newSpeed;
-            
-            OnChangeSpeed?.Invoke(_currentSpeed);
-        }
-        
-        public void AnimationSpawn()
-        {
-            OnSpawn?.Invoke();
-        }
-        
-        public void AnimationGetDamage()
-        {
-            OnGetDamage?.Invoke();
-        }
 
-        public void AnimationDeath()
-        {
-            _hpController.OnZeroHealth?.Invoke();
+            OnChangeSpeed?.Invoke(_currentSpeed);
         }
     }
 }

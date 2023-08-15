@@ -15,16 +15,9 @@ namespace FactoryPlayer
         private float _durationGetDamage = 0.1f;
         private float _durationDeath = 1f;
         
-        public PlayerAnimator(
-            PlayerController playerController, 
-            PlayerView playerView,
-            HPController hpController)
+        public PlayerAnimator(PlayerView playerView)
         {
             _playerView = playerView;
-
-            playerController.OnSpawn += Spawn;
-            playerController.OnGetDamage += GetDamage;
-            hpController.OnZeroHealth += Death;
         }
         
         public void Spawn()
