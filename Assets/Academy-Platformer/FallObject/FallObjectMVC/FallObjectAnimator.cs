@@ -1,21 +1,38 @@
 using Academy_Platformer.FallObject;
 using DG.Tweening;
+using UnityEngine;
 
 public class FallObjectAnimator
 {
-    private const float SpawnAnimDuration = 1f;
-    private const float DeathAnimDuration = 1f;
+    private const float SpawnAnimDuration = 0.5f;
+    private const float DeathAnimDuration = 0.5f;
+    
+    private FallObjectView _fallObjectView;
     
     private Sequence _sequenceSpawn;
     private Sequence _sequenceDeath;
 
-    public void Spawn(FallObjectView view)
+    public FallObjectAnimator(FallObjectView fallObjectView)
     {
-        //insert spawn animation here
+        _fallObjectView = fallObjectView;
     }
 
-    public void Death(FallObjectView view)
+    public void Spawn()
     {
-        //insert death animation here
+        _sequenceSpawn?.Kill();
+
+        _sequenceSpawn = DOTween.Sequence();
+
+        _fallObjectView.transform.localScale = Vector3.zero;
+        _sequenceSpawn.Append(_fallObjectView.transform.DOScale(Vector3.one, SpawnAnimDuration));
+    }
+
+    public void Death()
+    {
+        _sequenceDeath?.Kill();
+
+        _sequenceDeath = DOTween.Sequence();
+
+        _sequenceDeath.Append(_fallObjectView.transform.DOScale(Vector3.zero, DeathAnimDuration));
     }
 }
