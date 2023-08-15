@@ -1,4 +1,5 @@
 ﻿using System;
+using Academy_Platformer.HPController;
 using Interface;
 using UnityEngine;
 
@@ -7,14 +8,15 @@ namespace FactoryPlayer
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
-        public event Action<float> OnChangeHealth;
-        public event Action OnDeath;
         public event Action OnSpawn;
         public event Action OnGetDamage;
+
+        public HPController HpController => _hpController;
         
         private InputController _inputController;
         private PlayerConfig _playerConfig;
         private PlayerView _playerView;
+        private HPController _hpController;
         private IFactoryCharacter _factoryPlayer;
         private PlayerStorage _playerStorage;
         private PlayerMovementController _playerMovementController;
@@ -25,6 +27,10 @@ namespace FactoryPlayer
 
         public PlayerController(InputController inputController)
         {
+            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
+
+            _hpController = new HPController(_playerConfig.PlayerModel.Health);
+          
             _inputController = inputController;
             
             _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
@@ -39,6 +45,11 @@ namespace FactoryPlayer
             _playerView = Spawn();
             _playerStorage.Add(_playerView);
             _playerMovementController = new PlayerMovementController(_inputController, _playerView);
+            
+            _playerAnimator = new PlayerAnimator(
+                this, 
+                _playerView, 
+                _hpController);
         }
 
         public PlayerView Spawn()
@@ -48,24 +59,9 @@ namespace FactoryPlayer
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
             
-            _playerAnimator = new PlayerAnimator(this, _playerView);
-            
             AnimationSpawn();
-            
+
             return _playerView;
-        }
-        
-        public void ChangeHealth(float damage)
-        {
-            _currentHealth -= damage;
-            if (_currentHealth > 0)
-            {
-                OnChangeHealth?.Invoke(_currentHealth);
-            }
-            else
-            {
-                OnDeath?.Invoke();
-            }
         }
 
         public void SetSpeed(float newSpeed)
@@ -87,7 +83,7 @@ namespace FactoryPlayer
 
         public void AnimationDeath()
         {
-            OnDeath?.Invoke();
+            _hpController.OnZeroHealth?.Invoke();
         }
     }
 }

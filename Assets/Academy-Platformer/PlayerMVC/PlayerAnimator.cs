@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Academy_Platformer.HPController;
+using DG.Tweening;
 using UnityEngine;
 
 namespace FactoryPlayer
@@ -14,13 +15,16 @@ namespace FactoryPlayer
         private float _durationGetDamage = 0.1f;
         private float _durationDeath = 1f;
         
-        public PlayerAnimator(PlayerController playerController, PlayerView playerView)
+        public PlayerAnimator(
+            PlayerController playerController, 
+            PlayerView playerView,
+            HPController hpController)
         {
             _playerView = playerView;
 
             playerController.OnSpawn += Spawn;
             playerController.OnGetDamage += GetDamage;
-            playerController.OnDeath += Death;
+            hpController.OnZeroHealth += Death;
         }
         
         public void Spawn()
