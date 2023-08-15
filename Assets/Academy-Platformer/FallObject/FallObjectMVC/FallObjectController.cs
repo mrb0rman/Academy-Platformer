@@ -9,6 +9,7 @@ namespace Academy_Platformer.FallObject
     public class FallObjectController
     {
         public event Action<FallObjectModel> PlayerCatchFallingObjectNotify; 
+        public event Action<FallObjectModel> ObjectFellNotify; 
         public float FallSpeed => _fallSpeed;
         
         private readonly FallObjectFactory _factory = new();
