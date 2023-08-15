@@ -21,10 +21,7 @@ namespace Academy_Platformer.ScoreCounter
         }        
         public void ObjectFellEventHandler(FallObjectModel model)
         {
-            if (_score > 0)
-            {
-                _score -= model.PointsPerObject;
-            }
+            _score -= model.Damage;
         }
     }
 }
