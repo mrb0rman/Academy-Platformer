@@ -6,8 +6,6 @@ public class GameController
 
     private PlayerController _playerController;
 
-    private TickableManager _tickableManager;
-    
     public GameController(
         FallObjectSpawner spawner,
         PlayerController playerController,
@@ -15,20 +13,19 @@ public class GameController
     {
         _spawner = spawner;
         _playerController = playerController;
-        _tickableManager = tickableManager;
     }
 
     public void StartGame()
     {
         _playerController.Spawn();
-        _tickableManager.UpdateEventHandler += Update;
+        TickableManager.UpdateNotify += Update;
     }
 
     public void StopGame()
     {
         _playerController.DestroyView();
         _spawner.Pool.AllReturnToPool();
-        _tickableManager.UpdateEventHandler -= Update;
+        TickableManager.UpdateNotify -= Update;
     }
     
     void Update()
