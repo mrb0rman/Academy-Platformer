@@ -111,8 +111,6 @@ namespace UIService
                 
                 _initWindows.Add(t, view);
             }
-            var blackWindow = Get<UIBlackWindow>();
-            blackWindow.transform.SetParent(new RectTransform());
         }
     }
 }

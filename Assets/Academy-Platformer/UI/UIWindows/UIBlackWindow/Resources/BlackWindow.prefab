@@ -190,4 +190,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78117bfae66a8ec40b350e9e739a3ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlackImage: {fileID: 7456516964842260077}
+  blackImage: {fileID: 7456516964842260077}

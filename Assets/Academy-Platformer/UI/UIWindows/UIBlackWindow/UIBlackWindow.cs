@@ -1,26 +1,27 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UIService
 {
     public class UIBlackWindow : UIWindow
     {
-        [SerializeField] private Image BlackImage;
+        [SerializeField] private Image blackImage;
         
-        private const float duration = 1f;
-        
+        private const float Duration = 1f;
+
         private Tween _showAnimation;
         private Tween _hideAnimation;
 
         public override void Show()
         {
             _showAnimation?.Kill();
-            var blackImageColor = BlackImage.color;
+            var blackImageColor = blackImage.color;
             blackImageColor.a = 0;
-            BlackImage.color = blackImageColor;
-            _showAnimation = BlackImage
-                .DOFade(1,duration)
+            blackImage.color = blackImageColor;
+            _showAnimation = transform.DOMoveY(0, 0);
+            _showAnimation = blackImage.DOFade(1,Duration)
                 .OnComplete(() =>
                 {
                     OnShowEvent.Invoke();
@@ -30,11 +31,8 @@ namespace UIService
         public override void Hide()
         {
             _showAnimation?.Kill();
-            var blackImageColor = BlackImage.color;
-            blackImageColor.a = 1;
-            BlackImage.color = blackImageColor;
-            _showAnimation = BlackImage
-                .DOFade(0,duration)
+            _hideAnimation = blackImage
+                .DOFade(0,Duration)
                 .OnComplete(() => 
                 { 
                     OnHideEvent.Invoke();
