@@ -18,7 +18,7 @@ namespace Academy_Platformer.FallObject
         
         private const float FallSpeed = 1.0f;
 
-        private Vector3 _deltaVector = new Vector3(0, -1f, 0);
+        private Vector3 _deltaVector = new Vector3(0, -0.00001f, 0);
 
         public FallObjectController()
         {

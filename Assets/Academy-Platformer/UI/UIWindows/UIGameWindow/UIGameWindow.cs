@@ -6,7 +6,6 @@ namespace UIService
     public class UIGameWindow : UIAnimationWindow
     {
         public Action OpenGameWindowEvent;
-        public Transform[] SpawnPoints;
         public override void Show()
         {
             OpenGameWindowEvent?.Invoke();

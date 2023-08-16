@@ -37,7 +37,8 @@ namespace ApplicationStartup
             _playerController = new PlayerController(_inputController);
 
             UIGameWindow gameWindow = _uiService.Get<UIGameWindow>();
-            _spawnPoints = gameWindow.SpawnPoints;
+            var SpawnPoints = Resources.Load<GameObject>(ResourcesConst.ResourcesConst.SpawnPoints);
+            _spawnPoints = SpawnPoints.GetComponentsInChildren<Transform>();
             gameWindow.OpenGameWindowEvent += () =>
             {
                 var spawner = new FallObjectSpawner(_spawnPoints,
