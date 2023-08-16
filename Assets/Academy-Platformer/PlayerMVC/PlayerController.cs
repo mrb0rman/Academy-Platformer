@@ -30,7 +30,6 @@ namespace FactoryPlayer
           
             _inputController = inputController;
             
-            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
             _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
 

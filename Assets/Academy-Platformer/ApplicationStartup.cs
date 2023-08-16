@@ -1,4 +1,5 @@
-﻿using Bootstrap;
+﻿using Academy_Platformer.SoundMVC;
+using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
 using UnityEngine;
@@ -27,7 +28,9 @@ namespace ApplicationStartup
             
             _inputController = new InputController();
             new PlayerController(_inputController);
-            Instantiate(Resources.Load<AudioSource>("SoundManager"));
+            var soundView = Instantiate(Resources.Load<SoundView>("SoundManager"));
+            new SoundController(soundView);
+
         }
 
         private void NotifyOfCompletion()
