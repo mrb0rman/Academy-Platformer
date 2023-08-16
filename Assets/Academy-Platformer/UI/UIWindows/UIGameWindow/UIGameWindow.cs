@@ -8,6 +8,7 @@ namespace UIService
         public override void Show()
         {
             base.Show();
+            UIService.Show<HUDWindow>();
         }
 
         public override void Hide()
