@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Academy_Platformer.FallObject.Factory;
 using FactoryPlayer;
 using UnityEngine;
 
@@ -15,16 +13,18 @@ namespace Academy_Platformer.FallObject
         public int PointsPerObject => _pointsPerObject;
         public int Damage => _damage;
 
+        private const float FallSpeed = 1.0f;
+
         private FallObjectView _view;
         
         private int _pointsPerObject;
         private int _damage;
-        
-        private const float FallSpeed = 1.0f;
 
         private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
 
-        public FallObjectController(FallObjectView view, FallObjectModel model)
+        public FallObjectController(
+            FallObjectView view, 
+            FallObjectModel model)
         {
             TickableManager.FixedUpdateNotify += FixedUpdate;
 
