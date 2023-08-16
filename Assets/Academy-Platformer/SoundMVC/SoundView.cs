@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundView : MonoBehaviour
 {
     [SerializeField] private AudioSource[] _musicSources;
     [SerializeField] private AudioSource[] _effectSources;

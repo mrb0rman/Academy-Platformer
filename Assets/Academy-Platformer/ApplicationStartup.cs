@@ -1,4 +1,5 @@
-﻿using Bootstrap;
+﻿using Academy_Platformer.SoundMVC;
+using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace ApplicationStartup
             _inputController = new InputController();
             
             new PlayerController(_inputController);
+            new SoundController();
         }
 
         private void NotifyOfCompletion()
