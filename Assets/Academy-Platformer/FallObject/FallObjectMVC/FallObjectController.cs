@@ -8,50 +8,44 @@ namespace Academy_Platformer.FallObject
 {
     public class FallObjectController
     {
-        public event Action<FallObjectModel> PlayerCatchFallingObjectNotify; 
-        public event Action<FallObjectModel> ObjectFellNotify; 
-        
-        private readonly FallObjectFactory _factory = new();
+        public event Action<FallObjectController> PlayerCatchFallingObjectNotify; 
+        public event Action<FallObjectController> ObjectFellNotify;
 
-        private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
-        private List<FallObject> _fallObjects;
+        public FallObjectView View => _view;
+        public int PointsPerObject => _pointsPerObject;
+        public int Damage => _damage;
+
+        private FallObjectView _view;
+        
+        private int _pointsPerObject;
+        private int _damage;
         
         private const float FallSpeed = 1.0f;
 
         private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
 
-        public FallObjectController()
+        public FallObjectController(FallObjectView view, FallObjectModel model)
         {
             TickableManager.FixedUpdateNotify += FixedUpdate;
+
+            _pointsPerObject = model.PointsPerObject;
+            _damage = model.Damage;
+
+            _view = view;
+            _view.OnCollisionEnter2DNotify += OnCollisionEnter2D;
         }
 
-        public FallObjectView CreateObject(FallObjectType type)
-        {
-            var view = _factory.Create(type);
-            var model = _objectConfig.Get(type);
-            
-            view.OnCollisionEnter2DNotify += OnCollisionEnter2D;
-            
-            _fallObjects.Add(new FallObject(view, model));
-            
-            return view;
-        }
-
-        void OnCollisionEnter2D(FallObjectView view, Collision2D collision2D)
+        void OnCollisionEnter2D(Collision2D collision2D)
         {
             var player = collision2D.gameObject.GetComponent<PlayerView>();
             if (player != null)
             {
-                var model = _fallObjects.Find(fallObject => fallObject.View == view).Model;
-                PlayerCatchFallingObjectNotify?.Invoke(model);
+                PlayerCatchFallingObjectNotify?.Invoke(this);
             }          
         }
         private void FixedUpdate()
         {
-            foreach (var fallObject in _fallObjects)
-            {
-                fallObject.View.transform.position += _deltaVector * FallSpeed;
-            }
+            _view.transform.position += _deltaVector * FallSpeed;
         }
     }
 }
