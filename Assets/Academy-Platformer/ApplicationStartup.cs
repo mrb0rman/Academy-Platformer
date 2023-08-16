@@ -21,14 +21,13 @@ namespace ApplicationStartup
             _bootstrap.Add(new CreateMainCameraCommand());
             _bootstrap.Add(new CreateUICommand());
             _bootstrap.Add(new CreateTickableManagerCommand());
-            _bootstrap.Add(new CreateSoundManagerCommand());
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
             
             _inputController = new InputController();
-            
             new PlayerController(_inputController);
+            Instantiate(Resources.Load<AudioSource>("SoundManager"));
         }
 
         private void NotifyOfCompletion()
