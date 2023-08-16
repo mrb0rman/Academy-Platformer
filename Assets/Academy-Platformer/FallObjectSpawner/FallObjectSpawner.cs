@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Academy_Platformer.FallObject;
 using Academy_Platformer.FallObject.Factory;
 using UnityEngine;
@@ -11,18 +9,15 @@ public class FallObjectSpawner
     public FallObjectPool Pool => _pool;
     
     private Transform[] _spawnPoints;
-    
     private FallObjectPool _pool;
 
     private float _spawnPeriodMin;
-    
     private float _spawnPeriodMax;
-    
     private float _spawnPeriod;
-
     private int _typesCount;
 
-    public FallObjectSpawner(Transform[] spawnPoints, 
+    public FallObjectSpawner(
+        Transform[] spawnPoints, 
         float spawnPeriodMin, 
         float spawnPeriodMax)
     {
