@@ -167,3 +167,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fabdbad63e73b45a8ec97388513934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnPeriodMin: 0.5
+  _spawnPeriodMax: 2

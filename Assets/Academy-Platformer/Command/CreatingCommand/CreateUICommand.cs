@@ -4,9 +4,8 @@ namespace CreatingCommand
 {
     public class CreateUICommand : Command.Command
     {
-        public CreateUICommand()
+        public CreateUICommand(UIService.UIService UIService)
         {
-            var UIService = new UIService.UIService();
             
             var mainMenuWindowContrroler = new UIMainMenuController(UIService);
             var gameWindowController = new UIGameWindowController(UIService);

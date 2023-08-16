@@ -8,8 +8,7 @@ public class GameController
 
     public GameController(
         FallObjectSpawner spawner,
-        PlayerController playerController,
-        TickableManager tickableManager)
+        PlayerController playerController)
     {
         _spawner = spawner;
         _playerController = playerController;

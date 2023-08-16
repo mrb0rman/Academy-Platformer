@@ -14,11 +14,11 @@ namespace Academy_Platformer.FallObject
         private readonly FallObjectFactory _factory = new();
 
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
-        private List<FallObject> _fallObjects;
+        private List<FallObject> _fallObjects = new List<FallObject>();
         
         private const float FallSpeed = 1.0f;
 
-        private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
+        private Vector3 _deltaVector = new Vector3(0, -1f, 0);
 
         public FallObjectController()
         {
@@ -48,6 +48,11 @@ namespace Academy_Platformer.FallObject
         }
         private void FixedUpdate()
         {
+            if (_fallObjects.Count == 0)
+            {
+                Debug.Log("_fallObjects haven't any object");
+                return;
+            }
             foreach (var fallObject in _fallObjects)
             {
                 fallObject.View.transform.position += _deltaVector * FallSpeed;
