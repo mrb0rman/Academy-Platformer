@@ -26,7 +26,6 @@ namespace ApplicationStartup
             _bootstrap.Execute();
             
             _inputController = new InputController();
-            
             new PlayerController(_inputController);
         }
 
