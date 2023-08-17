@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 5367357368285915817}
   - component: {fileID: 8643539390554038641}
   - component: {fileID: 8014967501142509974}
-  - component: {fileID: 5137440467219353443}
+  - component: {fileID: 4914864570479389314}
   m_Layer: 5
   m_Name: HUDWindow
   m_TagString: Untagged
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5137440467219353443
+--- !u!114 &4914864570479389314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9130275346494819484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b7637d5eefc7d54aa03dc904d5e0e3f, type: 3}
+  m_Script: {fileID: 11500000, guid: ea922ed566de97b489066b0ed3fc53b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentScore: 0
