@@ -22,7 +22,6 @@ namespace Academy_Platformer.FallObject
 
         public FallObjectController()
         {
-            TickableManager.FixedUpdateNotify += FixedUpdate;
         }
 
         public FallObjectView CreateObject(FallObjectType type)
@@ -35,6 +34,15 @@ namespace Academy_Platformer.FallObject
             _fallObjects.Add(new FallObject(view, model));
             
             return view;
+        }
+
+        public void StartUpdate()
+        {
+            TickableManager.FixedUpdateNotify += FixedUpdate;
+        }
+        public void StopUpdate()
+        {
+            TickableManager.FixedUpdateNotify += FixedUpdate;
         }
 
         void OnCollisionEnter2D(FallObjectView view, Collision2D collision2D)
@@ -50,7 +58,6 @@ namespace Academy_Platformer.FallObject
         {
             if (_fallObjects.Count == 0)
             {
-                Debug.Log("_fallObjects haven't any object");
                 return;
             }
             foreach (var fallObject in _fallObjects)

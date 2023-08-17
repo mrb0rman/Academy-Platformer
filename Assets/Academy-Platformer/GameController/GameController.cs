@@ -1,4 +1,7 @@
+using System;
 using FactoryPlayer;
+using UIService;
+using UnityEngine;
 
 public class GameController
 {
@@ -6,10 +9,11 @@ public class GameController
 
     private PlayerController _playerController;
 
-    public GameController(
+    public GameController(UIGameWindow gameWindow,
         FallObjectSpawner spawner,
         PlayerController playerController)
     {
+        gameWindow.OpenGameWindowEvent += StartGame;
         _spawner = spawner;
         _playerController = playerController;
     }
@@ -17,18 +21,18 @@ public class GameController
     public void StartGame()
     {
         _playerController.Spawn();
+        _spawner.StartSpawn();
         TickableManager.UpdateNotify += Update;
     }
 
     public void StopGame()
     {
         _playerController.DestroyView();
-        _spawner.Pool.AllReturnToPool();
+        _spawner.StopSpawn();
         TickableManager.UpdateNotify -= Update;
     }
     
     void Update()
     {
-        _spawner.Update();
     }
 }

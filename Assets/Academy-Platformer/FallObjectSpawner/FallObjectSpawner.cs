@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Academy_Platformer.FallObject;
 using UnityEngine;
@@ -13,6 +12,8 @@ public class FallObjectSpawner
     
     private FallObjectPool _pool;
 
+    private FallObjectController _fallObjectController;
+
     private float _spawnPeriodMin;
     
     private float _spawnPeriodMax;
@@ -21,20 +22,39 @@ public class FallObjectSpawner
 
     private int _typesCount;
 
-    public FallObjectSpawner(Transform[] spawnPoints, 
+    public FallObjectSpawner(
         float spawnPeriodMin, 
         float spawnPeriodMax)
     {
-        _spawnPoints = spawnPoints;
+        List<Transform> spawnPointList = new();
+        var SpawnPointsPrefab = Resources.Load<GameObject>(ResourcesConst.ResourcesConst.SpawnPoints);
+        
+        spawnPointList.AddRange(SpawnPointsPrefab.GetComponentsInChildren<Transform>());
+        spawnPointList.Remove(SpawnPointsPrefab.transform);
+        
+        _spawnPoints = spawnPointList.ToArray();
         _spawnPeriodMin = spawnPeriodMin;
         _spawnPeriodMax = spawnPeriodMax;
+        _fallObjectController = new();
         
-        _pool = new FallObjectPool(new FallObjectController());
+        _pool = new FallObjectPool(_fallObjectController);
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
     }
+
+    public void StartSpawn()
+    {
+        TickableManager.UpdateNotify += Update;
+        _fallObjectController.StartUpdate();
+    }
+    public void StopSpawn()
+    {
+        TickableManager.UpdateNotify -= Update;
+        _fallObjectController.StopUpdate();
+        Pool.AllReturnToPool();
+    }
     
-    public void Update()
+    private void Update()
     {
         _spawnPeriod -= Time.deltaTime;
 
