@@ -10,6 +10,7 @@ namespace Academy_Platformer.FallObject
         public event Action<FallObjectController> ObjectFellNotify;
 
         public FallObjectView View => _view;
+        private FallObjectAnimator _animator;
         public int PointsPerObject => _pointsPerObject;
         public int Damage => _damage;
 
