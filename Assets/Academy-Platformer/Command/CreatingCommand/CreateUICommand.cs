@@ -14,6 +14,12 @@ namespace CreatingCommand
             var hudWindowController = new HUDWindowController(UIService);
             
             UIService.Show<UIMainMenuWindow>();
+            
+            var mainWindow = UIService.Get<UIMainMenuWindow>();
+            mainWindow.OnStartButtonClickEvent += ()=>
+            {
+                new GameController();
+            };
         }
 
         public override void Execute()

@@ -24,9 +24,6 @@ namespace ApplicationStartup
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
-            
-            _inputController = new InputController();
-            new PlayerController(_inputController);
         }
 
         private void NotifyOfCompletion()
