@@ -8,7 +8,7 @@ namespace FactoryPlayer
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
-        
+
         public HPController HpController => _hpController;
         
         private InputController _inputController;
@@ -18,6 +18,7 @@ namespace FactoryPlayer
         private IFactoryCharacter _factoryPlayer;
         private PlayerStorage _playerStorage;
         private PlayerMovementController _playerMovementController;
+        private PlayerAnimator _playerAnimator;
         
         private float _currentHealth;
         private float _currentSpeed;
@@ -56,7 +57,7 @@ namespace FactoryPlayer
         public void SetSpeed(float newSpeed)
         {
             _currentSpeed = newSpeed;
-            
+
             OnChangeSpeed?.Invoke(_currentSpeed);
         }
 
