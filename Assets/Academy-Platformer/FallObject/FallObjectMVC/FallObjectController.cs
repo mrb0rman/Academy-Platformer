@@ -12,7 +12,8 @@ namespace Academy_Platformer.FallObject
         public event Action<FallObjectModel> ObjectFellNotify; 
         
         private readonly FallObjectFactory _factory = new();
-
+      
+        private FallObjectAnimator _animator;
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.ResourcesConst.FallObjectConfigPath);
         private List<FallObject> _fallObjects = new List<FallObject>();
         

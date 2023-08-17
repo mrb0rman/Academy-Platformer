@@ -65,7 +65,6 @@ namespace UIService
             {
                 Action changeParent = () => window.transform.SetParent(_uIRoot.PoolContainer);
                 window.OnHideEvent += changeParent;
-                window.OnHideEvent += ()=> window.OnHideEvent = null;
                 window.Hide();
                 
                 onEnd?.Invoke();
@@ -91,8 +90,8 @@ namespace UIService
 
                 _viewStorage.Add(windowType, (UIWindow)window);
             }
-        }    
-    
+        }
+
         private void Init(Type t, Transform parent = null)
         {
             if(_viewStorage.ContainsKey(t))

@@ -1,4 +1,4 @@
-﻿using Bootstrap;
+using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
 using UIService;
@@ -48,7 +48,6 @@ namespace ApplicationStartup
                 gameWindow,
                 spawner,
                 _playerController);
-
         }
 
         private void NotifyOfCompletion()
