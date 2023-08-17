@@ -28,8 +28,7 @@ namespace ApplicationStartup
             
             _inputController = new InputController();
             new PlayerController(_inputController);
-            var soundView = Instantiate(Resources.Load<SoundView>("SoundManager"));
-            new SoundController(soundView);
+            new SoundController(Instantiate(Resources.Load<SoundView>("SoundManager")));
 
         }
 
