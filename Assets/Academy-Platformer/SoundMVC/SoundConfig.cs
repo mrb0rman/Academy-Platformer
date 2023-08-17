@@ -12,7 +12,5 @@ namespace Academy_Platformer.SoundMVC
 
     [Serializable]
     public struct SoundModel
-    {
-        
-    }
+    { }
 }

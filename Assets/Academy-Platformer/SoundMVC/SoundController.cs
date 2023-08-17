@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Academy_Platformer.SoundMVC
@@ -8,18 +9,24 @@ namespace Academy_Platformer.SoundMVC
         private SoundConfig _soundConfig;
         private SoundView _soundView;
         private AudioSource _audioSource;
+        private bool _isFinished;
 
         public SoundController(SoundView soundView)
         {
             _soundView = soundView;
             _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.ResourcesConst.SoundConfig);
             _audioSource = _soundView.GetComponent<AudioSource>();
+            
+            _soundView.StartCoroutine(Play("StartGame"));
         }
 
-        private void Play(String soundName)
+        IEnumerator Play(String soundName)
         {
-            var playingSound = Resources.Load<AudioClip>(soundName);
-            _audioSource.clip = playingSound;
+            _audioSource.clip = Resources.Load<AudioClip>($"Sounds/{soundName}");
+            
+            _audioSource.Play();
+            yield return new WaitForSeconds(_audioSource.clip.length);
+            _audioSource.clip = null;
         }
     }
 }
