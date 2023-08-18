@@ -11,7 +11,8 @@ namespace Academy_Platformer.SoundMVC
 
         public SoundController()
         {
-            _soundView = Object.Instantiate(Resources.Load<SoundView>("SoundManager"));
+            var soundManager = Resources.Load<SoundView>(ResourcesConst.ResourcesConst.SoundManager);
+            _soundView = Object.Instantiate(soundManager);
             _audioSource = _soundView.GetComponent<AudioSource>();
             _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.ResourcesConst.SoundConfig);
         }
