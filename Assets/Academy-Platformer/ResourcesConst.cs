@@ -10,5 +10,6 @@
         public const string MainCamera = "Main Camera";
         public const string SoundManager = "SoundManager";
         public const string ScoreCounter = "Score Counter";
+        public const float InitialFallSpeed = 8.0f;
     }
 }

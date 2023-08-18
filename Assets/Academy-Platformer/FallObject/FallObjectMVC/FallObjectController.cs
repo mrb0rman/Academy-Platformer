@@ -14,12 +14,12 @@ namespace Academy_Platformer.FallObject
         public int PointsPerObject => _pointsPerObject;
         public int Damage => _damage;
 
-        private const float FallSpeed = 1.0f;
-
         private FallObjectView _view;
         
         private int _pointsPerObject;
         private int _damage;
+        
+        private float _fallSpeed;
 
         private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
 
@@ -34,6 +34,8 @@ namespace Academy_Platformer.FallObject
 
             _view = view;
             _view.OnCollisionEnter2DNotify += OnCollisionEnter2D;
+
+            _fallSpeed = ResourcesConst.ResourcesConst.InitialFallSpeed;
         }
 
         void OnCollisionEnter2D(Collision2D collision2D)
@@ -44,9 +46,15 @@ namespace Academy_Platformer.FallObject
                 PlayerCatchFallingObjectNotify?.Invoke(this);
             }          
         }
+
+        public void ChangeFallSpeed(float speed)
+        {
+            _fallSpeed = speed;
+        }
+        
         private void FixedUpdate()
         {
-            _view.transform.position += _deltaVector * FallSpeed;
+            _view.transform.position += _deltaVector * _fallSpeed;
         }
     }
 }
