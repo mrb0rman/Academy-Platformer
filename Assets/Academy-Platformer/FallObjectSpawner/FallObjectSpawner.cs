@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Academy_Platformer.FallObject;
 using Academy_Platformer.FallObject.Factory;
 using UnityEngine;
@@ -11,8 +10,6 @@ public class FallObjectSpawner
     
     private Transform[] _spawnPoints;
     private FallObjectPool _pool;
-
-    private FallObjectController _fallObjectController;
 
     private float _spawnPeriodMin;
     private float _spawnPeriodMax;
@@ -34,7 +31,7 @@ public class FallObjectSpawner
         _spawnPeriodMax = spawnPeriodMax;
         _fallObjectController = new();
         
-        _pool = new FallObjectPool(_fallObjectController);
+        _pool = new FallObjectPool(new FallObjectFactory());
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
     }
