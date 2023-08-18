@@ -25,7 +25,6 @@ namespace SoundPool
             {
                 Debug.Log($"Sound named {nameSound} not found.");
             }
-            
             return _dictSound[nameSound];
         }
         

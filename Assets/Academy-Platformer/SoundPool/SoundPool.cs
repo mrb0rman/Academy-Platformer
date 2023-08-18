@@ -1,59 +1,70 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SoundPool
 {
     public class SoundPool
     {
+        private SoundView _soundView;
+        private List<SoundView> _listSoundViews;
+        private SoundPoolView _soundPoolView;
         private SoundConfig _soundConfig;
-        
-        private Dictionary<string, AudioSource> _dictSound;
 
-        public SoundPool() 
+        public SoundPool()
         {
-            _dictSound = new Dictionary<string, AudioSource>(); 
+            _listSoundViews = new List<SoundView>();
             
+            _soundView = Resources.Load<SoundView>(ResourcesConst.ResourcesConst.SoundView);
+            _soundPoolView = Object.Instantiate(Resources.Load<SoundPoolView>(ResourcesConst.ResourcesConst.SoundPoolView));
             _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.ResourcesConst.SoundConfig);
         }
 
-        public AudioSource TakeFromPool(string nameSource, string nameSound, float volume = 1)
+        public SoundView TakeFromPool(string nameSound, float volume = 1)
         {
-            if (!_dictSound.ContainsKey(nameSource))
-            {
-                CreateAudioSource(nameSource, nameSound, volume);
-            }
+            var sound = _listSoundViews[SearchingEmptySoundView()];
             
-            SetSound(nameSource, nameSound, volume);
+            sound.gameObject.SetActive(true);
+            sound.AudioSource.clip = _soundConfig.Get(nameSound).Sound;
+            sound.AudioSource.volume = volume;
             
-            _dictSound[nameSource]?.Play();
-                
-            return _dictSound[nameSource];
+            sound.AudioSource.Play();
+
+            return sound;
         }
 
-        public void ReturnToPool()
+        public void DisablingCompletedSound()
         {
-            foreach (var source in _dictSound)
+            foreach (var soundView in _listSoundViews)
             {
-                if (!source.Value.isPlaying)
+                if (!soundView.AudioSource.isPlaying)
                 {
-                    source.Value.clip = null; 
+                    soundView.AudioSource.clip = null;
+                    soundView.gameObject.SetActive(false);
                 }
             }
         }
         
-        private void CreateAudioSource(string nameSource, string nameSound, float volume)
+        private void CreateSoundView()
         {
-            var audio = Object.Instantiate(Resources.Load<AudioSource>(ResourcesConst.ResourcesConst.SoundManager));
-            audio.clip = _soundConfig.Get(nameSound).Sound;
-            audio.volume = volume;
-            
-            _dictSound.Add(nameSource, audio);
+            _listSoundViews.Add(Object.Instantiate(_soundView, _soundPoolView.transform));
         }
 
-        private void SetSound(string nameSource, string nameSound, float volume)
+        private int SearchingEmptySoundView()
         {
-            _dictSound[nameSource].clip = _soundConfig.Get(nameSound).Sound;
-            _dictSound[nameSource].volume = volume;
+            for (int i = 0; i < _listSoundViews.Count; i++)
+            {
+                if (!_listSoundViews[i].AudioSource.isPlaying)
+                {
+                    return i;
+                }
+            }
+
+            CreateSoundView();
+            
+            return _listSoundViews.Count - 1;
         }
+        
     }
 }
