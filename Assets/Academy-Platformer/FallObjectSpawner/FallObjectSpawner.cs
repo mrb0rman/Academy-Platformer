@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Academy_Platformer.FallObject;
 using Academy_Platformer.FallObject.Factory;
 using UnityEngine;
@@ -29,8 +30,7 @@ public class FallObjectSpawner
         _spawnPoints = spawnPointList.ToArray();
         _spawnPeriodMin = spawnPeriodMin;
         _spawnPeriodMax = spawnPeriodMax;
-        _fallObjectController = new();
-        
+
         _pool = new FallObjectPool(new FallObjectFactory());
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
@@ -39,12 +39,10 @@ public class FallObjectSpawner
     public void StartSpawn()
     {
         TickableManager.UpdateNotify += Update;
-        _fallObjectController.StartUpdate();
     }
     public void StopSpawn()
     {
         TickableManager.UpdateNotify -= Update;
-        _fallObjectController.StopUpdate();
         Pool.AllReturnToPool();
     }
     
