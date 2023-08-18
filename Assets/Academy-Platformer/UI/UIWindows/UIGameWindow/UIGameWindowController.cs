@@ -14,6 +14,7 @@ namespace UIService
         public void ShowEndMenuWindow()
         {
             _uiService.Hide<UIGameWindow>();
+            _uiService.Hide<HUDWindow>();
             _uiService.Show<UIEndGameWindow>();
         }
     }

@@ -9,19 +9,13 @@ namespace Academy_Platformer.ScoreCounter
         
         private int _score;
 
-        public ScoreCounter(FallObjectController fallObjectController)
+        public void PlayerCatchFallObjectEventHandler(FallObjectController controller)
         {
-            fallObjectController.PlayerCatchFallingObjectNotify += PlayerCatchFallObjectEventHandler;
-            fallObjectController.ObjectFellNotify += ObjectFellEventHandler;
-        }
-
-        public void PlayerCatchFallObjectEventHandler(FallObjectModel model)
-        {
-            _score += model.PointsPerObject;
+            _score += controller.PointsPerObject;
         }        
-        public void ObjectFellEventHandler(FallObjectModel model)
+        public void ObjectFellEventHandler(FallObjectController controller)
         {
-            _score -= model.Damage;
+            _score -= controller.Damage;
         }
     }
 }

@@ -8,13 +8,13 @@ namespace Academy_Platformer.FallObject
         public Action<FallObjectView> OnDeathEvent;
         public SpriteRenderer SpriteRenderer => spriteRenderer;
         
-        public event Action<FallObjectView, Collision2D> OnCollisionEnter2DNotify; 
+        public event Action<Collision2D> OnCollisionEnter2DNotify; 
         
         [SerializeField] private SpriteRenderer spriteRenderer;
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            OnCollisionEnter2DNotify?.Invoke(this, other);
+            OnCollisionEnter2DNotify?.Invoke(other);
         }
     }
 }
