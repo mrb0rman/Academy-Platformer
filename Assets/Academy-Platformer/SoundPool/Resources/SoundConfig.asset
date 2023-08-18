@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644ae195c49c497a92eb30a5283be2b1, type: 3}
+  m_Name: SoundConfig
+  m_EditorClassIdentifier: 
+  soundModel:
+  - NameSound: BackStart
+    Sound: {fileID: 8300000, guid: c9e5e6de17c6edd47880c02024de35a3, type: 3}
+  - NameSound: BackMain
+    Sound: {fileID: 8300000, guid: f49157a9dd965a64089f52a456a35d4f, type: 3}
+  - NameSound: BackStart
+    Sound: {fileID: 8300000, guid: c9e5e6de17c6edd47880c02024de35a3, type: 3}
+  - NameSound: BackStart
+    Sound: {fileID: 8300000, guid: c9e5e6de17c6edd47880c02024de35a3, type: 3}

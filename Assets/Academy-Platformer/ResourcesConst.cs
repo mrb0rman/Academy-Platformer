@@ -10,5 +10,6 @@
         public const string MainCamera = "Main Camera";
         public const string SoundManager = "SoundManager";
         public const string ScoreCounter = "Score Counter";
+        public const string SoundConfig = "SoundConfig";
     }
 }
