@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using Academy_Platformer.FallObject;
+using Academy_Platformer.FallObject.Factory;
 using UnityEngine;
 
 public class FallObjectPool
 {
-    private FallObjectController _fallObjectController;
+    private FallObjectFactory _factory;
 
-    private List<FallObjectView> _pool;
+    private Dictionary<FallObjectView, FallObjectController> _pool;
 
-    public FallObjectPool(FallObjectController controller)
+    public FallObjectPool(FallObjectFactory factory)
     {
-        _fallObjectController = controller;
-        _pool = new List<FallObjectView>();
+        _factory = factory;
+        _pool = new Dictionary<FallObjectView, FallObjectController>();
     }
 
     public FallObjectView CreateObject(FallObjectType type)
@@ -23,15 +24,16 @@ public class FallObjectPool
             return freeObject;
         }
         
-        var createdObject = _fallObjectController.CreateObject(type);
-        _pool.Add(createdObject);
+        var value = _factory.Create(type);
+        var key = value.View;
+        _pool.Add(key, value);
 
-        return createdObject;
+        return key;
     }
 
     private FallObjectView GetFreeElement()
     {
-        foreach (var fallObject in _pool)
+        foreach (var fallObject in _pool.Keys)
         {
             if (!fallObject.gameObject.activeInHierarchy)
             {
@@ -45,20 +47,20 @@ public class FallObjectPool
 
     public void ReturnToPool(FallObjectView fallObject)
     {
-        var objectToReturn = _pool.Find(i => i == fallObject);
-
-        if (!objectToReturn)
+        if (_pool.TryGetValue(fallObject, out var controller))
+        {
+            controller.View.gameObject.SetActive(false);
+        }
+        else
         {
             Debug.Log("There is no such object in pool");
             return;
         }
-
-        objectToReturn.gameObject.SetActive(false);
     }
 
     public void AllReturnToPool()
     {
-        foreach (var fallObject in _pool)
+        foreach (var fallObject in _pool.Keys)
         {
             if (fallObject.gameObject.activeInHierarchy)
             {

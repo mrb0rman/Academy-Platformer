@@ -11,6 +11,7 @@ namespace CreatingCommand
             var mainMenuWindowContrroler = new UIMainMenuController(UIService);
             var gameWindowController = new UIGameWindowController(UIService);
             var endMenuWindowController = new UIEndGameWindowController(UIService);
+            var hudWindowController = new HUDWindowController(UIService);
             
             UIService.Show<UIMainMenuWindow>();
         }
