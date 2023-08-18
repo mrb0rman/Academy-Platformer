@@ -10,6 +10,7 @@ namespace UIService
         {
             OpenGameWindowEvent?.Invoke();
             base.Show();
+            UIService.Show<HUDWindow>();
         }
 
         public override void Hide()
