@@ -8,28 +8,49 @@ namespace Academy_Platformer.SoundMVC
     public class SoundConfig : ScriptableObject
     {
         [SerializeField] private SoundModels[] soundModels;
-        private Dictionary<string, AudioClip> _dict = new();
-        private bool _inited;
+        
+        private Dictionary<SoundName, AudioClip> _dict = new();
+        
+        [NonSerialized] private bool _inited;
 
         private void Init()
         {
             foreach (var model in soundModels)
+            {
                 _dict.Add(model.Name, model.Clip);
+            }
+            _inited = true;
         }
 
-        public AudioClip Get(string name)
+        public AudioClip Get(SoundName soundName)
         {
             if (!_inited)
+            {
                 Init();
-
-            return _dict[name];
+            }
+            
+            return _dict[soundName];
         }
+    }
+
+    public enum SoundName
+    {
+        StartGame,
+        BackStart,
+        BackMain,
+        GameOver,
+        Restart,
+        GetDamage,
+        Buff1,
+        Buff2,
+        Debuff1,
+        Debuff2
     }
 
     [Serializable]
     public struct SoundModels
     {
-        public string Name;
+        public SoundName Name;
         public AudioClip Clip;
     }
 }

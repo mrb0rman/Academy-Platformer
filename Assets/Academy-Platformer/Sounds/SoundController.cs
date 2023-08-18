@@ -9,16 +9,14 @@ namespace Academy_Platformer.SoundMVC
         private SoundView _soundView;
         private AudioSource _audioSource;
 
-        public SoundController(SoundView soundView)
+        public SoundController()
         {
-            _soundView = soundView;
-            _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.ResourcesConst.SoundConfig);
+            _soundView = Object.Instantiate(Resources.Load<SoundView>("SoundManager"));
             _audioSource = _soundView.GetComponent<AudioSource>();
-
-            _soundView.StartCoroutine(Play("StartGame"));
+            _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.ResourcesConst.SoundConfig);
         }
 
-        IEnumerator Play(string soundName)
+        IEnumerator Play(SoundName soundName)
         {
             _audioSource.clip = _soundConfig.Get(soundName);
             
