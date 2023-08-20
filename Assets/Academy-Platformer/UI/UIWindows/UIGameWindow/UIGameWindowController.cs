@@ -9,7 +9,6 @@ namespace UIService
         {
             _uiService = uiService;
             _GameWindow = uiService.Get<UIGameWindow>();
-            _GameWindow.GameController = new GameController();
         }
 
         public void ShowEndMenuWindow()
