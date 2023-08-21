@@ -1,4 +1,6 @@
-﻿using Bootstrap;
+﻿using Academy_Platformer.ScoreCounter;
+using Academy_Platformer.SoundMVC;
+using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
 using UIService;
@@ -11,7 +13,8 @@ namespace ApplicationStartup
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
         private InputController _inputController;
         private PlayerStorage _playerStorage;
-        private UIService.UIService _uiService;
+        private ScoreCounter _scoreCounter;
+        private HUDWindowController _hudWindowController;
 
         private void Start()
         {
@@ -23,6 +26,7 @@ namespace ApplicationStartup
         private void StartBootstrap()
         {
             _bootstrap.Add(new CreateMainCameraCommand());
+            _bootstrap.Add(new CreateUICommand(ref _hudWindowController));
             _bootstrap.Add(new CreateTickableManagerCommand());
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
@@ -33,18 +37,12 @@ namespace ApplicationStartup
         {
             _uiService = new UIService.UIService();
             
-            var mainMenuWindowContrroler = new UIMainMenuController(_uiService);
-            var gameWindowController = new UIGameWindowController(_uiService);
-            var endMenuWindowController = new UIEndGameWindowController(_uiService);
-            var hudWindowController = new HUDWindowController(_uiService);
+            _inputController = new InputController();
+            new PlayerController(_inputController);
+            new SoundController();
             
-            _uiService.Show<UIMainMenuWindow>();
-        }
-
-        private void CreateGameController()
-        {
-            var mainMenuWindow = _uiService.Get<UIGameWindow>();
-            mainMenuWindow.GameController = new GameController();
+            _scoreCounter = new ScoreCounter();
+            _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
         }
 
         private void NotifyOfCompletion()
