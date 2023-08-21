@@ -15,6 +15,8 @@ namespace ApplicationStartup
         private PlayerStorage _playerStorage;
         private ScoreCounter _scoreCounter;
         private HUDWindowController _hudWindowController;
+        private UIService.UIService _uiService;
+        private GameController _gameController;
 
         private void Start()
         {
@@ -26,7 +28,6 @@ namespace ApplicationStartup
         private void StartBootstrap()
         {
             _bootstrap.Add(new CreateMainCameraCommand());
-            _bootstrap.Add(new CreateUICommand(ref _hudWindowController));
             _bootstrap.Add(new CreateTickableManagerCommand());
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
@@ -37,12 +38,27 @@ namespace ApplicationStartup
         {
             _uiService = new UIService.UIService();
             
-            _inputController = new InputController();
-            new PlayerController(_inputController);
+            var mainMenuWindowContrroler = new UIMainMenuController(_uiService);
+            var gameWindowController = new UIGameWindowController(_uiService);
+            var endMenuWindowController = new UIEndGameWindowController(_uiService);
+            _hudWindowController = new HUDWindowController(_uiService);
+            
+            _uiService.Show<UIMainMenuWindow>();
+            
             new SoundController();
             
             _scoreCounter = new ScoreCounter();
             _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
+        }
+        private void CreateGameController()
+        {
+            _gameController = new GameController();
+            
+            var mainMenuWindow = _uiService.Get<UIMainMenuWindow>();
+            mainMenuWindow.OnStartButtonClickEvent += () =>
+            {
+                _gameController.StartGame();
+            };
         }
 
         private void NotifyOfCompletion()
