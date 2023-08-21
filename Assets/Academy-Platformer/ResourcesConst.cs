@@ -10,6 +10,9 @@
         public const string MainCamera = "Main Camera";
         public const string SpawnPoints = "SpawnPoints";
         public const string SoundManager = "SoundManager";
+        public const string SoundConfig = "SoundConfig";
         public const string ScoreCounter = "Score Counter";
+        public const string SoundPoolView = "SoundPoolView";
+        public const string SoundView = "SoundView";
     }
 }
