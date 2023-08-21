@@ -1,4 +1,6 @@
-﻿using Bootstrap;
+﻿using Academy_Platformer.ScoreCounter;
+using Academy_Platformer.SoundMVC;
+using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
 using UIService;
@@ -13,6 +15,7 @@ namespace ApplicationStartup
         private PlayerStorage _playerStorage;
         private UIService.UIService _uiService;
         private PlayerController _playerController;
+        private ScoreCounter _scoreCounter;
 
         private void Start()
         {
@@ -36,6 +39,12 @@ namespace ApplicationStartup
             
             _inputController = new InputController();
             _playerController = new PlayerController(_inputController, hudWindowController);
+
+            new PlayerController(_inputController);
+            new SoundController();
+            
+            _scoreCounter = new ScoreCounter();
+            _scoreCounter.ScoreChangeNotify += hudWindowController.ChangeScore;
         }
 
         private void NotifyOfCompletion()
