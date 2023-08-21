@@ -39,8 +39,7 @@ namespace ApplicationStartup
             
             _inputController = new InputController();
             _playerController = new PlayerController(_inputController, hudWindowController);
-
-            new PlayerController(_inputController);
+            
             new SoundController();
             
             _scoreCounter = new ScoreCounter();
