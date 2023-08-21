@@ -4,15 +4,16 @@ namespace CreatingCommand
 {
     public class CreateUICommand : Command.Command
     {
-        public CreateUICommand(ref HUDWindowController hudWindowController)
+        public CreateUICommand(UIService.UIService uiService ,ref HUDWindowController hudWindowController)
         {
             
-            var mainMenuWindowContrroler = new UIMainMenuController(UIService);
-            var gameWindowController = new UIGameWindowController(UIService);
-            var endMenuWindowController = new UIEndGameWindowController(UIService);
-            hudWindowController = new HUDWindowController(UIService);
             
-            UIService.Show<UIMainMenuWindow>();
+            var mainMenuWindowContrroler = new UIMainMenuController(uiService);
+            var gameWindowController = new UIGameWindowController(uiService);
+            var endMenuWindowController = new UIEndGameWindowController(uiService);
+            hudWindowController = new HUDWindowController(uiService);
+            
+            uiService.Show<UIMainMenuWindow>();
         }
 
         public override void Execute()

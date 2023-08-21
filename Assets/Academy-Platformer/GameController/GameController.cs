@@ -10,12 +10,11 @@ public class GameController
     private PlayerController _playerController;
 
     public GameController(UIGameWindow gameWindow,
-        FallObjectSpawner spawner,
         PlayerController playerController)
     {
-        gameWindow.OpenGameWindowEvent += StartGame;
-        _spawner = spawner;
+        _spawner = new FallObjectSpawner();
         _playerController = playerController;
+        gameWindow.OpenGameWindowEvent += StartGame;
     }
 
     public void StartGame()

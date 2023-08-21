@@ -12,14 +12,12 @@ public class FallObjectSpawner
     private Transform[] _spawnPoints;
     private FallObjectPool _pool;
 
-    private float _spawnPeriodMin;
-    private float _spawnPeriodMax;
+    private const float _spawnPeriodMin = 1f;
+    private const float _spawnPeriodMax = 4f;
     private float _spawnPeriod;
     private int _typesCount;
 
-    public FallObjectSpawner(
-        float spawnPeriodMin, 
-        float spawnPeriodMax)
+    public FallObjectSpawner()
     {
         List<Transform> spawnPointList = new();
         var SpawnPointsPrefab = Resources.Load<GameObject>(ResourcesConst.ResourcesConst.SpawnPoints);
@@ -28,8 +26,6 @@ public class FallObjectSpawner
         spawnPointList.Remove(SpawnPointsPrefab.transform);
         
         _spawnPoints = spawnPointList.ToArray();
-        _spawnPeriodMin = spawnPeriodMin;
-        _spawnPeriodMax = spawnPeriodMax;
 
         _pool = new FallObjectPool(new FallObjectFactory());
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);

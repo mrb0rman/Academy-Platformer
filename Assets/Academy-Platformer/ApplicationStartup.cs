@@ -10,13 +10,12 @@ namespace ApplicationStartup
 {
     public class ApplicationStartup : MonoBehaviour
     {
-        [SerializeField] private float _spawnPeriodMin;
-        [SerializeField] private float _spawnPeriodMax;
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
         private InputController _inputController;
         private PlayerStorage _playerStorage;
         private ScoreCounter _scoreCounter;
         private HUDWindowController _hudWindowController;
+        private GameController _gameController;
 
         private void Start()
         {
@@ -25,35 +24,25 @@ namespace ApplicationStartup
 
         private void StartBootstrap()
         {
-            _uiService = new();
+            var uiService = new UIService.UIService();
             _bootstrap.Add(new CreateMainCameraCommand());
-            _bootstrap.Add(new CreateUICommand(ref _hudWindowController));
+            _bootstrap.Add(new CreateUICommand(uiService ,ref _hudWindowController));
             _bootstrap.Add(new CreateTickableManagerCommand());
-            
-            
-        
-
 
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
             
             _inputController = new InputController();
-            _playerController = new PlayerController(_inputController);
+            var playerController = new PlayerController(_inputController);
             new SoundController();
             
             _scoreCounter = new ScoreCounter();
             _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
-
             
-            
-            var gameWindow = _uiService.Get<UIGameWindow>();
-            var spawner = new FallObjectSpawner(
-                _spawnPeriodMin,
-                _spawnPeriodMax);
+            var gameWindow = uiService.Get<UIGameWindow>();
             _gameController = new GameController(
                 gameWindow,
-                spawner,
-                _playerController);
+                playerController);
         }
 
         private void NotifyOfCompletion()
