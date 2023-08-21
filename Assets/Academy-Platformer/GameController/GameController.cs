@@ -1,5 +1,4 @@
 using FactoryPlayer;
-using UnityEngine;
 
 public class GameController
 {
@@ -9,7 +8,7 @@ public class GameController
 
     public GameController()
     {
-        _spawner = new FallObjectSpawner(250,1f, 5f);
+        _spawner = new FallObjectSpawner(-7,7,1f, 5f);
         _inputController = new InputController();
         _playerController = new PlayerController(_inputController);
     }

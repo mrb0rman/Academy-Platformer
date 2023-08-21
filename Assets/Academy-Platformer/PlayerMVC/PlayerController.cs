@@ -33,7 +33,6 @@ namespace FactoryPlayer
             
             _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
-            
         }
         
         public PlayerView Spawn()
