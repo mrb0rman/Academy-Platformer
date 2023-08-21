@@ -9,7 +9,9 @@
         public const string TickableManager = "TickableManager";
         public const string MainCamera = "Main Camera";
         public const string SoundManager = "SoundManager";
+        public const string SoundConfig = "SoundConfig";
         public const string ScoreCounter = "Score Counter";
-        public const float InitialFallSpeed = 8.0f;
+        public const string SoundPoolView = "SoundPoolView";
+        public const string SoundView = "SoundView";
     }
 }
