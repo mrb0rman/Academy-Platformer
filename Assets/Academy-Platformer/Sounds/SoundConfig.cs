@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Academy_Platformer.SoundMVC
+namespace Academy_Platformer.Sounds
 {
     [CreateAssetMenu(fileName = "SoundConfig", menuName = "Configs/SoundConfig", order = 1)]
     public class SoundConfig : ScriptableObject
@@ -27,6 +27,11 @@ namespace Academy_Platformer.SoundMVC
             if (!_inited)
             {
                 Init();
+            }
+            
+            if (!_dict.ContainsKey(soundName))
+            {
+                Debug.LogWarning($"Sound named {soundName} not found.");
             }
             
             return _dict[soundName];

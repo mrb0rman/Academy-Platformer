@@ -1,40 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SoundPool
+namespace Academy_Platformer.Sounds
 {
     public class SoundPool
     {
         private SoundView _soundView;
         private List<SoundView> _listSoundViews;
-        private SoundPoolView _soundPoolView;
         private SoundConfig _soundConfig;
+        private GameObject _soundPoolView;
 
         public SoundPool()
         {
             _listSoundViews = new List<SoundView>();
-            
+            _soundPoolView = new GameObject("SoundPoolView");
             _soundView = Resources.Load<SoundView>(ResourcesConst.ResourcesConst.SoundView);
-            _soundPoolView = Object.Instantiate(Resources.Load<SoundPoolView>(ResourcesConst.ResourcesConst.SoundPoolView));
             _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.ResourcesConst.SoundConfig);
         }
 
-        public SoundView TakeFromPool(string nameSound, float volume = 1)
+        public SoundView TakeFromPool(SoundName soundName, float volume)
         {
-            var sound = _listSoundViews[SearchingEmptySoundView()];
+            var sound = _listSoundViews[SearchEmptySoundView()];
             
             sound.gameObject.SetActive(true);
-            sound.AudioSource.clip = _soundConfig.Get(nameSound).Sound;
+            sound.AudioSource.clip = _soundConfig.Get(soundName);
             sound.AudioSource.volume = volume;
             
-            sound.AudioSource.Play();
-
             return sound;
         }
 
-        public void DisablingCompletedSound()
+        public void DisableCompletedSounds()
         {
             foreach (var soundView in _listSoundViews)
             {
@@ -51,7 +46,7 @@ namespace SoundPool
             _listSoundViews.Add(Object.Instantiate(_soundView, _soundPoolView.transform));
         }
 
-        private int SearchingEmptySoundView()
+        private int SearchEmptySoundView()
         {
             for (int i = 0; i < _listSoundViews.Count; i++)
             {
@@ -65,6 +60,5 @@ namespace SoundPool
             
             return _listSoundViews.Count - 1;
         }
-        
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Academy_Platformer.ScoreCounter;
-using Academy_Platformer.SoundMVC;
 using Bootstrap;
 using CreatingCommand;
 using FactoryPlayer;
@@ -32,7 +31,6 @@ namespace ApplicationStartup
             
             _inputController = new InputController();
             new PlayerController(_inputController);
-            new SoundController();
             
             _scoreCounter = new ScoreCounter();
             _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
