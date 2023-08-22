@@ -1,18 +1,48 @@
+using Academy_Platformer.ScoreCounter;
+using Academy_Platformer.SoundMVC;
 using FactoryPlayer;
+using UIService;
 
 public class GameController
 {
     private FallObjectSpawner _spawner;
 
     private PlayerController _playerController;
+    private InputController _inputController;
 
-    public GameController(
-        FallObjectSpawner spawner,
-        PlayerController playerController,
-        TickableManager tickableManager)
+    private UIService.UIService _uiService;
+    private HUDWindowController _hudWindowController;
+
+    private SoundController _soundController;
+
+    private ScoreCounter _scoreCounter;
+
+    public GameController()
     {
-        _spawner = spawner;
-        _playerController = playerController;
+        _uiService = new UIService.UIService();
+
+        CreateUIWindowControllers();
+
+        _inputController = new InputController();
+        _soundController = new SoundController();
+        _scoreCounter = new ScoreCounter();
+
+        _playerController = new PlayerController(_inputController, _hudWindowController);
+    }
+
+    private void CreateUIWindowControllers()
+    {
+        var mainMenuController = new UIMainMenuController(_uiService);
+        var gameWindowController = new UIGameWindowController(_uiService);
+        var endGameWindowController = new UIEndGameWindowController(_uiService);
+        _hudWindowController = new HUDWindowController(_uiService);
+    }
+
+    public void InitGame()
+    {
+        _uiService.Show<UIMainMenuWindow>();
+
+        _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
     }
 
     public void StartGame()

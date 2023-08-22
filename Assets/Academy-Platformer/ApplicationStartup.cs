@@ -20,6 +20,8 @@ namespace ApplicationStartup
         private void Start()
         {
             StartBootstrap();
+
+            new GameController();
         }
         
         private void StartBootstrap()
@@ -29,21 +31,6 @@ namespace ApplicationStartup
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
-            
-            _uiService = new UIService.UIService();
-            var mainMenuWindowController = new UIMainMenuController(_uiService);
-            var gameWindowController = new UIGameWindowController(_uiService);
-            var endMenuWindowController = new UIEndGameWindowController(_uiService);
-            var hudWindowController = new HUDWindowController(_uiService);
-            _uiService.Show<UIMainMenuWindow>();
-            
-            _inputController = new InputController();
-            _playerController = new PlayerController(_inputController, hudWindowController);
-            
-            new SoundController();
-            
-            _scoreCounter = new ScoreCounter();
-            _scoreCounter.ScoreChangeNotify += hudWindowController.ChangeScore;
         }
 
         private void NotifyOfCompletion()
