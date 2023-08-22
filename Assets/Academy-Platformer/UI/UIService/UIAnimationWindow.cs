@@ -11,12 +11,14 @@ namespace UIService
         public override void Show()
         {
             _showAnimation?.Kill();
+            
             _showAnimation = transform
-                .DOMoveY(0, Duration).SetEase(Ease.OutBack)
+                .DOMoveY(-5, Duration).SetEase(Ease.OutBack)
                 .OnComplete(() =>
                 {
                     OnShowEvent.Invoke();
                 });
+                
         }
 
         public override void Hide()
