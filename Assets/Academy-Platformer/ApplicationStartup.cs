@@ -23,8 +23,8 @@ namespace ApplicationStartup
         
         private void StartBootstrap()
         {
-            _bootstrap.Add(new CreateMainCameraCommand());
-            _bootstrap.Add(new CreateUICommand(ref _hudWindowController));
+            _bootstrap.Add(new CreateMainCameraCommand(out var camera));
+            _bootstrap.Add(new CreateUICommand(ref _hudWindowController, camera));
             _bootstrap.Add(new CreateTickableManagerCommand());
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
