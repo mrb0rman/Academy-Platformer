@@ -1,9 +1,5 @@
-﻿using Academy_Platformer.ScoreCounter;
-using Academy_Platformer.SoundMVC;
-using Bootstrap;
+﻿using Bootstrap;
 using CreatingCommand;
-using FactoryPlayer;
-using UIService;
 using UnityEngine;
 
 namespace ApplicationStartup
@@ -11,18 +7,12 @@ namespace ApplicationStartup
     public class ApplicationStartup : MonoBehaviour
     {
         private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
-        private InputController _inputController;
-        private PlayerStorage _playerStorage;
-        private ScoreCounter _scoreCounter;
-        private HUDWindowController _hudWindowController;
-        private UIService.UIService _uiService;
-        private GameController _gameController;
 
         private void Start()
         {
             StartBootstrap();
-            CreateUI();
-            CreateGameController();
+            var gameController = new GameController();
+            gameController.InitGame();
         }
         
         private void StartBootstrap()
@@ -32,33 +22,6 @@ namespace ApplicationStartup
             
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
-        }
-        
-        private void CreateUI()
-        {
-            _uiService = new UIService.UIService();
-            
-            var mainMenuWindowContrroler = new UIMainMenuController(_uiService);
-            var gameWindowController = new UIGameWindowController(_uiService);
-            var endMenuWindowController = new UIEndGameWindowController(_uiService);
-            _hudWindowController = new HUDWindowController(_uiService);
-            
-            _uiService.Show<UIMainMenuWindow>();
-            
-            new SoundController();
-            
-            _scoreCounter = new ScoreCounter();
-            _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
-        }
-        private void CreateGameController()
-        {
-            _gameController = new GameController();
-            
-            var mainMenuWindow = _uiService.Get<UIMainMenuWindow>();
-            mainMenuWindow.OnStartButtonClickEvent += () =>
-            {
-                _gameController.StartGame();
-            };
         }
 
         private void NotifyOfCompletion()
