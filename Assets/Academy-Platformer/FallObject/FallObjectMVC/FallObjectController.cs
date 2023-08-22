@@ -45,11 +45,6 @@ namespace Academy_Platformer.FallObject
             }          
         }
 
-        public void ChangeFallSpeed(float speed)
-        {
-            _fallSpeed = speed;
-        }
-        
         private void FixedUpdate()
         {
             _view.transform.position += _deltaVector * _fallSpeed;
