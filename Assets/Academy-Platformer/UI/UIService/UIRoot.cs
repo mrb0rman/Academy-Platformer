@@ -6,8 +6,10 @@ namespace UIService
     {
         public Transform Container => activateContainer;
         public Transform PoolContainer => deactivateContainer;
+        public Canvas RootCanvas => rootCanvas;
         
         [SerializeField] private Transform activateContainer;
         [SerializeField] private Transform deactivateContainer;
+        [SerializeField] private Canvas rootCanvas;
     }
 }
