@@ -11,6 +11,7 @@ namespace ApplicationStartup
         private void Start()
         {
             StartBootstrap();
+            
             var gameController = new GameController();
             gameController.InitGame();
         }

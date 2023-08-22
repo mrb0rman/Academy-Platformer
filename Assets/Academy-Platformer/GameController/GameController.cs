@@ -2,14 +2,13 @@ using Academy_Platformer.ScoreCounter;
 using Academy_Platformer.SoundMVC;
 using FactoryPlayer;
 using UIService;
-using UIService = UIService.UIService;
 
 public class GameController
 {
     private FallObjectSpawner _spawner;
     private InputController _inputController;
     private PlayerController _playerController;
-    private global::UIService.UIService _uiService;
+    private UIService.UIService _uiService;
     private UIMainMenuController _mainMenuWindowContrroler;
     private UIGameWindowController _gameWindowController;
     private UIEndGameWindowController _endMenuWindowController;
@@ -30,14 +29,12 @@ public class GameController
     
     private void UIInit()
     {
-        _uiService = new global::UIService.UIService();
+        _uiService = new UIService.UIService();
             
         _mainMenuWindowContrroler = new UIMainMenuController(_uiService);
         _gameWindowController = new UIGameWindowController(_uiService);
         _endMenuWindowController = new UIEndGameWindowController(_uiService);
         _hudWindowController = new HUDWindowController(_uiService);
-            
-        
     }
 
     private void ScoreInit()
