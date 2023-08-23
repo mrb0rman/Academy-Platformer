@@ -2,9 +2,12 @@ using Academy_Platformer.ScoreCounter;
 using Academy_Platformer.SoundMVC;
 using FactoryPlayer;
 using UIService;
+using UnityEngine;
 
 public class GameController
 {
+    private readonly Camera _camera;
+    
     private FallObjectSpawner _spawner;
     private InputController _inputController;
     private PlayerController _playerController;
@@ -15,8 +18,9 @@ public class GameController
     private HUDWindowController _hudWindowController ;
     private ScoreCounter _scoreCounter;
     
-    public GameController()
+    public GameController(Camera camera)
     {
+        _camera = camera;
         UIInit();
         ScoreInit();    
         
@@ -29,7 +33,7 @@ public class GameController
     
     private void UIInit()
     {
-        _uiService = new UIService.UIService();
+        _uiService = new UIService.UIService(_camera);
             
         _mainMenuWindowContrroler = new UIMainMenuController(_uiService);
         _gameWindowController = new UIGameWindowController(_uiService);
