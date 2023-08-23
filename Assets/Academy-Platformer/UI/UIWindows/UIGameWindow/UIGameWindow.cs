@@ -5,10 +5,8 @@ namespace UIService
 {
     public class UIGameWindow : UIAnimationWindow
     {
-        public Action OpenGameWindowEvent;
         public override void Show()
         {
-            OpenGameWindowEvent?.Invoke();
             base.Show();
             UIService.Show<HUDWindow>();
         }

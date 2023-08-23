@@ -6,8 +6,6 @@ namespace CreatingCommand
     {
         public CreateUICommand(UIService.UIService uiService ,ref HUDWindowController hudWindowController)
         {
-            
-            
             var mainMenuWindowContrroler = new UIMainMenuController(uiService);
             var gameWindowController = new UIGameWindowController(uiService);
             var endMenuWindowController = new UIEndGameWindowController(uiService);

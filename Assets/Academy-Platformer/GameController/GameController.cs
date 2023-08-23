@@ -1,21 +1,24 @@
-using System;
 using FactoryPlayer;
 using UIService;
-using UnityEngine;
 
 public class GameController
 {
     private FallObjectSpawner _spawner;
 
-    private PlayerController _playerController;
+    private readonly PlayerController _playerController;
+    private readonly InputController _inputController;
+    private readonly UIGameWindow  _gameWindow;
 
-    public GameController(UIGameWindow gameWindow,
-        PlayerController playerController)
+    public GameController(UIService.UIService uiService)
     {
+        _inputController = new InputController();
+        _playerController =  new PlayerController(_inputController);
         _spawner = new FallObjectSpawner();
-        _playerController = playerController;
-        gameWindow.OpenGameWindowEvent += StartGame;
+
+        _gameWindow.OnShowEvent += StartGame;
+        _gameWindow.OnHideEvent += StopGame;
     }
+
 
     public void StartGame()
     {
@@ -33,5 +36,11 @@ public class GameController
     
     void Update()
     {
+    }
+
+    ~GameController()
+    {
+        _gameWindow.OnShowEvent -= StartGame;
+        _gameWindow.OnHideEvent -= StopGame;
     }
 }
