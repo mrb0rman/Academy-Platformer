@@ -31,7 +31,7 @@ public class GameController
     {
         _uiService = new UIService.UIService();
             
-        _mainMenuWindowContrroler = new UIMainMenuController(_uiService);
+        _mainMenuWindowContrroler = new UIMainMenuController(_uiService, this);
         _gameWindowController = new UIGameWindowController(_uiService);
         _endMenuWindowController = new UIEndGameWindowController(_uiService);
         _hudWindowController = new HUDWindowController(_uiService);
@@ -45,23 +45,17 @@ public class GameController
 
     public void InitGame()
     {
-        _uiService
-            .Get<UIMainMenuWindow>()
-            .OnStartButtonClickEvent += () =>
-                {
-                    StartGame();
-                };
         _uiService.Show<UIMainMenuWindow>();
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         _playerController.Spawn();
         _spawner.StartSpawn();
         TickableManager.UpdateNotify += Update;
     }
 
-    private void StopGame()
+    public void StopGame()
     {
         _playerController.DestroyView();
         _spawner.StopSpawn();
@@ -70,11 +64,5 @@ public class GameController
 
     private void Update()
     {
-    }
-
-    ~GameController()
-    {
-        _gameWindow.OnShowEvent -= StartGame;
-        _gameWindow.OnHideEvent -= StopGame;
     }
 }
