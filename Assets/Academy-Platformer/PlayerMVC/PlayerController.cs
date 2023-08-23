@@ -33,23 +33,17 @@ namespace FactoryPlayer
             
             _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
-
-            PlayerSpawn();
         }
-
-        private void PlayerSpawn()
-        {
-            _playerView = Spawn();
-            _playerStorage.Add(_playerView);
-            _playerMovementController = new PlayerMovementController(_inputController, _playerView);
-        }
-
+        
         public PlayerView Spawn()
         {
             var model = _playerConfig.PlayerModel;
             _currentHealth = model.Health;
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
+            
+            _playerStorage.Add(_playerView);
+            _playerMovementController = new PlayerMovementController(_inputController, _playerView);
             
             return _playerView;
         }

@@ -18,7 +18,7 @@ namespace UIService
         public UIService(Camera camera)
         {
             _uIRoot = Resources.Load<UIRoot>("UIRoot");
-            _uIRoot = Object.Instantiate<UIRoot>(_uIRoot);
+            _uIRoot = Object.Instantiate(_uIRoot);
             _uIRoot.RootCanvas.worldCamera = camera;
 
             LoadWindows(UISource);
