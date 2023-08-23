@@ -1,18 +1,21 @@
 using System;
 using UnityEngine;
 
-public class TickableManager : MonoBehaviour
+namespace Academy_Platformer.TickableManager
 {
-    public static event Action UpdateNotify;
-    public static event Action FixedUpdateNotify;
-    
-    private void Update()
+    public class TickableManager : MonoBehaviour
     {
-        UpdateNotify?.Invoke();
-    }
+        public static event Action UpdateNotify;
+        public static event Action FixedUpdateNotify;
     
-    private void FixedUpdate()
-    {
-        FixedUpdateNotify?.Invoke();
+        private void Update()
+        {
+            UpdateNotify?.Invoke();
+        }
+    
+        private void FixedUpdate()
+        {
+            FixedUpdateNotify?.Invoke();
+        }
     }
 }

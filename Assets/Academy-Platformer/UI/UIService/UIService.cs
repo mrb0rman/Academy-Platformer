@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace UIService
+namespace Academy_Platformer.UI.UIService
 {
        public class UIService : IUIService
     {
@@ -15,7 +15,7 @@ namespace UIService
 
         private const string UISource = "";
         
-        public UIService(Camera camera)
+        public UIService(UnityEngine.Camera camera)
         {
             _uIRoot = Resources.Load<UIRoot>("UIRoot");
             _uIRoot = Object.Instantiate(_uIRoot);

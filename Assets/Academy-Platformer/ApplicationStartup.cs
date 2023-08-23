@@ -1,13 +1,14 @@
-﻿using Bootstrap;
-using CreatingCommand;
+﻿using Academy_Platformer.Bootstrap.Interface;
+using Academy_Platformer.Camera;
+using Academy_Platformer.TickableManager;
 using UnityEngine;
 
-namespace ApplicationStartup
+namespace Academy_Platformer
 {
     public class ApplicationStartup : MonoBehaviour
     {
-        private IBootstrap _bootstrap = new Bootstrap.Bootstrap();
-        private Camera _camera;
+        private IBootstrap _bootstrap = new Academy_Platformer.Bootstrap.Bootstrap();
+        private UnityEngine.Camera _camera;
 
         private void Start()
         {

@@ -1,4 +1,4 @@
-﻿namespace ResourcesConst
+﻿namespace Academy_Platformer
 {
     public static class ResourcesConst
     {

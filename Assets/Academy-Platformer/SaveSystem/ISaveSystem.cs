@@ -1,6 +1,9 @@
-﻿public interface ISaveSystem<T>
+﻿namespace Academy_Platformer.SaveSystem
 {
-    public abstract void Save(T date);
-    public abstract T Load();
-    public abstract void Clear();
+    public interface ISaveSystem<T>
+    {
+        public abstract void Save(T date);
+        public abstract T Load();
+        public abstract void Clear();
+    }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Command;
+using Academy_Platformer.Bootstrap.Interface;
+using Academy_Platformer.Command;
 using UnityEngine;
 
-namespace Bootstrap
+namespace Academy_Platformer.Bootstrap
 {
     public class Bootstrap : IBootstrap
     {
