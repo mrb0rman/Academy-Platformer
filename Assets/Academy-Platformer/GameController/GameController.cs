@@ -2,63 +2,76 @@ using Academy_Platformer.ScoreCounter;
 using Academy_Platformer.SoundMVC;
 using FactoryPlayer;
 using UIService;
+using UnityEngine;
 
 public class GameController
 {
+    private readonly Camera _camera;
+    
     private FallObjectSpawner _spawner;
-
-    private PlayerController _playerController;
     private InputController _inputController;
-
+    private PlayerController _playerController;
     private UIService.UIService _uiService;
-    private HUDWindowController _hudWindowController;
-
-    private SoundController _soundController;
-
+    private UIMainMenuController _mainMenuWindowContrroler;
+    private UIGameWindowController _gameWindowController;
+    private UIEndGameWindowController _endMenuWindowController;
+    private HUDWindowController _hudWindowController ;
     private ScoreCounter _scoreCounter;
-
-    public GameController()
+    private SoundController _soundController;
+    
+    public GameController(Camera camera)
     {
-        _uiService = new UIService.UIService();
-
-        CreateUIWindowControllers();
-
-        _inputController = new InputController();
+        _camera = camera;
+        UIInit();
+        ScoreInit();    
+        
         _soundController = new SoundController();
-        _scoreCounter = new ScoreCounter();
-
+        _spawner = new FallObjectSpawner(-7,7,1f, 5f);
+        _inputController = new InputController();
         _playerController = new PlayerController(_inputController, _hudWindowController);
     }
-
-    private void CreateUIWindowControllers()
+    
+    private void UIInit()
     {
-        var mainMenuController = new UIMainMenuController(_uiService);
-        var gameWindowController = new UIGameWindowController(_uiService);
-        var endGameWindowController = new UIEndGameWindowController(_uiService);
+        _uiService = new UIService.UIService(_camera);
+            
+        _mainMenuWindowContrroler = new UIMainMenuController(_uiService);
+        _gameWindowController = new UIGameWindowController(_uiService);
+        _endMenuWindowController = new UIEndGameWindowController(_uiService);
         _hudWindowController = new HUDWindowController(_uiService);
+    }
+
+    private void ScoreInit()
+    {
+        _scoreCounter = new ScoreCounter();
+        _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
     }
 
     public void InitGame()
     {
+        _uiService
+            .Get<UIMainMenuWindow>()
+            .OnStartButtonClickEvent += () =>
+                {
+                    StartGame();
+                };
         _uiService.Show<UIMainMenuWindow>();
-
-        _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
     }
 
-    public void StartGame()
+    private void StartGame()
     {
         _playerController.Spawn();
         TickableManager.UpdateNotify += Update;
     }
 
-    public void StopGame()
+    private void StopGame()
     {
         _playerController.DestroyView();
         _spawner.Pool.AllReturnToPool();
         TickableManager.UpdateNotify -= Update;
     }
-    
-    void Update()
+
+    private void Update()
     {
         _spawner.Update();
     }

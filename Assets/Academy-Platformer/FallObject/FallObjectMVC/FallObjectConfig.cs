@@ -47,6 +47,7 @@ namespace Academy_Platformer.FallObject
         public FallObjectType Type;
         public int PointsPerObject;
         public int Damage;
+        public float FallSpeed;
         public Sprite ObjectSprite;
     }
 }

@@ -7,14 +7,15 @@ namespace CreatingCommand
         private readonly Camera _mainCameraPrefab;
         private Camera _mainCamera;
 
-        public CreateMainCameraCommand()
+        public CreateMainCameraCommand(out Camera camera)
         {
             _mainCameraPrefab = Resources.Load<Camera>(ResourcesConst.ResourcesConst.MainCamera);
+            _mainCamera = Object.Instantiate(_mainCameraPrefab);
+            camera = _mainCamera;
         }
 
         public override void Execute()
         {
-            _mainCamera = Object.Instantiate(_mainCameraPrefab);
             base.Execute();
         }
 
