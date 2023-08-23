@@ -9,7 +9,8 @@ public class FallObjectSpawner
 {
     public FallObjectPool Pool => _pool;
     
-    private Transform[] _spawnPoints;
+    private float _minPositionX;
+    private float _maxPositionX;
     private FallObjectPool _pool;
 
     private const float SpawnPeriodMin = 1f;
@@ -17,20 +18,22 @@ public class FallObjectSpawner
     private float _spawnPeriod;
     private int _typesCount;
 
-    public FallObjectSpawner()
+    public FallObjectSpawner(
+        float minPositionX,
+        float maxPositionX,
+        float spawnPeriodMin, 
+        float spawnPeriodMax)
     {
-        var spawnPointList = new List<Transform>();
-        var spawnPointsPrefab = Resources.Load<GameObject>(ResourcesConst.ResourcesConst.SpawnPoints);
-        
-        spawnPointList.AddRange(spawnPointsPrefab.GetComponentsInChildren<Transform>());
-        spawnPointList.Remove(spawnPointsPrefab.transform);
-        
-        _spawnPoints = spawnPointList.ToArray();
+        _minPositionX = minPositionX;
+        _maxPositionX = maxPositionX;
+        _spawnPeriodMin = spawnPeriodMin;
+        _spawnPeriodMax = spawnPeriodMax;
 
         _pool = new FallObjectPool(new FallObjectFactory());
         _spawnPeriod = Random.Range(SpawnPeriodMin, SpawnPeriodMax);
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
     }
+
 
     public void StartSpawn()
     {
@@ -48,16 +51,16 @@ public class FallObjectSpawner
 
         if (_spawnPeriod <= 0)
         {
-            SpawnNewObject(Random.Range(0, _spawnPoints.Length));
-            _spawnPeriod = Random.Range(SpawnPeriodMin, SpawnPeriodMax);
+            SpawnNewObject();
+            _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         }
     }
 
-    private void SpawnNewObject(int spawnPoint)
+    private void SpawnNewObject()
     {
         var type = Random.Range(0, _typesCount);
         var newObject = _pool.CreateObject((FallObjectType)type);
-        newObject.gameObject.transform.position = _spawnPoints[spawnPoint].position;
+        newObject.gameObject.transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX),0,0);
         newObject.OnDeathEvent += _pool.ReturnToPool;
     }
 }

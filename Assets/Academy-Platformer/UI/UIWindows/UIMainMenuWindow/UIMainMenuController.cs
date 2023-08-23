@@ -11,10 +11,19 @@
             _uiService = uiService;
             _mainMenuWindow = uiService.Get<UIMainMenuWindow>();
             
-            _mainMenuWindow.OnStartButtonClickEvent += ShowGameWindow;
+            _mainMenuWindow.OnShowEvent += ShowWindow;
+            _mainMenuWindow.OnHideEvent += HideWindow;
         }
 
-        public void ShowGameWindow()
+        private void ShowWindow()
+        {
+            _mainMenuWindow.OnStartButtonClickEvent += ShowGameWindow;
+        }
+        private void HideWindow()
+        {
+            _mainMenuWindow.OnStartButtonClickEvent -= ShowGameWindow;
+        }
+        private void ShowGameWindow()
         {
             _uiService.Hide<UIMainMenuWindow>();
             _uiService.Show<UIGameWindow>();
