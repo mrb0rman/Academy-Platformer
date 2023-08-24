@@ -17,6 +17,7 @@ public class GameController
     private UIEndGameWindowController _endMenuWindowController;
     private HUDWindowController _hudWindowController ;
     private ScoreCounter _scoreCounter;
+    private SoundController _soundController;
     
     public GameController(Camera camera)
     {
@@ -24,11 +25,10 @@ public class GameController
         UIInit();
         ScoreInit();    
         
-        new SoundController();
-
+        _soundController = new SoundController();
         _spawner = new FallObjectSpawner(-7,7,1f, 5f);
         _inputController = new InputController();
-        _playerController = new PlayerController(_inputController);
+        _playerController = new PlayerController(_inputController, _hudWindowController);
     }
     
     private void UIInit()

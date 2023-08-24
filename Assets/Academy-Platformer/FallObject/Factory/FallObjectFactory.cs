@@ -14,6 +14,7 @@ namespace Academy_Platformer.FallObject.Factory
             var controller = new FallObjectController(view, model);
 
             view.SpriteRenderer.sprite = model.ObjectSprite;
+            view.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
 
             return controller;
         }
