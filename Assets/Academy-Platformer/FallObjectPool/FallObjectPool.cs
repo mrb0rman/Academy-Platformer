@@ -58,6 +58,10 @@ public class FallObjectPool
         }
     }
 
+    public FallObjectController GetController(FallObjectView view)
+    {
+        return _pool[view];
+    }
     public void AllReturnToPool()
     {
         foreach (var fallObject in _pool.Keys)

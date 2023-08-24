@@ -22,7 +22,7 @@ namespace UIService
 
         private void StartButtonClickEvent()
         {
-            OnStartButtonClickEvent.Invoke();
+            OnStartButtonClickEvent?.Invoke();
         }
     }
 }

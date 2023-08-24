@@ -19,7 +19,7 @@ namespace Academy_Platformer.FallObject
         private int _pointsPerObject;
         private int _damage;
         private float _fallSpeed;
-
+        private float _minPositionY = -7f;
         private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
 
         public FallObjectController(
@@ -47,6 +47,8 @@ namespace Academy_Platformer.FallObject
 
         private void FixedUpdate()
         {
+            if(_view.transform.position.y <= _minPositionY)
+                ObjectFellNotify.Invoke(this);
             _view.transform.position += _deltaVector * _fallSpeed;
         }
     }

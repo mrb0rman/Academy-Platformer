@@ -5,7 +5,7 @@ namespace Academy_Platformer.FallObject
 {
     public class FallObjectView : MonoBehaviour
     {
-        public Action<FallObjectView> OnDeathEvent;
+
         public SpriteRenderer SpriteRenderer => spriteRenderer;
         
         public event Action<Collision2D> OnCollisionEnter2DNotify; 
