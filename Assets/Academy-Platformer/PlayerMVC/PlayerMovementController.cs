@@ -6,59 +6,40 @@ public class PlayerMovementController
     private readonly PlayerView _playerView;
 
     private const float Speed = 5f;
-    private const float Offset = 2f;
-    private const float Epsilon = 0.01f;
-
-    private readonly float _cameraHalfWidth;
-    private readonly float _offsetFromEdge;
+   
+    private readonly Vector3 _leftPointStop;
+    private readonly Vector3 _rightPointStop;
     private readonly float _step;
 
     public PlayerMovementController(InputController inputController, PlayerView playerView)
     {
         _playerView = playerView;
 
-        var playerLength = playerView.gameObject.transform.localScale.x;
-        _offsetFromEdge = 2 * playerLength;
         _step = Speed * Time.deltaTime;
-        _cameraHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
-
+        _leftPointStop = Camera.main.ScreenToWorldPoint(new Vector3(0,0,0));
+        _rightPointStop = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
+        
         inputController.OnLeftEvent += MoveLeft;
         inputController.OnRightEvent += MoveRight;
     }
 
     private void MoveLeft()
     {
-        var playerTransform = _playerView.gameObject.transform;
-        var playerPosition = playerTransform.position;
-        var playerLeftEdgeX = playerPosition.x - _offsetFromEdge;
-
-        if (playerLeftEdgeX + Vector3.left.x * Offset + _cameraHalfWidth > Epsilon)
+        if (_playerView.transform.position.x > _leftPointStop.x + _playerView.SpriteRenderer.bounds.size.x/2f)
         {
-            var target = playerPosition + Vector3.left * Offset;
-            playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
-        }
-        else
-        {
-            var target = new Vector3(-_cameraHalfWidth + _offsetFromEdge, playerPosition.y, 0f);
-            playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
+            var position = _playerView.transform.position;
+            var target = position + Vector3.left;
+            _playerView.transform.position = Vector3.MoveTowards( position, target, _step);;
         }
     }
 
     private void MoveRight()
     {
-        var playerTransform = _playerView.gameObject.transform;
-        var playerPosition = playerTransform.position;
-        var playerRightEdgeX = playerPosition.x + _offsetFromEdge;
-
-        if (_cameraHalfWidth + Vector3.left.x * Offset - playerRightEdgeX > Epsilon)
+        if (_playerView.transform.position.x < _rightPointStop.x - _playerView.SpriteRenderer.bounds.size.x/2f)
         {
-            var target = playerTransform.position + Vector3.right * Offset;
-            playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
-        }
-        else
-        {
-            var target = new Vector3(_cameraHalfWidth - _offsetFromEdge, playerPosition.y, 0f);
-            playerTransform.position = Vector3.MoveTowards(playerPosition, target, _step);
+            var position = _playerView.transform.position;
+            var target = position + Vector3.right;
+            _playerView.transform.position = Vector3.MoveTowards(position, target, _step);
         }
     }
 }
