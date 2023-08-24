@@ -16,12 +16,12 @@ namespace ApplicationStartup
             var gameController = new GameController(_camera);
             gameController.InitGame();
         }
-        
+
         private void StartBootstrap()
         {
             _bootstrap.Add(new CreateMainCameraCommand(out _camera));
             _bootstrap.Add(new CreateTickableManagerCommand());
-            
+
             _bootstrap.OnExecuteAllComandsNotify += NotifyOfCompletion;
             _bootstrap.Execute();
         }

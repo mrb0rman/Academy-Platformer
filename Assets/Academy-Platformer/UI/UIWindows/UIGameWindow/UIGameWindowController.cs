@@ -3,6 +3,7 @@ namespace UIService
     public class UIGameWindowController
     {
         private readonly UIService _uiService;
+        
         private UIGameWindow _GameWindow;
 
         public UIGameWindowController(UIService uiService)
