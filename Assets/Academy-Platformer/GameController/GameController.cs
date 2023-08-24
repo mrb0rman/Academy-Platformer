@@ -1,5 +1,5 @@
 using Academy_Platformer.ScoreCounter;
-using Academy_Platformer.SoundMVC;
+using Academy_Platformer.Sounds;
 using FactoryPlayer;
 using UIService;
 using UnityEngine;
@@ -23,7 +23,7 @@ public class GameController
     {
         _camera = camera;
         UIInit();
-        ScoreInit();    
+        ScoreInit();
         
         _soundController = new SoundController();
         _spawner = new FallObjectSpawner(-7,7,1f, 5f);
