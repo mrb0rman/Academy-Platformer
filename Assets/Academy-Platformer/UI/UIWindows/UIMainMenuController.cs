@@ -2,13 +2,15 @@
 {
     public class UIMainMenuController
     {
-        private readonly Academy_Platformer.UI.UIService.UIService _uiService;
+        private readonly UIService _uiService;
         
         private UIMainMenuWindow _mainMenuWindow;
+        private GameController _gameController;
 
-        public UIMainMenuController(Academy_Platformer.UI.UIService.UIService uiService)
+        public UIMainMenuController(UIService uiService, GameController gameController)
         {
             _uiService = uiService;
+            _gameController = gameController;
             _mainMenuWindow = uiService.Get<UIMainMenuWindow>();
             
             _mainMenuWindow.OnShowEvent += ShowWindow;
@@ -18,10 +20,13 @@
         private void ShowWindow()
         {
             _mainMenuWindow.OnStartButtonClickEvent += ShowGameWindow;
+            _mainMenuWindow.OnStartButtonClickEvent += _gameController.StartGame;
         }
         private void HideWindow()
         {
             _mainMenuWindow.OnStartButtonClickEvent -= ShowGameWindow;
+            _mainMenuWindow.OnStartButtonClickEvent -= _gameController.StartGame;
+
         }
         private void ShowGameWindow()
         {

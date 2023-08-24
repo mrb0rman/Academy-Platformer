@@ -1,11 +1,10 @@
 using System;
-using Academy_Platformer.UI.HUD;
+using UnityEngine;
 
 namespace UIService
 {
     public class UIGameWindow : UIAnimationWindow
     {
-        public Action OpenGameWindowEvent;
         public override void Show()
         {
             base.Show();

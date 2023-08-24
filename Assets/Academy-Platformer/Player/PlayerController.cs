@@ -1,8 +1,10 @@
 ﻿using System;
-using Academy_Platformer.Player.FactoryPlayer;
+using Academy_Platformer.HPController;
+using Interface;
+using UIService;
 using UnityEngine;
 
-namespace Academy_Platformer.Player
+namespace FactoryPlayer
 {
     public class PlayerController
     {
@@ -22,16 +24,19 @@ namespace Academy_Platformer.Player
         private float _currentHealth;
         private float _currentSpeed;
 
-        public PlayerController(InputController inputController)
+        public PlayerController(
+            InputController inputController,
+            HUDWindowController hudWindowController)
         {
-            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.PlayerConfig);
+            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
 
             _hpController = new HPController(_playerConfig.PlayerModel.Health);
+            _hpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
           
             _inputController = inputController;
             
             _playerStorage = new PlayerStorage();
-            _factoryPlayer = new Academy_Platformer.Player.FactoryPlayer.FactoryPlayer();
+            _factoryPlayer = new FactoryPlayer();
         }
         
         public PlayerView Spawn()
