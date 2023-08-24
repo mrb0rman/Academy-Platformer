@@ -68,6 +68,8 @@ public class FallObjectSpawner
         newObject.gameObject.transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX), _positionY, 0);
         var newObjectController = _pool.GetController(newObject);
         newObjectController.ObjectFellNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
+        newObjectController.PlayerCatchFallingObjectNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
         newObjectController.ObjectFellNotify += _scoreCounter.ObjectFellEventHandler;
+        newObjectController.PlayerCatchFallingObjectNotify += _scoreCounter.PlayerCatchFallObjectEventHandler;
     }
 }
