@@ -60,7 +60,7 @@ public class FallObjectSpawner
     {
         var type = Random.Range(0, _typesCount);
         var newObject = _pool.CreateObject((FallObjectType)type);
-        newObject.gameObject.transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX), 0, 0);
+        newObject.gameObject.transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX), 5, 0);
         newObject.OnDeathEvent += _pool.ReturnToPool;
     }
 }
