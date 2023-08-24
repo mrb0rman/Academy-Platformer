@@ -27,7 +27,6 @@ namespace ApplicationStartup
         }
 
         private void NotifyOfCompletion()
-        {
-        }
+        { }
     }
 }

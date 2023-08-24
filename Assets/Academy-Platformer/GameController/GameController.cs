@@ -67,6 +67,5 @@ public class GameController
     }
 
     private void Update()
-    {
-    }
+    { }
 }

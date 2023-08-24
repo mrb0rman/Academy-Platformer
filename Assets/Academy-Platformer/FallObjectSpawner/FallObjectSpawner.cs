@@ -34,7 +34,6 @@ public class FallObjectSpawner
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
     }
 
-
     public void StartSpawn()
     {
         TickableManager.UpdateNotify += Update;
