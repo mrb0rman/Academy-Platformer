@@ -1,5 +1,4 @@
-using System;
-using UnityEngine;
+using Academy_Platformer.UI.HUD;
 
 namespace UIService
 {

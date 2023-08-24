@@ -9,35 +9,35 @@ namespace Academy_Platformer
     public class GameController
     {
         private readonly UnityEngine.Camera _camera;
-    
+
         private FallObjectSpawner _spawner;
         private InputController _inputController;
         private PlayerController _playerController;
         private UI.UIService.UIService _uiService;
-        private UIMainMenuController _mainMenuWindowContrroler;
+        private UIMainMenuController _mainMenuWindowController;
         private UIGameWindowController _gameWindowController;
         private UIEndGameWindowController _endMenuWindowController;
-        private HUDWindowController _hudWindowController ;
+        private HUDWindowController _hudWindowController;
         private ScoreCounter _scoreCounter;
-    
+        private SoundController _soundController;
+
         public GameController(UnityEngine.Camera camera)
         {
             _camera = camera;
             UIInit();
             ScoreInit();    
         
-            new SoundController();
-
+            _soundController = new SoundController();
             _spawner = new FallObjectSpawner(-7,7,1f, 5f);
             _inputController = new InputController();
-            _playerController = new PlayerController(_inputController);
+            _playerController = new PlayerController(_inputController, _hudWindowController);
         }
-    
+
         private void UIInit()
         {
-            _uiService = new UI.UIService.UIService(_camera);
+            _uiService = new Academy_Platformer.UI.UIService.UIService(_camera);
             
-            _mainMenuWindowContrroler = new UIMainMenuController(_uiService);
+            _mainMenuWindowController = new UIMainMenuController(_uiService, this);
             _gameWindowController = new UIGameWindowController(_uiService);
             _endMenuWindowController = new UIEndGameWindowController(_uiService);
             _hudWindowController = new HUDWindowController(_uiService);
@@ -51,25 +51,20 @@ namespace Academy_Platformer
 
         public void InitGame()
         {
-            _uiService
-                .Get<UIMainMenuWindow>()
-                .OnStartButtonClickEvent += () =>
-            {
-                StartGame();
-            };
             _uiService.Show<UIMainMenuWindow>();
         }
 
-        private void StartGame()
+        public void StartGame()
         {
             _playerController.Spawn();
+            _spawner.StartSpawn();
             TickableManager.TickableManager.UpdateNotify += Update;
         }
 
         private void StopGame()
         {
             _playerController.DestroyView();
-            _spawner.Pool.AllReturnToPool();
+            _spawner.StopSpawn();
             TickableManager.TickableManager.UpdateNotify -= Update;
         }
 

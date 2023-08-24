@@ -1,21 +1,20 @@
 ﻿using System;
-using Academy_Platformer.HPController;
-using Interface;
-using UIService;
+using Academy_Platformer.Player.FactoryPlayer;
+using Academy_Platformer.UI.HUD;
 using UnityEngine;
 
-namespace FactoryPlayer
+namespace Academy_Platformer.Player
 {
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
 
-        public HPController HpController => _hpController;
+        public PlayerHpController PlayerHpController => _playerHpController;
         
         private InputController _inputController;
         private PlayerConfig _playerConfig;
         private PlayerView _playerView;
-        private HPController _hpController;
+        private PlayerHpController _playerHpController;
         private IFactoryCharacter _factoryPlayer;
         private PlayerStorage _playerStorage;
         private PlayerMovementController _playerMovementController;
@@ -28,15 +27,15 @@ namespace FactoryPlayer
             InputController inputController,
             HUDWindowController hudWindowController)
         {
-            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
+            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.PlayerConfig);
 
-            _hpController = new HPController(_playerConfig.PlayerModel.Health);
-            _hpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
+            _playerHpController = new PlayerHpController(_playerConfig.PlayerModel.Health);
+            _playerHpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
           
             _inputController = inputController;
             
             _playerStorage = new PlayerStorage();
-            _factoryPlayer = new FactoryPlayer();
+            _factoryPlayer = new FactoryPlayer.FactoryPlayer();
         }
         
         public PlayerView Spawn()

@@ -2,12 +2,12 @@
 {
     public class UIMainMenuController
     {
-        private readonly UIService _uiService;
+        private readonly Academy_Platformer.UI.UIService.UIService _uiService;
         
         private UIMainMenuWindow _mainMenuWindow;
-        private GameController _gameController;
+        private Academy_Platformer.GameController _gameController;
 
-        public UIMainMenuController(UIService uiService, GameController gameController)
+        public UIMainMenuController(Academy_Platformer.UI.UIService.UIService uiService, Academy_Platformer.GameController gameController)
         {
             _uiService = uiService;
             _gameController = gameController;

@@ -2,7 +2,7 @@ using System;
 
 namespace Academy_Platformer
 {
-    public class HPController
+    public class PlayerHpController
     {
         public Action<float> OnHealthChanged;
 
@@ -10,7 +10,7 @@ namespace Academy_Platformer
         
         private float _health;
         
-        public HPController(float health)
+        public PlayerHpController(float health)
         {
             _health = health;
         }

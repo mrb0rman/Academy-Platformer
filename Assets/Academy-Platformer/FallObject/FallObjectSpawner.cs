@@ -32,7 +32,18 @@ namespace Academy_Platformer.FallObject
             _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
             _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
         }
+        
+        public void StartSpawn()
+        {
+            TickableManager.TickableManager.UpdateNotify += Update;
+        }
 
+        public void StopSpawn()
+        {
+            TickableManager.TickableManager.UpdateNotify -= Update;
+            Pool.AllReturnToPool();
+        }
+        
         public void Update()
         {
             _spawnPeriod -= Time.deltaTime;
@@ -48,7 +59,7 @@ namespace Academy_Platformer.FallObject
         {
             var type = Random.Range(0, _typesCount);
             var newObject = _pool.CreateObject((FallObjectType)type);
-            newObject.gameObject.transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX),0,0);
+            newObject.gameObject.transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX), 0, 0);
             newObject.OnDeathEvent += _pool.ReturnToPool;
         }
     }
