@@ -5,7 +5,7 @@ public class PlayerMovementController
 {
     private readonly PlayerView _playerView;
 
-    private const float Speed = 100f;
+    private const float Speed = 5f;
     private const float Offset = 2f;
     private const float Epsilon = 0.01f;
 
