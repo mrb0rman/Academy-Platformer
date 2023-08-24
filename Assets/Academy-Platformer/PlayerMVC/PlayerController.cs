@@ -1,6 +1,7 @@
 ﻿using System;
 using Academy_Platformer.HPController;
 using Interface;
+using UIService;
 using UnityEngine;
 
 namespace FactoryPlayer
@@ -23,33 +24,30 @@ namespace FactoryPlayer
         private float _currentHealth;
         private float _currentSpeed;
 
-        public PlayerController(InputController inputController)
+        public PlayerController(
+            InputController inputController,
+            HUDWindowController hudWindowController)
         {
             _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
 
             _hpController = new HPController(_playerConfig.PlayerModel.Health);
+            _hpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
           
             _inputController = inputController;
             
             _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
-
-            PlayerSpawn();
         }
-
-        private void PlayerSpawn()
-        {
-            _playerView = Spawn();
-            _playerStorage.Add(_playerView);
-            _playerMovementController = new PlayerMovementController(_inputController, _playerView);
-        }
-
+        
         public PlayerView Spawn()
         {
             var model = _playerConfig.PlayerModel;
             _currentHealth = model.Health;
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
+            
+            _playerStorage.Add(_playerView);
+            _playerMovementController = new PlayerMovementController(_inputController, _playerView);
             
             return _playerView;
         }
