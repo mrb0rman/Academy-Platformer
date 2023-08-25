@@ -28,7 +28,7 @@ public class GameController
         _soundController = new SoundController();
         _spawner = new FallObjectSpawner(-7,7,1f, 5f);
         _inputController = new InputController();
-        _playerController = new PlayerController(_inputController, _hudWindowController);
+        _playerController = new PlayerController(_inputController, _hudWindowController, _camera);
     }
     
     private void UIInit()

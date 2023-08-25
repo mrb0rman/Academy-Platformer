@@ -20,13 +20,15 @@ namespace FactoryPlayer
         private PlayerStorage _playerStorage;
         private PlayerMovementController _playerMovementController;
         private PlayerAnimator _playerAnimator;
+        private Camera _camera;
         
         private float _currentHealth;
         private float _currentSpeed;
 
         public PlayerController(
             InputController inputController,
-            HUDWindowController hudWindowController)
+            HUDWindowController hudWindowController,
+            Camera camera)
         {
             _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
 
@@ -34,9 +36,11 @@ namespace FactoryPlayer
             _hpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
           
             _inputController = inputController;
+            _camera = camera;
             
             _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
+            
         }
         
         public PlayerView Spawn()
@@ -45,6 +49,9 @@ namespace FactoryPlayer
             _currentHealth = model.Health;
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
+            
+            _playerAnimator = new PlayerAnimator(_playerView, _camera);
+            _playerAnimator.Spawn();
             
             _playerStorage.Add(_playerView);
             _playerMovementController = new PlayerMovementController(_inputController, _playerView);
