@@ -28,19 +28,19 @@ namespace Academy_Platformer.Player
         private const float DecreasePlayerDeath = 0f;
         private const int NumberRepetitionsGetDamage = 5;
         
-        public PlayerAnimator(PlayerView playerView, CameraView cameraView)
+        public PlayerAnimator(PlayerView playerView, Camera cameraView)
         {
             _playerView = playerView;
 
             if (cameraView != null)
             {
-                _startPositionPlayer = cameraView.MainCamera.ScreenToWorldPoint(new Vector3(
+                _startPositionPlayer = cameraView.ScreenToWorldPoint(new Vector3(
                     -FactorOffsetX*playerView.SpriteRenderer.size.x, 
-                    cameraView.MainCamera.pixelHeight / FactorPixelHeight, 
+                    cameraView.pixelHeight / FactorPixelHeight, 
                     -cameraView.transform.position.z));
-                _endPositionPlayer =  cameraView.MainCamera.ScreenToWorldPoint(new Vector3(
-                    cameraView.MainCamera.pixelWidth / FactorPixelWidth, 
-                    cameraView.MainCamera.pixelHeight / FactorPixelHeight, 
+                _endPositionPlayer =  cameraView.ScreenToWorldPoint(new Vector3(
+                    cameraView.pixelWidth / FactorPixelWidth, 
+                    cameraView.pixelHeight / FactorPixelHeight, 
                     -cameraView.transform.position.z));
             }
             else

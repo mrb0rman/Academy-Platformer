@@ -1,41 +1,46 @@
 ﻿using System;
-using Academy_Platformer.Player.FactoryPlayer;
-using Academy_Platformer.UI.HUD;
+using Academy_Platformer.HPController;
+using Interface;
+using UIService;
 using UnityEngine;
 
-namespace Academy_Platformer.Player
+namespace FactoryPlayer
 {
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
 
-        public PlayerHpController PlayerHpController => _playerHpController;
+        public HPController HpController => _hpController;
         
         private InputController _inputController;
         private PlayerConfig _playerConfig;
         private PlayerView _playerView;
-        private PlayerHpController _playerHpController;
+        private HPController _hpController;
         private IFactoryCharacter _factoryPlayer;
         private PlayerStorage _playerStorage;
         private PlayerMovementController _playerMovementController;
         private PlayerAnimator _playerAnimator;
+        private Camera _camera;
         
         private float _currentHealth;
         private float _currentSpeed;
 
         public PlayerController(
             InputController inputController,
-            HUDWindowController hudWindowController)
+            HUDWindowController hudWindowController,
+            Camera camera)
         {
-            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.PlayerConfig);
+            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
 
-            _playerHpController = new PlayerHpController(_playerConfig.PlayerModel.Health);
-            _playerHpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
+            _hpController = new HPController(_playerConfig.PlayerModel.Health);
+            _hpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
           
             _inputController = inputController;
+            _camera = camera;
             
             _playerStorage = new PlayerStorage();
-            _factoryPlayer = new FactoryPlayer.FactoryPlayer();
+            _factoryPlayer = new FactoryPlayer();
+            
         }
         
         public PlayerView Spawn()
@@ -44,6 +49,9 @@ namespace Academy_Platformer.Player
             _currentHealth = model.Health;
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
+            
+            _playerAnimator = new PlayerAnimator(_playerView, _camera);
+            _playerAnimator.Spawn();
             
             _playerStorage.Add(_playerView);
             _playerMovementController = new PlayerMovementController(_inputController, _playerView);
