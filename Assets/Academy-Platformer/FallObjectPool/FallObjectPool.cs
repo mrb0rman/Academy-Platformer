@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Academy_Platformer.FallObject;
-using Academy_Platformer.FallObject.Factory;
+using FallObject;
 using UnityEngine;
 
 public class FallObjectPool

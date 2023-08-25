@@ -1,5 +1,4 @@
 using System;
-using Academy_Platformer.Player;
 using Player;
 using UnityEngine;
 
@@ -56,11 +55,11 @@ namespace FallObject
         {
             if (value == true)
             {
-                TickableManager.FixedUpdateNotify += FixedUpdate;
+                TickableManager.TickableManager.FixedUpdateNotify += FixedUpdate;
             }
             else
             {
-                TickableManager.FixedUpdateNotify -= FixedUpdate;
+                TickableManager.TickableManager.FixedUpdateNotify -= FixedUpdate;
             }
             View.gameObject.SetActive(value);
         }

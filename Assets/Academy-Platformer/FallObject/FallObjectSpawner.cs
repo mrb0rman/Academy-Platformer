@@ -1,7 +1,5 @@
 using System;
-using Academy_Platformer.FallObject;
-using Academy_Platformer.FallObject.Factory;
-using Academy_Platformer.ScoreCounter;
+using FallObject;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,7 +20,7 @@ public class FallObjectSpawner
 
     public FallObjectSpawner(ScoreCounter scoreCounter)
     {
-        var spawnerConfig = Resources.Load<FallObjectSpawnConfig>(ResourcesConst.ResourcesConst.FallObjectSpawnConfig);
+        var spawnerConfig = Resources.Load<FallObjectSpawnConfig>(ResourcesConst.FallObjectSpawnConfig);
         _positionY = spawnerConfig.PositionY;
         _minPositionX = spawnerConfig.MinPositionX;
         _maxPositionX = spawnerConfig.MaxPositionX;
