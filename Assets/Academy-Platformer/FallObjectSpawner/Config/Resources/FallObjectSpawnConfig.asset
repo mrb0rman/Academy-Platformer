@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0f1a63733658b41b4394fb7c9d25af, type: 3}
   m_Name: FallObjectSpawnConfig
   m_EditorClassIdentifier: 
-  PositionY: 0
-  MinPositionX: 0
-  MaxPositionX: 0
-  SpawnPeriodMin: 0
-  SpawnPeriodMax: 0
+  PositionY: 6
+  MinPositionX: 7
+  MaxPositionX: -7
+  SpawnPeriodMin: 0.5
+  SpawnPeriodMax: 4
