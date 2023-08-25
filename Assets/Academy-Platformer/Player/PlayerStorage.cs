@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Academy_Platformer.Player
+namespace Player
 {
     public class PlayerStorage
     {

@@ -1,8 +1,8 @@
-using UIService;
+using UI.UIWindows;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Academy_Platformer.UI.HUD
+namespace UI.HUD
 {
     public class HUDWindow : UIAnimationWindow
     {

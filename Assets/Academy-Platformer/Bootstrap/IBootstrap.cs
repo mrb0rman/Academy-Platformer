@@ -1,7 +1,7 @@
 ﻿using System;
-using Academy_Platformer.Command;
+using Command;
 
-namespace Academy_Platformer.Bootstrap.Interface
+namespace Bootstrap
 {
     public interface IBootstrap
     {

@@ -1,7 +1,7 @@
-﻿using Academy_Platformer.UI.UIService;
-using DG.Tweening;
+﻿using DG.Tweening;
+using UI.UIService;
 
-namespace UIService
+namespace UI.UIWindows
 {
     public class UIAnimationWindow : UIWindow
     {

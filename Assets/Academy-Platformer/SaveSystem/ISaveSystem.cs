@@ -1,4 +1,4 @@
-﻿namespace Academy_Platformer.SaveSystem
+﻿namespace SaveSystem
 {
     public interface ISaveSystem<T>
     {

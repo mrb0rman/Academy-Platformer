@@ -1,6 +1,4 @@
-using UIService;
-
-namespace Academy_Platformer.UI.HUD
+namespace UI.HUD
 {
     public class HUDWindowController
     {

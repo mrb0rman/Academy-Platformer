@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Academy_Platformer.Player
+namespace Player
 {
     [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Configs/PlayerConfig", order = 0)]
     public class PlayerConfig : ScriptableObject

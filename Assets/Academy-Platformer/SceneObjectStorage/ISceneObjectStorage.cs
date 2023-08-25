@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Academy_Platformer.SceneObjectStorage
+namespace SceneObjectStorage
 {
     public interface ISceneObjectStorage
     {

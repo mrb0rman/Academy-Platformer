@@ -1,6 +1,7 @@
+using Academy_Platformer;
 using UnityEngine;
 
-namespace Academy_Platformer.Camera
+namespace Camera
 {
     public class CreateMainCameraCommand : Command.Command
     {

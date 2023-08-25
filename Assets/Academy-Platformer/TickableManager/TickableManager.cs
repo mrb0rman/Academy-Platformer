@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Academy_Platformer.TickableManager
+namespace TickableManager
 {
     public class TickableManager : MonoBehaviour
     {

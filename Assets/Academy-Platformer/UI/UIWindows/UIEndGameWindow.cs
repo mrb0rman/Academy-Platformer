@@ -1,8 +1,7 @@
 using System;
-using Academy_Platformer.UI;
 using UnityEngine;
 
-namespace UIService
+namespace UI.UIWindows
 {
     public class UIEndGameWindow : UIAnimationWindow
     {

@@ -1,4 +1,6 @@
-﻿namespace Academy_Platformer.Player.FactoryPlayer
+﻿using Player;
+
+namespace Academy_Platformer.Player.FactoryPlayer
 {
     public interface IFactoryCharacter
     {

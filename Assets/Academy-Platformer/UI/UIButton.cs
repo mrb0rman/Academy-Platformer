@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Academy_Platformer.UI
+namespace UI
 {
     public class UIButton : MonoBehaviour, IPointerClickHandler
     {

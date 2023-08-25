@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Academy_Platformer.Camera
+namespace Camera
 {
     public class CameraView : MonoBehaviour
     {

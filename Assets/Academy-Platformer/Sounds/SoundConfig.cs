@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Academy_Platformer.Sounds
+namespace Sounds
 {
     [CreateAssetMenu(fileName = "SoundConfig", menuName = "Configs/SoundConfig", order = 1)]
     public class SoundConfig : ScriptableObject

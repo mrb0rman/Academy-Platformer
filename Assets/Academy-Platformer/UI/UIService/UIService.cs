@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Academy_Platformer.UI.UIService
+namespace UI.UIService
 {
        public class UIService : IUIService
     {

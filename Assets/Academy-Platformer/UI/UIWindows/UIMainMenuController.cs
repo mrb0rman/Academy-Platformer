@@ -1,13 +1,13 @@
-﻿namespace UIService
+﻿namespace UI.UIWindows
 {
     public class UIMainMenuController
     {
-        private readonly Academy_Platformer.UI.UIService.UIService _uiService;
+        private readonly UIService.UIService _uiService;
         
         private UIMainMenuWindow _mainMenuWindow;
-        private Academy_Platformer.GameController _gameController;
+        private GameController _gameController;
 
-        public UIMainMenuController(Academy_Platformer.UI.UIService.UIService uiService, Academy_Platformer.GameController gameController)
+        public UIMainMenuController(UIService.UIService uiService, GameController gameController)
         {
             _uiService = uiService;
             _gameController = gameController;

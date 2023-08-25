@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Academy_Platformer.UI.UIService
+namespace UI.UIService
 {
     public abstract class UIWindow : MonoBehaviour, IUIWindow
     {

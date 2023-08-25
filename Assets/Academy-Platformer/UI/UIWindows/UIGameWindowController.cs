@@ -1,14 +1,14 @@
-using Academy_Platformer.UI.HUD;
+using UI.HUD;
 
-namespace UIService
+namespace UI.UIWindows
 {
     public class UIGameWindowController
     {
-        private readonly Academy_Platformer.UI.UIService.UIService _uiService;
+        private readonly UIService.UIService _uiService;
         
         private UIGameWindow _GameWindow;
 
-        public UIGameWindowController(Academy_Platformer.UI.UIService.UIService uiService)
+        public UIGameWindowController(UIService.UIService uiService)
         {
             _uiService = uiService;
             _GameWindow = uiService.Get<UIGameWindow>();

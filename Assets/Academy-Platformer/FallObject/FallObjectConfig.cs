@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Academy_Platformer.FallObject
+namespace FallObject
 {
     [CreateAssetMenu(fileName = "FallObjectConfig", menuName = "Configs/FallObjectConfig")]
     public class FallObjectConfig : ScriptableObject

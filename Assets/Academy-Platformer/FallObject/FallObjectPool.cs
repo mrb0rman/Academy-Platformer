@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Academy_Platformer.FallObject
+namespace FallObject
 {
     public class FallObjectPool
     {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 
 namespace Academy_Platformer.Player.FactoryPlayer
 {

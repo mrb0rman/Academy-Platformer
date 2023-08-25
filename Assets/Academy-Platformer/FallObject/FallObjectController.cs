@@ -1,8 +1,9 @@
 using System;
 using Academy_Platformer.Player;
+using Player;
 using UnityEngine;
 
-namespace Academy_Platformer.FallObject
+namespace FallObject
 {
     public class FallObjectController
     {

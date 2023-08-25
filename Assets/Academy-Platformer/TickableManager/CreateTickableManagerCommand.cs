@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Academy_Platformer;
+using UnityEngine;
 
-namespace Academy_Platformer.TickableManager
+namespace TickableManager
 {
-    public class CreateTickableManagerCommand: Academy_Platformer.Command.Command
+    public class CreateTickableManagerCommand: Command.Command
     {
         private readonly TickableManager _tickableManagerPrefab;
         private TickableManager _tickableManager;

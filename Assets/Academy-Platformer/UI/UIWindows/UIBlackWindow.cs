@@ -1,10 +1,9 @@
-using Academy_Platformer.UI.UIService;
 using DG.Tweening;
+using UI.UIService;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace UIService
+namespace UI.UIWindows
 {
     public class UIBlackWindow : UIWindow
     {

@@ -1,10 +1,10 @@
-namespace UIService
+namespace UI.UIWindows
 {
     public class UIEndGameWindowController
     {
-        private readonly Academy_Platformer.UI.UIService.UIService _uiService;
+        private readonly UIService.UIService _uiService;
         private UIEndGameWindow _endGameWindow;
-        public UIEndGameWindowController(Academy_Platformer.UI.UIService.UIService uiService)
+        public UIEndGameWindowController(UIService.UIService uiService)
         {
             _uiService = uiService;
             _endGameWindow = uiService.Get<UIEndGameWindow>();

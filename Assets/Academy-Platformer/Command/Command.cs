@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Academy_Platformer.Command
+namespace Command
 {
     public abstract class Command : ICommand
     {

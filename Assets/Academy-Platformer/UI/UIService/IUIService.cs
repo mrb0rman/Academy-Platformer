@@ -1,8 +1,7 @@
 using System;
-using UIService;
 using UnityEngine;
 
-namespace Academy_Platformer.UI.UIService
+namespace UI.UIService
 {
     public interface IUIService
     {

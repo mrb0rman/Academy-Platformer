@@ -1,8 +1,7 @@
-﻿using Academy_Platformer.Camera;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Academy_Platformer.Player
+namespace Player
 {
     public class PlayerAnimator
     {
@@ -28,7 +27,7 @@ namespace Academy_Platformer.Player
         private const float DecreasePlayerDeath = 0f;
         private const int NumberRepetitionsGetDamage = 5;
         
-        public PlayerAnimator(PlayerView playerView, Camera cameraView)
+        public PlayerAnimator(PlayerView playerView, UnityEngine.Camera cameraView)
         {
             _playerView = playerView;
 

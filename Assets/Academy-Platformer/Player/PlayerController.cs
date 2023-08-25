@@ -1,26 +1,27 @@
 ﻿using System;
-using Academy_Platformer.HPController;
-using Interface;
-using UIService;
+using Academy_Platformer;
+using Academy_Platformer.Player.FactoryPlayer;
+using UI.HUD;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-namespace FactoryPlayer
+namespace Player
 {
     public class PlayerController
     {
         public event Action<float> OnChangeSpeed;
 
-        public HPController HpController => _hpController;
-        
+        public PlayerHpController PlayerHpController => _playerHpController;
+         
         private InputController _inputController;
         private PlayerConfig _playerConfig;
         private PlayerView _playerView;
-        private HPController _hpController;
+        private PlayerHpController _playerHpController;
         private IFactoryCharacter _factoryPlayer;
         private PlayerStorage _playerStorage;
         private PlayerMovementController _playerMovementController;
         private PlayerAnimator _playerAnimator;
-        private Camera _camera;
+        private UnityEngine.Camera _camera;
         
         private float _currentHealth;
         private float _currentSpeed;
@@ -28,19 +29,18 @@ namespace FactoryPlayer
         public PlayerController(
             InputController inputController,
             HUDWindowController hudWindowController,
-            Camera camera)
+            UnityEngine.Camera camera)
         {
-            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.ResourcesConst.PlayerConfig);
+            _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.PlayerConfig);
 
-            _hpController = new HPController(_playerConfig.PlayerModel.Health);
-            _hpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
+            _playerHpController = new PlayerHpController(_playerConfig.PlayerModel.Health);
+            _playerHpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
           
             _inputController = inputController;
             _camera = camera;
             
             _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
-            
         }
         
         public PlayerView Spawn()
@@ -68,7 +68,7 @@ namespace FactoryPlayer
 
         public void DestroyView()
         {
-            GameObject.Destroy(_playerView.gameObject);
+            Object.Destroy(_playerView.gameObject);
             _playerView = null;
         }
     }

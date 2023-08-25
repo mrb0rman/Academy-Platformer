@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Academy_Platformer.SceneObjectStorage
+namespace SceneObjectStorage
 {
     public class SceneObjectStorage : ISceneObjectStorage
     {

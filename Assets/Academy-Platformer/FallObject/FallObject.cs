@@ -1,4 +1,4 @@
-﻿namespace Academy_Platformer.FallObject
+﻿namespace FallObject
 {
     public class FallObject
     {

@@ -1,28 +1,25 @@
 using System;
 using UnityEngine;
 
-namespace Academy_Platformer
+public class InputController
 {
-    public class InputController
+    public event Action OnLeftEvent;
+    public event Action OnRightEvent;
+
+    public InputController()
     {
-        public event Action OnLeftEvent;
-        public event Action OnRightEvent;
+        TickableManager.TickableManager.UpdateNotify += CheckInput;
+    }
 
-        public InputController()
+    private void CheckInput()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            TickableManager.TickableManager.UpdateNotify += CheckInput;
+            OnLeftEvent?.Invoke();
         }
-
-        private void CheckInput()
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                OnLeftEvent?.Invoke();
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                OnRightEvent?.Invoke();
-            }
+            OnRightEvent?.Invoke();
         }
     }
 }

@@ -1,31 +1,28 @@
 using System;
 
-namespace Academy_Platformer
+public class PlayerHpController
 {
-    public class PlayerHpController
+    public Action<float> OnHealthChanged;
+
+    public Action OnZeroHealth;
+        
+    private float _health;
+        
+    public PlayerHpController(float health)
     {
-        public Action<float> OnHealthChanged;
+        _health = health;
+    }
 
-        public Action OnZeroHealth;
-        
-        private float _health;
-        
-        public PlayerHpController(float health)
+    public void ReduceHealth(float damage)
+    {
+        _health -= damage;
+        if (_health > 0)
         {
-            _health = health;
+            OnHealthChanged?.Invoke(_health);
         }
-
-        public void ReduceHealth(float damage)
+        else
         {
-            _health -= damage;
-            if (_health > 0)
-            {
-                OnHealthChanged?.Invoke(_health);
-            }
-            else
-            {
-                OnZeroHealth?.Invoke();
-            }
+            OnZeroHealth?.Invoke();
         }
     }
 }

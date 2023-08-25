@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Academy_Platformer.FallObject
+namespace FallObject
 {
     public class FallObjectView : MonoBehaviour
     {

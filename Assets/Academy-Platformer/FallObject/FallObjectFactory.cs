@@ -1,6 +1,7 @@
+using Academy_Platformer;
 using UnityEngine;
 
-namespace Academy_Platformer.FallObject
+namespace FallObject
 {
     public class FallObjectFactory
     {

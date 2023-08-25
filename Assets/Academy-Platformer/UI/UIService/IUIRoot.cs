@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Academy_Platformer.UI.UIService
+namespace UI.UIService
 {
     public interface IUIRoot
     {

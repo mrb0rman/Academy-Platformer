@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Academy_Platformer.Sounds
+namespace Sounds
 {
     public class SoundView : MonoBehaviour
     {

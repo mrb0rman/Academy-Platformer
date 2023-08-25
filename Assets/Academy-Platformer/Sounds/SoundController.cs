@@ -1,7 +1,8 @@
 using System.Collections;
+using Academy_Platformer;
 using UnityEngine;
 
-namespace Academy_Platformer.Sounds
+namespace Sounds
 {
     public class SoundController
     {

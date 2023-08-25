@@ -1,6 +1,6 @@
-using Academy_Platformer.UI.HUD;
+using UI.HUD;
 
-namespace UIService
+namespace UI.UIWindows
 {
     public class UIGameWindow : UIAnimationWindow
     {
