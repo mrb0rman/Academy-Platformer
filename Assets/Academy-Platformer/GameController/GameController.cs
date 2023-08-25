@@ -33,7 +33,7 @@ public class GameController
             5, 
             _scoreCounter);
         _inputController = new InputController();
-        _playerController = new PlayerController(_inputController, _hudWindowController);
+        _playerController = new PlayerController(_inputController, _hudWindowController, _camera);
     }
     
     private void UIInit()

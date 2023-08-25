@@ -13,11 +13,11 @@ public class InputController
 
     private void CheckInput()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             OnLeftEvent?.Invoke();
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             OnRightEvent?.Invoke();
         }
