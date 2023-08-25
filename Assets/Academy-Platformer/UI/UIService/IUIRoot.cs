@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UIService
+namespace UI.UIService
 {
     public interface IUIRoot
     {

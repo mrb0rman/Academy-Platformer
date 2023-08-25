@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UIService
+namespace UI.UIService
 {
     public class UIRoot : MonoBehaviour, IUIRoot
     {
