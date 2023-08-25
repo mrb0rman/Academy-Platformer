@@ -1,5 +1,4 @@
 using System;
-using Academy_Platformer.Player;
 using Player;
 using UnityEngine;
 
@@ -9,31 +8,28 @@ namespace FallObject
     {
         public event Action<FallObjectController> PlayerCatchFallingObjectNotify; 
         public event Action<FallObjectController> ObjectFellNotify;
-
-        public FallObjectView View => _view;
-        private FallObjectAnimator _animator;
         public int PointsPerObject => _pointsPerObject;
+        public FallObjectView View => _view;
         public int Damage => _damage;
-
-        private FallObjectView _view;
         
-        private int _pointsPerObject;
-        private int _damage;
-        private float _fallSpeed;
-
         private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
+        private FallObjectAnimator _animator;
+        private FallObjectView _view;
+        private int _pointsPerObject;
+        private float _minPositionY = -7f;
+        private float _fallSpeed;
+        private int _damage;
+
 
         public FallObjectController(
             FallObjectView view, 
             FallObjectModel model)
         {
-            TickableManager.TickableManager.FixedUpdateNotify += FixedUpdate;
-
             _pointsPerObject = model.PointsPerObject;
-            _damage = model.Damage;
             _fallSpeed = model.FallSpeed;
-
+            _damage = model.Damage;
             _view = view;
+            
             _view.OnCollisionEnter2DNotify += OnCollisionEnter2D;
         }
 
@@ -48,7 +44,24 @@ namespace FallObject
 
         private void FixedUpdate()
         {
+            if (_view.transform.position.y <= _minPositionY)
+            {
+                ObjectFellNotify?.Invoke(this);
+            }
             _view.transform.position += _deltaVector * _fallSpeed;
+        }
+
+        public void SetActive(bool value)
+        {
+            if (value == true)
+            {
+                TickableManager.TickableManager.FixedUpdateNotify += FixedUpdate;
+            }
+            else
+            {
+                TickableManager.TickableManager.FixedUpdateNotify -= FixedUpdate;
+            }
+            View.gameObject.SetActive(value);
         }
     }
 }

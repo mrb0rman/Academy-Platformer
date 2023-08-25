@@ -22,7 +22,7 @@ namespace UI.UIWindows
 
         private void StartButtonClickEvent()
         {
-            OnStartButtonClickEvent.Invoke();
+            OnStartButtonClickEvent?.Invoke();
         }
     }
 }

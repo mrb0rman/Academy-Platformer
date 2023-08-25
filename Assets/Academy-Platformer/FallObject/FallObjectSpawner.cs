@@ -6,26 +6,28 @@ using Random = UnityEngine.Random;
 public class FallObjectSpawner
 {
     public FallObjectPool Pool => _pool;
-
-    private float _minPositionX;
-    private float _maxPositionX;
-    private FallObjectPool _pool;
-
-    private float _spawnPeriodMin;
-    private float _spawnPeriodMax;
+    
+    private readonly ScoreCounter _scoreCounter;
+    private readonly FallObjectPool _pool;
+    private readonly float _spawnPeriodMin;
+    private readonly float _spawnPeriodMax;
+    private readonly float _minPositionX;
+    private readonly float _maxPositionX;
+    private readonly float _positionY;
+    private Vector3 _spawnPosition;
     private float _spawnPeriod;
     private int _typesCount;
 
-    public FallObjectSpawner(
-        float minPositionX,
-        float maxPositionX,
-        float spawnPeriodMin,
-        float spawnPeriodMax)
+    public FallObjectSpawner(ScoreCounter scoreCounter)
     {
-        _minPositionX = minPositionX;
-        _maxPositionX = maxPositionX;
-        _spawnPeriodMin = spawnPeriodMin;
-        _spawnPeriodMax = spawnPeriodMax;
+        var spawnerConfig = Resources.Load<FallObjectSpawnConfig>(ResourcesConst.FallObjectSpawnConfig);
+        _positionY = spawnerConfig.PositionY;
+        _minPositionX = spawnerConfig.MinPositionX;
+        _maxPositionX = spawnerConfig.MaxPositionX;
+        _spawnPeriodMin = spawnerConfig.SpawnPeriodMin;
+        _spawnPeriodMax = spawnerConfig.SpawnPeriodMax;
+        _spawnPosition = new Vector2(Random.Range(_minPositionX, _maxPositionX), _positionY);
+        _scoreCounter = scoreCounter;
 
         _pool = new FallObjectPool(new FallObjectFactory());
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
@@ -58,7 +60,13 @@ public class FallObjectSpawner
     {
         var type = Random.Range(0, _typesCount);
         var newObject = _pool.CreateObject((FallObjectType)type);
-        newObject.gameObject.transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX), 5, 0);
-        newObject.OnDeathEvent += _pool.ReturnToPool;
+        var newObjectController = _pool.GetController(newObject);
+        _spawnPosition.x = Random.Range(_minPositionX, _maxPositionX);
+        newObject.gameObject.transform.position = _spawnPosition;
+        
+        newObjectController.ObjectFellNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
+        newObjectController.PlayerCatchFallingObjectNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
+        newObjectController.ObjectFellNotify += _scoreCounter.ObjectFellEventHandler;
+        newObjectController.PlayerCatchFallingObjectNotify += _scoreCounter.PlayerCatchFallObjectEventHandler;
     }
 }

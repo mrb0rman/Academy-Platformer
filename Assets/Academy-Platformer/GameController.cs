@@ -27,7 +27,7 @@ public class GameController
         ScoreInit();    
         
         _soundController = new SoundController();
-        _spawner = new FallObjectSpawner(-7,7,1f, 5f);
+        _spawner = new FallObjectSpawner(_scoreCounter);
         _inputController = new InputController();
         _playerController = new PlayerController(_inputController, _hudWindowController, _camera);
     }
