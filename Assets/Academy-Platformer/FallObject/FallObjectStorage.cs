@@ -1,39 +1,41 @@
 using System.Collections.Generic;
-using Academy_Platformer.FallObject;
 using UnityEngine;
 
-public class FallObjectStorage
+namespace FallObject
 {
-    private Dictionary<int, FallObjectView> _storage = new Dictionary<int, FallObjectView>();
-
-    public void Add(FallObjectView fallObjectView)
+    public class FallObjectStorage
     {
-        if (fallObjectView == null)
-        {
-            Debug.Log("[FallObjectStorage.Add] Fall object is null");
-            return;
-        }
-        _storage.Add(fallObjectView.GetInstanceID(), fallObjectView);
-    }
+        private Dictionary<int, FallObjectView> _storage = new Dictionary<int, FallObjectView>();
 
-    public FallObjectView Get(int index)
-    {
-        if (_storage.TryGetValue(index, out var value))
+        public void Add(FallObjectView fallObjectView)
         {
-            return value;
+            if (fallObjectView == null)
+            {
+                Debug.Log("[FallObjectStorage.Add] Fall object is null");
+                return;
+            }
+            _storage.Add(fallObjectView.GetInstanceID(), fallObjectView);
         }
+
+        public FallObjectView Get(int index)
+        {
+            if (_storage.TryGetValue(index, out var value))
+            {
+                return value;
+            }
         
-        Debug.Log("[FallObjectStorage.Get] Failed to get value by that id. Try another id.");
-        return null;
-    }
-
-    public void Delete(int index)
-    {
-        if (_storage.Remove(index))
-        {
-            return;
+            Debug.Log("[FallObjectStorage.Get] Failed to get value by that id. Try another id.");
+            return null;
         }
+
+        public void Delete(int index)
+        {
+            if (_storage.Remove(index))
+            {
+                return;
+            }
         
-        Debug.Log("[FallObjectStorage.Delete] Failed to delete value by that id.Try another id.");
+            Debug.Log("[FallObjectStorage.Delete] Failed to delete value by that id.Try another id.");
+        }
     }
 }
