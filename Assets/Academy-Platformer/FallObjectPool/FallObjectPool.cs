@@ -35,7 +35,6 @@ public class FallObjectPool
         view.transform.parent = _container.transform;
         controller.ObjectFellNotify += (FallObjectController) => ReturnToPool(view);
         controller.PlayerCatchFallingObjectNotify += (FallObjectController) => ReturnToPool(view);
-        controller.ObjectFellNotify += _scoreCounter.ObjectFellEventHandler;
         controller.PlayerCatchFallingObjectNotify += _scoreCounter.PlayerCatchFallObjectEventHandler;
         
         _pool.Add(view, controller);
