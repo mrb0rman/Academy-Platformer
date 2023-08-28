@@ -1,5 +1,4 @@
 ﻿using System;
-using Academy_Platformer;
 using Academy_Platformer.Player.FactoryPlayer;
 using UI.HUD;
 using UnityEngine;

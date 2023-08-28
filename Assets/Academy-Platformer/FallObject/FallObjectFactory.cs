@@ -5,6 +5,8 @@ namespace FallObject
 {
     public class FallObjectFactory
     {
+        public FallObjectConfig ObjectConfig => _objectConfig;
+        
         private FallObjectConfig _objectConfig = Resources.Load<FallObjectConfig>(ResourcesConst.FallObjectConfigPath);
         private FallObjectView _objectView = Resources.Load<FallObjectView>(ResourcesConst.FallObjectViewPath);
 

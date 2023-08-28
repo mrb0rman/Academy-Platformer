@@ -17,7 +17,7 @@ namespace FallObject
 
         public FallObjectView CreateObject(FallObjectType type)
         {
-            var freeObject = GetFreeElement();
+            var freeObject = GetFreeElement(type);
 
             if (freeObject)
             {
@@ -31,12 +31,16 @@ namespace FallObject
             return key;
         }
 
-        private FallObjectView GetFreeElement()
+        private FallObjectView GetFreeElement(FallObjectType type)
         {
             foreach (var fallObject in _pool.Keys)
             {
                 if (!fallObject.gameObject.activeInHierarchy)
                 {
+                    if (_pool.TryGetValue(fallObject, out var controller))
+                    {
+                        controller.SetModel(_factory.ObjectConfig.Get(type));
+                    }
                     fallObject.gameObject.SetActive(true);
                     return fallObject;
                 }

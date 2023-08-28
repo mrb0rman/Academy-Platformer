@@ -6,15 +6,18 @@ namespace FallObject
 {
     public class FallObjectController
     {
-        public event Action<FallObjectController> PlayerCatchFallingObjectNotify; 
+        public event Action<FallObjectController> PlayerCatchFallingObjectNotify;
+        public static event Action<float> DamageToPlayerNotify;
         public event Action<FallObjectController> ObjectFellNotify;
         public int PointsPerObject => _pointsPerObject;
         public FallObjectView View => _view;
+        public FallObjectModel Model => _model;
         public int Damage => _damage;
-        
+
         private Vector3 _deltaVector = new Vector3(0, -0.001f, 0);
         private FallObjectAnimator _animator;
         private FallObjectView _view;
+        private FallObjectModel _model;
         private int _pointsPerObject;
         private float _minPositionY = -7f;
         private float _fallSpeed;
@@ -22,24 +25,32 @@ namespace FallObject
 
 
         public FallObjectController(
-            FallObjectView view, 
+            FallObjectView view,
             FallObjectModel model)
         {
+            _model = model;
             _pointsPerObject = model.PointsPerObject;
             _fallSpeed = model.FallSpeed;
             _damage = model.Damage;
+
             _view = view;
-            
+
             _view.OnCollisionEnter2DNotify += OnCollisionEnter2D;
         }
 
         void OnCollisionEnter2D(Collision2D collision2D)
         {
             var player = collision2D.gameObject.GetComponent<PlayerView>();
+
             if (player != null)
             {
                 PlayerCatchFallingObjectNotify?.Invoke(this);
-            }          
+
+                if (_model.Type == FallObjectType.Type2)
+                {
+                    DamageToPlayerNotify?.Invoke(_damage);
+                }
+            }
         }
 
         private void FixedUpdate()
@@ -48,6 +59,7 @@ namespace FallObject
             {
                 ObjectFellNotify?.Invoke(this);
             }
+
             _view.transform.position += _deltaVector * _fallSpeed;
         }
 
@@ -61,7 +73,16 @@ namespace FallObject
             {
                 TickableManager.TickableManager.FixedUpdateNotify -= FixedUpdate;
             }
+
             View.gameObject.SetActive(value);
+        }
+
+        public void SetModel(FallObjectModel model)
+        {
+            _pointsPerObject = model.PointsPerObject;
+            _fallSpeed = model.FallSpeed;
+            _damage = model.Damage;
+            _view.SpriteRenderer.sprite = model.ObjectSprite;
         }
     }
 }

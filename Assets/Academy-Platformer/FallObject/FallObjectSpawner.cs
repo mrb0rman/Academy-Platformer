@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 public class FallObjectSpawner
 {
     public FallObjectPool Pool => _pool;
-    
     private readonly FallObjectPool _pool;
     private readonly float _spawnPeriodMin;
     private readonly float _spawnPeriodMax;
