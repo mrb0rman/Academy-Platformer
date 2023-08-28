@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Command
 {
     public abstract class Command : ICommand

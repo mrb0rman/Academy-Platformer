@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2560998694284950789}
   - component: {fileID: 5332159752316036181}
-  - component: {fileID: 1306725386142066251}
+  - component: {fileID: 7149300125045050264}
   m_Layer: 0
   m_Name: SoundView
   m_TagString: Untagged
@@ -129,7 +129,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1306725386142066251
+--- !u!114 &7149300125045050264
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 91603595292494981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5192263433374aa1982ecfe7a2db7ad9, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f18fad5baac6134c91bf52241c1f193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 5332159752316036181}
