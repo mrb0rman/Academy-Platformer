@@ -1,4 +1,6 @@
 using System;
+using FallObject;
+using UnityEngine;
 
 public class PlayerHpController
 {
@@ -11,6 +13,8 @@ public class PlayerHpController
     public PlayerHpController(float health)
     {
         _health = health;
+
+        FallObjectController.DamageToPlayerNotify += ReduceHealth;
     }
 
     public void ReduceHealth(float damage)
