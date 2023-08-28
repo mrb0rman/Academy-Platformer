@@ -30,6 +30,9 @@ namespace FallObject
             _damage = model.Damage;
             _view = view;
             
+            _animator = new FallObjectAnimator(view);
+            _animator.Spawn();
+            
             _view.OnCollisionEnter2DNotify += OnCollisionEnter2D;
         }
 
