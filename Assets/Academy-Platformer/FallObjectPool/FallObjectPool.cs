@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class FallObjectPool
 {
-    private FallObjectFactory _factory;
+    private readonly FallObjectFactory _factory;
+    private readonly ScoreCounter _scoreCounter;
 
     private Dictionary<FallObjectView, FallObjectController> _pool;
 
     private GameObject _container; 
 
-    public FallObjectPool(FallObjectFactory factory)
+    public FallObjectPool(FallObjectFactory factory, ScoreCounter scoreCounter)
     {
         _factory = factory;
+        _scoreCounter = scoreCounter;
         _pool = new Dictionary<FallObjectView, FallObjectController>();
         _container = new GameObject("FallObjects");
     }
@@ -31,6 +33,10 @@ public class FallObjectPool
         
         controller.SetActive(true);
         view.transform.parent = _container.transform;
+        controller.ObjectFellNotify += (FallObjectController) => ReturnToPool(view);
+        controller.PlayerCatchFallingObjectNotify += (FallObjectController) => ReturnToPool(view);
+        controller.ObjectFellNotify += _scoreCounter.ObjectFellEventHandler;
+        controller.PlayerCatchFallingObjectNotify += _scoreCounter.PlayerCatchFallObjectEventHandler;
         
         _pool.Add(view, controller);
 
