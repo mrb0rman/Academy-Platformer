@@ -8,6 +8,7 @@ public class FallObjectSpawnConfig : ScriptableObject
     public float MaxPositionX;
     public float SpawnPeriodMin;
     public float SpawnPeriodMax;
+    public float DelayStartSpawn;
 }
 
 
