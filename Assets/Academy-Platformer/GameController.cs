@@ -12,10 +12,10 @@ public class GameController
     private InputController _inputController;
     private PlayerController _playerController;
     private UIService _uiService;
-    private UIMainMenuController _mainMenuWindowContrroler;
+    private UIMainMenuController _mainMenuWindowController;
     private UIGameWindowController _gameWindowController;
     private UIEndGameWindowController _endMenuWindowController;
-    private HUDWindowController _hudWindowController ;
+    private HUDWindowController _hudWindowController;
     private ScoreCounter _scoreCounter;
     private SoundController _soundController;
     
@@ -26,16 +26,18 @@ public class GameController
         ScoreInit();
         
         _soundController = new SoundController();
-        _spawner = new FallObjectSpawner(_scoreCounter);
         _inputController = new InputController();
         _playerController = new PlayerController(_inputController, _hudWindowController, _camera);
+        _spawner = new FallObjectSpawner(_scoreCounter);
+
+        _playerController.PlayerHpController.OnZeroHealth += StopGame;
     }
     
     private void UIInit()
     {
         _uiService = new UIService(_camera);
             
-        _mainMenuWindowContrroler = new UIMainMenuController(_uiService, this);
+        _mainMenuWindowController = new UIMainMenuController(_uiService, this);
         _gameWindowController = new UIGameWindowController(_uiService);
         _endMenuWindowController = new UIEndGameWindowController(_uiService);
         _hudWindowController = new HUDWindowController(_uiService);
