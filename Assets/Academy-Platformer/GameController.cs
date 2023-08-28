@@ -1,4 +1,3 @@
-using Academy_Platformer;
 using Player;
 using Sounds;
 using UI.HUD;

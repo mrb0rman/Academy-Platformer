@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Academy_Platformer.Sounds
+namespace Sounds
 {
     public class SoundPool
     {
@@ -14,8 +14,8 @@ namespace Academy_Platformer.Sounds
         {
             _soundPool = new GameObject("SoundPool");
             _listSoundViews = new List<SoundView>();
-            _soundView = Resources.Load<SoundView>(ResourcesConst.ResourcesConst.SoundView);
-            _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.ResourcesConst.SoundConfig);
+            _soundView = Resources.Load<SoundView>(ResourcesConst.SoundView);
+            _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.SoundConfig);
 
             InitSoundPool();
         }
