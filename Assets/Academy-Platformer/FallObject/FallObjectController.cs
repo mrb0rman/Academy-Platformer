@@ -63,5 +63,13 @@ namespace FallObject
             }
             View.gameObject.SetActive(value);
         }
+
+        public void SetModel(FallObjectModel model)
+        {
+            _pointsPerObject = model.PointsPerObject;
+            _fallSpeed = model.FallSpeed;
+            _damage = model.Damage;
+            _view.SpriteRenderer.sprite = model.ObjectSprite;
+        }
     }
 }
