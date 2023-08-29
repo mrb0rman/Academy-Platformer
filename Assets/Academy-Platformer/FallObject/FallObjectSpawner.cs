@@ -6,14 +6,18 @@ using Random = UnityEngine.Random;
 public class FallObjectSpawner
 {
     public FallObjectPool Pool => _pool;
+
+    private readonly ScoreCounter _scoreCounter;
     private readonly FallObjectPool _pool;
     private readonly float _spawnPeriodMin;
     private readonly float _spawnPeriodMax;
     private readonly float _minPositionX;
     private readonly float _maxPositionX;
     private readonly float _positionY;
+    private readonly float _delayStartSpawn;
     private Vector3 _spawnPosition;
     private float _spawnPeriod;
+    private float _timer;
     private int _typesCount;
 
     public FallObjectSpawner(ScoreCounter scoreCounter)
@@ -24,6 +28,7 @@ public class FallObjectSpawner
         _maxPositionX = spawnerConfig.MaxPositionX;
         _spawnPeriodMin = spawnerConfig.SpawnPeriodMin;
         _spawnPeriodMax = spawnerConfig.SpawnPeriodMax;
+        _delayStartSpawn = spawnerConfig.DelayStartSpawn;
         _spawnPosition = new Vector2(Random.Range(_minPositionX, _maxPositionX), _positionY);
 
         _pool = new FallObjectPool(new FallObjectFactory(), scoreCounter);
@@ -45,11 +50,15 @@ public class FallObjectSpawner
     private void Update()
     {
         _spawnPeriod -= Time.deltaTime;
-
-        if (_spawnPeriod <= 0)
+        _timer += Time.deltaTime;
+        
+        if (_timer > _delayStartSpawn)
         {
-            SpawnNewObject();
-            _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
+            if (_spawnPeriod <= 0)
+            {
+                SpawnNewObject();
+                _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
+            }
         }
     }
 

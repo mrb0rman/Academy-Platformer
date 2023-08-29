@@ -21,13 +21,17 @@ public class GameController
     
     public GameController(UnityEngine.Camera camera)
     {
+        _soundController = new SoundController();
         _camera = camera;
+        
         UIInit();
         ScoreInit();
         
-        _soundController = new SoundController();
         _inputController = new InputController();
-        _playerController = new PlayerController(_inputController, _hudWindowController, _camera);
+        _playerController = new PlayerController(_inputController, 
+            _hudWindowController, 
+            _camera, 
+            _soundController);
         _spawner = new FallObjectSpawner(_scoreCounter);
 
         _playerController.PlayerHpController.OnZeroHealth += StopGame;
@@ -45,17 +49,22 @@ public class GameController
 
     private void ScoreInit()
     {
-        _scoreCounter = new ScoreCounter();
+        _scoreCounter = new ScoreCounter(_soundController);
         _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
     }
 
     public void InitGame()
     {
         _uiService.Show<UIMainMenuWindow>();
+        
+        _soundController.Play(SoundName.BackStart, loop:true);
     }
 
     public void StartGame()
     {
+        _soundController.Stop();
+        _soundController.Play(SoundName.BackMain, loop:true);
+        
         _playerController.Spawn();
         _spawner.StartSpawn();
         TickableManager.TickableManager.UpdateNotify += Update;

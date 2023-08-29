@@ -1,5 +1,6 @@
 ﻿using System;
 using Academy_Platformer.Player.FactoryPlayer;
+using Sounds;
 using UI.HUD;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -11,7 +12,8 @@ namespace Player
         public event Action<float> OnChangeSpeed;
 
         public PlayerHpController PlayerHpController => _playerHpController;
-         
+
+        private SoundController _soundController;
         private InputController _inputController;
         private PlayerConfig _playerConfig;
         private PlayerView _playerView;
@@ -28,15 +30,19 @@ namespace Player
         public PlayerController(
             InputController inputController,
             HUDWindowController hudWindowController,
-            UnityEngine.Camera camera)
+            UnityEngine.Camera camera,
+            SoundController soundController)
         {
+            _soundController = soundController;
+            
             _playerConfig = Resources.Load<PlayerConfig>(ResourcesConst.PlayerConfig);
 
-            _playerHpController = new PlayerHpController(_playerConfig.PlayerModel.Health);
+            _playerHpController = new PlayerHpController(_playerConfig.PlayerModel.Health, _soundController);
             _playerHpController.OnHealthChanged += hudWindowController.ChangeHealthPoint;
           
             _inputController = inputController;
             _camera = camera;
+            
             
             _playerStorage = new PlayerStorage();
             _factoryPlayer = new FactoryPlayer();
@@ -67,6 +73,9 @@ namespace Player
 
         public void DestroyView()
         {
+            _soundController.Stop();
+            _soundController.Play(SoundName.GameOver);
+            
             Object.Destroy(_playerView.gameObject);
             _playerView = null;
         }

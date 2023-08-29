@@ -5,7 +5,7 @@ namespace FallObject
 {
     public class FallObjectAnimator
     {
-        private const float SpawnAnimDuration = 0.5f;
+        private const float SpawnAnimDuration = 2.5f;
         private const float DeathAnimDuration = 0.5f;
     
         private FallObjectView _fallObjectView;
@@ -24,8 +24,11 @@ namespace FallObject
 
             _sequenceSpawn = DOTween.Sequence();
 
-            _fallObjectView.transform.localScale = Vector3.zero;
-            _sequenceSpawn.Append(_fallObjectView.transform.DOScale(Vector3.one, SpawnAnimDuration));
+            _sequenceSpawn.Append(_fallObjectView.transform
+                .DORotate(new Vector3(0.0f, 0.0f, 360.0f), SpawnAnimDuration, RotateMode.LocalAxisAdd)
+                .SetLoops(-1, LoopType.Restart)
+                .SetRelative()
+                .SetEase(Ease.Linear));
         }
 
         public void Death()
@@ -34,7 +37,8 @@ namespace FallObject
 
             _sequenceDeath = DOTween.Sequence();
 
-            _sequenceDeath.Append(_fallObjectView.transform.DOScale(Vector3.zero, DeathAnimDuration));
+            _sequenceDeath.Append(_fallObjectView.transform
+                .DOScale(Vector3.zero, DeathAnimDuration));
         }
     }
 }
