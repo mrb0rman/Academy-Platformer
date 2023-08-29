@@ -8,8 +8,8 @@ public class ScoreCounter
     public int Score => _score;
 
     private SoundController _soundController;
-    
-    private int _score = 1;
+
+    private int _score = 0;
 
     public ScoreCounter(SoundController soundController)
     {
@@ -20,9 +20,9 @@ public class ScoreCounter
     {
         _soundController.Play(SoundName.Buff1);
         
-        _score += controller.PointsPerObject;
         ScoreChangeNotify?.Invoke(controller.PointsPerObject);
     }        
+
     public void ObjectFellEventHandler(FallObjectController controller)
     {
         _soundController.Play(SoundName.GetDamage);

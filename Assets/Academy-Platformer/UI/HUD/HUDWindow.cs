@@ -6,9 +6,6 @@ namespace UI.HUD
 {
     public class HUDWindow : UIAnimationWindow
     {
-        public int СurrentScore => currentScore;
-        
-        [SerializeField] private int currentScore = 0;
         [SerializeField] private Text text;
         [SerializeField] private Transform healthsBar;
         
@@ -30,8 +27,7 @@ namespace UI.HUD
 
         public void ChangeScoreText(int score)
         {
-            currentScore += score;
-            text.text = currentScore.ToString();
+            text.text = score.ToString();
         }
     }
 }

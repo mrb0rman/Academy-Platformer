@@ -5,10 +5,10 @@ using Random = UnityEngine.Random;
 
 public class FallObjectSpawner
 {
-    public FallObjectPool.FallObjectPool Pool => _pool;
+    public FallObjectPool Pool => _pool;
 
     private readonly ScoreCounter _scoreCounter;
-    private readonly FallObjectPool.FallObjectPool _pool;
+    private readonly FallObjectPool _pool;
     private readonly float _spawnPeriodMin;
     private readonly float _spawnPeriodMax;
     private readonly float _minPositionX;
@@ -30,9 +30,8 @@ public class FallObjectSpawner
         _spawnPeriodMax = spawnerConfig.SpawnPeriodMax;
         _delayStartSpawn = spawnerConfig.DelayStartSpawn;
         _spawnPosition = new Vector2(Random.Range(_minPositionX, _maxPositionX), _positionY);
-        _scoreCounter = scoreCounter;
 
-        _pool = new FallObjectPool.FallObjectPool(new FallObjectFactory());
+        _pool = new FallObjectPool(new FallObjectFactory(), scoreCounter);
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
     }
@@ -67,13 +66,7 @@ public class FallObjectSpawner
     {
         var type = Random.Range(0, _typesCount);
         var newObject = _pool.CreateObject((FallObjectType)type);
-        var newObjectController = _pool.GetController(newObject);
         _spawnPosition.x = Random.Range(_minPositionX, _maxPositionX);
         newObject.gameObject.transform.position = _spawnPosition;
-
-        newObjectController.ObjectFellNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
-        newObjectController.PlayerCatchFallingObjectNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
-        newObjectController.ObjectFellNotify += _scoreCounter.ObjectFellEventHandler;
-        newObjectController.PlayerCatchFallingObjectNotify += _scoreCounter.PlayerCatchFallObjectEventHandler;
     }
 }
