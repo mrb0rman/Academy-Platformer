@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class FallObjectSpawner
 {
     public FallObjectPool Pool => _pool;
-    
+
     private readonly ScoreCounter _scoreCounter;
     private readonly FallObjectPool _pool;
     private readonly float _spawnPeriodMin;
@@ -69,7 +69,7 @@ public class FallObjectSpawner
         var newObjectController = _pool.GetController(newObject);
         _spawnPosition.x = Random.Range(_minPositionX, _maxPositionX);
         newObject.gameObject.transform.position = _spawnPosition;
-        
+
         newObjectController.ObjectFellNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
         newObjectController.PlayerCatchFallingObjectNotify += (FallObjectController) => _pool.ReturnToPool(newObject);
         newObjectController.ObjectFellNotify += _scoreCounter.ObjectFellEventHandler;
