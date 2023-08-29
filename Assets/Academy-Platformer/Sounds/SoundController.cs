@@ -1,30 +1,30 @@
-using System.Collections;
-using Academy_Platformer;
-using UnityEngine;
-
 namespace Sounds
 {
     public class SoundController
     {
-        private SoundConfig _soundConfig;
-        private SoundView _soundView;
-        private AudioSource _audioSource;
+        private SoundPool _soundPool;
 
         public SoundController()
         {
-            var soundManager = Resources.Load<SoundView>(ResourcesConst.SoundManager);
-            _soundView = Object.Instantiate(soundManager);
-            _audioSource = _soundView.GetComponent<AudioSource>();
-            _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.SoundConfig);
+            _soundPool = new SoundPool();
+        }
+        
+        public void Play(SoundName soundName, float volume = 1, bool loop = false)
+        {
+            SwitchOff();
+            
+            var sound = _soundPool.TakeFromPool(soundName, volume, loop);
+            sound.AudioSource.Play();
         }
 
-        IEnumerator Play(SoundName soundName)
+        public void SwitchOff()
         {
-            _audioSource.clip = _soundConfig.Get(soundName);
-            
-            _audioSource.Play();
-            yield return new WaitForSeconds(_audioSource.clip.length);
-            _audioSource.clip = null;
+            _soundPool.DisableCompletedSounds();
+        }
+
+        public void Stop()
+        {
+            _soundPool.MuteSound();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Player
         private const float DurationSpawn = 5f;
         private const float DurationGetDamage = 0.1f;
         private const float DurationDeath = 1f;
-        private const float DelaySpawn = 1f;
+        private const float DelaySpawn = 0.5f;
         private const float VisibilityAlphaGetDamage = 0f;
         private const float InvisibilityAlphaGetDamage = 1f;
         private const float IncreasePlayerDeath = 0.7f;

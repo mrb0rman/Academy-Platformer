@@ -1,4 +1,3 @@
-using Academy_Platformer;
 using Player;
 using Sounds;
 using UI.HUD;
@@ -13,30 +12,36 @@ public class GameController
     private InputController _inputController;
     private PlayerController _playerController;
     private UIService _uiService;
-    private UIMainMenuController _mainMenuWindowContrroler;
+    private UIMainMenuController _mainMenuWindowController;
     private UIGameWindowController _gameWindowController;
     private UIEndGameWindowController _endMenuWindowController;
-    private HUDWindowController _hudWindowController ;
+    private HUDWindowController _hudWindowController;
     private ScoreCounter _scoreCounter;
     private SoundController _soundController;
     
     public GameController(UnityEngine.Camera camera)
     {
-        _camera = camera;
-        UIInit();
-        ScoreInit();    
-        
         _soundController = new SoundController();
-        _spawner = new FallObjectSpawner(_scoreCounter);
+        _camera = camera;
+        
+        UIInit();
+        ScoreInit();
+        
         _inputController = new InputController();
-        _playerController = new PlayerController(_inputController, _hudWindowController, _camera);
+        _playerController = new PlayerController(_inputController, 
+            _hudWindowController, 
+            _camera, 
+            _soundController);
+        _spawner = new FallObjectSpawner(_scoreCounter);
+
+        _playerController.PlayerHpController.OnZeroHealth += StopGame;
     }
     
     private void UIInit()
     {
         _uiService = new UIService(_camera);
             
-        _mainMenuWindowContrroler = new UIMainMenuController(_uiService, this);
+        _mainMenuWindowController = new UIMainMenuController(_uiService, this);
         _gameWindowController = new UIGameWindowController(_uiService);
         _endMenuWindowController = new UIEndGameWindowController(_uiService);
         _hudWindowController = new HUDWindowController(_uiService);
@@ -44,17 +49,22 @@ public class GameController
 
     private void ScoreInit()
     {
-        _scoreCounter = new ScoreCounter();
+        _scoreCounter = new ScoreCounter(_soundController);
         _scoreCounter.ScoreChangeNotify += _hudWindowController.ChangeScore;
     }
 
     public void InitGame()
     {
         _uiService.Show<UIMainMenuWindow>();
+        
+        _soundController.Play(SoundName.BackStart, loop:true);
     }
 
     public void StartGame()
     {
+        _soundController.Stop();
+        _soundController.Play(SoundName.BackMain, loop:true);
+        
         _playerController.Spawn();
         _spawner.StartSpawn();
         TickableManager.TickableManager.UpdateNotify += Update;

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Academy_Platformer;
 using UnityEngine;
 
 namespace Sounds
@@ -8,32 +7,42 @@ namespace Sounds
     {
         private SoundView _soundView;
         private List<SoundView> _listSoundViews;
-        private SoundPoolView _soundPoolView;
         private SoundConfig _soundConfig;
+        private GameObject _soundPool;
 
         public SoundPool()
         {
+            _soundPool = new GameObject("SoundPool");
             _listSoundViews = new List<SoundView>();
-            
             _soundView = Resources.Load<SoundView>(ResourcesConst.SoundView);
-            _soundPoolView = Object.Instantiate(Resources.Load<SoundPoolView>(ResourcesConst.SoundPoolView));
             _soundConfig = Resources.Load<SoundConfig>(ResourcesConst.SoundConfig);
+
+            InitSoundPool();
         }
 
-        public SoundView TakeFromPool(SoundName nameSound, float volume = 1)
+        private void InitSoundPool()
         {
-            var sound = _listSoundViews[SearchingEmptySoundView()];
+            var soundViewCount = 5;
             
+            for (int i = 0; i < soundViewCount; i++)
+            {
+                CreateSoundView();
+            }
+        }
+
+        public SoundView TakeFromPool(SoundName soundName, float volume, bool loop)
+        {
+            var sound = _listSoundViews[SearchEmptySoundView()];
+
             sound.gameObject.SetActive(true);
-            sound.AudioSource.clip = _soundConfig.Get(nameSound);
+            sound.AudioSource.clip = _soundConfig.Get(soundName);
             sound.AudioSource.volume = volume;
-            
-            sound.AudioSource.Play();
+            sound.AudioSource.loop = loop;
 
             return sound;
         }
 
-        public void DisablingCompletedSound()
+        public void DisableCompletedSounds()
         {
             foreach (var soundView in _listSoundViews)
             {
@@ -44,13 +53,22 @@ namespace Sounds
                 }
             }
         }
-        
-        private void CreateSoundView()
+
+        public void MuteSound()
         {
-            _listSoundViews.Add(Object.Instantiate(_soundView, _soundPoolView.transform));
+            foreach (var soundView in _listSoundViews)
+            {
+                soundView.AudioSource.clip = null;
+                soundView.gameObject.SetActive(false);
+            }
         }
 
-        private int SearchingEmptySoundView()
+        private void CreateSoundView()
+        {
+            _listSoundViews.Add(Object.Instantiate(_soundView, _soundPool.transform));
+        }
+
+        private int SearchEmptySoundView()
         {
             for (int i = 0; i < _listSoundViews.Count; i++)
             {
@@ -61,9 +79,8 @@ namespace Sounds
             }
 
             CreateSoundView();
-            
+
             return _listSoundViews.Count - 1;
         }
-        
     }
 }

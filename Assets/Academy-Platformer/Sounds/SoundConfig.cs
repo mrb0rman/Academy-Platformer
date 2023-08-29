@@ -29,6 +29,11 @@ namespace Sounds
                 Init();
             }
             
+            if (!_dict.ContainsKey(soundName))
+            {
+                Debug.LogWarning($"Sound named {soundName} not found.");
+            }
+            
             return _dict[soundName];
         }
     }
