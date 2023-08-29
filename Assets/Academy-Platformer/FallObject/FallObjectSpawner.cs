@@ -5,10 +5,10 @@ using Random = UnityEngine.Random;
 
 public class FallObjectSpawner
 {
-    public FallObjectPool Pool => _pool;
+    public FallObjectPool.FallObjectPool Pool => _pool;
 
     private readonly ScoreCounter _scoreCounter;
-    private readonly FallObjectPool _pool;
+    private readonly FallObjectPool.FallObjectPool _pool;
     private readonly float _spawnPeriodMin;
     private readonly float _spawnPeriodMax;
     private readonly float _minPositionX;
@@ -32,7 +32,7 @@ public class FallObjectSpawner
         _spawnPosition = new Vector2(Random.Range(_minPositionX, _maxPositionX), _positionY);
         _scoreCounter = scoreCounter;
 
-        _pool = new FallObjectPool(new FallObjectFactory());
+        _pool = new FallObjectPool.FallObjectPool(new FallObjectFactory());
         _spawnPeriod = Random.Range(_spawnPeriodMin, _spawnPeriodMax);
         _typesCount = Enum.GetValues(typeof(FallObjectType)).Length;
     }
@@ -52,6 +52,7 @@ public class FallObjectSpawner
     {
         _spawnPeriod -= Time.deltaTime;
         _timer += Time.deltaTime;
+        
         if (_timer > _delayStartSpawn)
         {
             if (_spawnPeriod <= 0)
