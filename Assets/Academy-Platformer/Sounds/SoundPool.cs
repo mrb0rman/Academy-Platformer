@@ -30,13 +30,14 @@ namespace Sounds
             }
         }
 
-        public SoundView TakeFromPool(SoundName soundName, float volume)
+        public SoundView TakeFromPool(SoundName soundName, float volume, bool loop)
         {
             var sound = _listSoundViews[SearchEmptySoundView()];
 
             sound.gameObject.SetActive(true);
             sound.AudioSource.clip = _soundConfig.Get(soundName);
             sound.AudioSource.volume = volume;
+            sound.AudioSource.loop = loop;
 
             return sound;
         }
@@ -50,6 +51,15 @@ namespace Sounds
                     soundView.AudioSource.clip = null;
                     soundView.gameObject.SetActive(false);
                 }
+            }
+        }
+
+        public void MuteSound()
+        {
+            foreach (var soundView in _listSoundViews)
+            {
+                soundView.AudioSource.clip = null;
+                soundView.gameObject.SetActive(false);
             }
         }
 
