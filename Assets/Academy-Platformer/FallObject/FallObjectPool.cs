@@ -21,7 +21,7 @@ public class FallObjectPool
 
     public FallObjectView CreateObject(FallObjectType type)
     {
-        var freeObject = GetFreeElement();
+        var freeObject = GetFreeElement(type);
 
         if (freeObject)
         {
@@ -42,12 +42,14 @@ public class FallObjectPool
         return view;
     }
 
-    private FallObjectView GetFreeElement()
+    private FallObjectView GetFreeElement(FallObjectType type)
     {
         foreach (var fallObjectController in _pool.Values)
         {
             if (!fallObjectController.View.gameObject.activeInHierarchy)
             {
+                var typeModel = _factory.ObjectConfig.Get(type);
+                fallObjectController.SetModel(typeModel);
                 fallObjectController.SetActive(true);
                 return fallObjectController.View;
             }
