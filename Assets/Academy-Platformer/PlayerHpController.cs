@@ -24,13 +24,11 @@ public class PlayerHpController
     public void ReduceHealth(float damage)
     {
         _health -= damage;
-        if (_health > 0)
-        {
-            _soundController.Play(SoundName.GetDamage);
-            
-            OnHealthChanged?.Invoke(_health);
-        }
-        else
+        
+        _soundController.Play(SoundName.GetDamage);
+        OnHealthChanged?.Invoke(_health);
+        
+        if (_health <= 0)
         {
             OnZeroHealth?.Invoke();
         }

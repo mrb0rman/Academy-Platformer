@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace UI.HUD
 {
     public class HUDWindowController
@@ -35,6 +37,9 @@ namespace UI.HUD
 
         private float ChekHPPoint(float healthPoint, float currentHP = 0)
         {
+            healthPoint /= 100;
+            currentHP /= 100;
+            
             if (healthPoint + currentHP > 1)
             {
                 currentHP = 1;
