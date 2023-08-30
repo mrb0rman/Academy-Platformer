@@ -34,7 +34,7 @@ public class FallObjectPool
         controller.SetActive(true);
         view.transform.parent = _container.transform;
         controller.ObjectFellNotify += (FallObjectController) => ReturnToPool(view);
-        controller.PlayerCatchFallingObjectNotify += (FallObjectController) => ReturnToPool(view);
+        controller.DeathAnimationEndedNotify += (FallObjectController) => ReturnToPool(view);
         controller.PlayerCatchFallingObjectNotify += _scoreCounter.PlayerCatchFallObjectEventHandler;
         
         _pool.Add(view, controller);
