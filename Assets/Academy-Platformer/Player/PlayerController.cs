@@ -9,10 +9,14 @@ namespace Player
 {
     public class PlayerController
     {
+        public event Action onDeath; 
+
         public event Action<float> OnChangeSpeed;
 
         public PlayerHpController PlayerHpController => _playerHpController;
 
+        public const float DelayDestroyPlayer = 2f;
+        
         private SoundController _soundController;
         private InputController _inputController;
         private PlayerConfig _playerConfig;
@@ -55,11 +59,11 @@ namespace Player
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
             
-            _playerAnimator = new PlayerAnimator(_playerView, _camera);
+            _playerAnimator = new PlayerAnimator(_playerView);
             _playerAnimator.Spawn();
             
             _playerStorage.Add(_playerView);
-            _playerMovementController = new PlayerMovementController(_inputController, _playerView);
+            _playerMovementController = new PlayerMovementController(_inputController, _playerView, this);
             
             return _playerView;
         }
@@ -73,10 +77,14 @@ namespace Player
 
         public void DestroyView()
         {
+            onDeath?.Invoke();
+            
             _soundController.Stop();
             _soundController.Play(SoundName.GameOver);
             
-            Object.Destroy(_playerView.gameObject);
+            _playerAnimator.Death();
+            
+            Object.Destroy(_playerView.gameObject, DelayDestroyPlayer);
             _playerView = null;
         }
     }
