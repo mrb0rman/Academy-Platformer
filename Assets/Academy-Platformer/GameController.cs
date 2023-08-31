@@ -43,7 +43,7 @@ public class GameController
             
         _mainMenuWindowController = new UIMainMenuController(_uiService, this);
         _gameWindowController = new UIGameWindowController(_uiService);
-        _endMenuWindowController = new UIEndGameWindowController(_uiService);
+        _endMenuWindowController = new UIEndGameWindowController(_uiService, this);
         _hudWindowController = new HUDWindowController(_uiService);
     }
 
@@ -57,13 +57,13 @@ public class GameController
     {
         _uiService.Show<UIMainMenuWindow>();
         
-        _soundController.Play(SoundName.BackStart);
+        _soundController.Play(SoundName.BackStart, loop:true);
     }
 
     public void StartGame()
     {
         _soundController.Stop();
-        _soundController.Play(SoundName.BackMain);
+        _soundController.Play(SoundName.BackMain, loop:true);
         
         _playerController.Spawn();
         _spawner.StartSpawn();
@@ -75,6 +75,8 @@ public class GameController
         _playerController.DestroyView();
         _spawner.StopSpawn();
         TickableManager.TickableManager.UpdateNotify -= Update;
+        
+        _gameWindowController.ShowEndMenuWindow();
     }
 
     private void Update()

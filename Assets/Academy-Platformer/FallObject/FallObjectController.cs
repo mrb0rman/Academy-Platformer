@@ -34,10 +34,10 @@ namespace FallObject
             _damage = model.Damage;
 
             _view = view;
-
+            
             _animator = new FallObjectAnimator(view);
             _animator.Spawn();
-
+            
             _view.OnCollisionEnter2DNotify += OnCollisionEnter2D;
         }
 
@@ -48,6 +48,11 @@ namespace FallObject
             if (player != null)
             {
                 PlayerCatchFallingObjectNotify?.Invoke(this);
+
+                if (_model.Type == FallObjectType.Type2)
+                {
+                    DamageToPlayerNotify?.Invoke(_damage);
+                }
             }
         }
 
@@ -56,7 +61,6 @@ namespace FallObject
             if (_view.transform.position.y <= _minPositionY)
             {
                 ObjectFellNotify?.Invoke(this);
-                DamageToPlayerNotify?.Invoke(_damage);
             }
 
             _view.transform.position += _deltaVector * _fallSpeed;

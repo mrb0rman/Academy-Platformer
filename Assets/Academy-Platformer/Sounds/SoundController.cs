@@ -9,11 +9,11 @@ namespace Sounds
             _soundPool = new SoundPool();
         }
         
-        public void Play(SoundName soundName)
+        public void Play(SoundName soundName, float volume = 1, bool loop = false)
         {
             SwitchOff();
             
-            var sound = _soundPool.TakeFromPool(soundName);
+            var sound = _soundPool.TakeFromPool(soundName, volume, loop);
             sound.AudioSource.Play();
         }
 

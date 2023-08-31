@@ -31,11 +31,6 @@ namespace UI.UIService
             if(window != null)
             {
                 window.transform.SetParent(_uIRoot.Container, false);
-
-                var windowPosition = window.transform.position;
-                windowPosition.y *= 2;
-                window.transform.position = windowPosition;
-                
                 window.Show();
                 return window;
             }
