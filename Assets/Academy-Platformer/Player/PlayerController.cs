@@ -75,14 +75,14 @@ namespace Player
             OnChangeSpeed?.Invoke(_currentSpeed);
         }
 
-        public void DestroyView()
+        public void DestroyView(DG.Tweening.TweenCallback setEndWindow = null)
         {
             onDeath?.Invoke();
             
             _soundController.Stop();
             _soundController.Play(SoundName.GameOver);
             
-            _playerAnimator.Death();
+            _playerAnimator.Death(setEndWindow);
             
             Object.Destroy(_playerView.gameObject, DelayDestroyPlayer);
             _playerView = null;

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Player
@@ -69,7 +70,7 @@ namespace Player
                 .SetLoops(NumberRepetitionsGetDamage);
         }
 
-        public void Death()
+        public void Death(TweenCallback setEndWindow = null)
         {
             _sequenceDeath?.Kill();
                 
@@ -77,7 +78,8 @@ namespace Player
 
             _sequenceDeath
                 .Append(_playerView.transform.DOScale(IncreasePlayerDeath, DurationDeath).SetEase(Ease.InOutBounce))
-                .Append(_playerView.transform.DOScale(DecreasePlayerDeath, DurationDeath).SetEase(Ease.InBounce));
+                .Append(_playerView.transform.DOScale(DecreasePlayerDeath, DurationDeath).SetEase(Ease.InBounce)
+                    .OnComplete(setEndWindow));
         }
     }
 }

@@ -72,11 +72,9 @@ public class GameController
 
     public void StopGame()
     {
-        _playerController.DestroyView();
+        _playerController.DestroyView(()=>_gameWindowController.ShowEndMenuWindow());
         _spawner.StopSpawn();
         TickableManager.TickableManager.UpdateNotify -= Update;
-        
-        _gameWindowController.ShowEndMenuWindow();
     }
 
     private void Update()
