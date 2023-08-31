@@ -27,7 +27,7 @@ namespace UI.HUD
             _hudWindowWindow.ChangeScoreText(score);
         }
         
-        public void SetParameters(int score = 0, float healthPoint = 1f)
+        public void SetParameters(int score = 0, float healthPoint = 100f)
         {
             ChangeScore(score);
             
