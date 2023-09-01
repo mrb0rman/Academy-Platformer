@@ -9,6 +9,8 @@ namespace Player
 {
     public class PlayerController
     {
+        public Action OnDisposed;
+        
         public event Action<float> OnChangeSpeed;
 
         public PlayerHpController PlayerHpController => _playerHpController;
@@ -59,7 +61,7 @@ namespace Player
             _playerAnimator.Spawn();
             
             _playerStorage.Add(_playerView);
-            _playerMovementController = new PlayerMovementController(_inputController, _playerView);
+            _playerMovementController = new PlayerMovementController(_inputController, _playerView, this);
             
             return _playerView;
         }
@@ -73,9 +75,11 @@ namespace Player
 
         public void DestroyView()
         {
+            OnDisposed?.Invoke();
+            
             _soundController.Stop();
             _soundController.Play(SoundName.GameOver);
-            
+
             Object.Destroy(_playerView.gameObject);
             _playerView = null;
         }
