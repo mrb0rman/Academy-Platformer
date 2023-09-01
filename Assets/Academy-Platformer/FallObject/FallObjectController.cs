@@ -48,11 +48,6 @@ namespace FallObject
             if (player != null)
             {
                 PlayerCatchFallingObjectNotify?.Invoke(this);
-
-                if (_model.Type == FallObjectType.Type2)
-                {
-                    DamageToPlayerNotify?.Invoke(_damage);
-                }
             }
         }
 
@@ -61,11 +56,7 @@ namespace FallObject
             if (_view.transform.position.y <= _minPositionY)
             {
                 ObjectFellNotify?.Invoke(this);
-
-                if (_model.Type == FallObjectType.Type1)
-                {
-                    DamageToPlayerNotify?.Invoke(_damage);
-                }
+                DamageToPlayerNotify?.Invoke(_damage);
             }
 
             _view.transform.position += _deltaVector * _fallSpeed;
