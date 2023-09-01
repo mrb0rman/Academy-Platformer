@@ -1,6 +1,7 @@
 using System;
 using FallObject;
 using Sounds;
+using UnityEngine;
 
 public class ScoreCounter
 {
@@ -19,8 +20,8 @@ public class ScoreCounter
     public void PlayerCatchFallObjectEventHandler(FallObjectController controller)
     {
         _soundController.Play(SoundName.Buff1);
-        
-        ScoreChangeNotify?.Invoke(controller.PointsPerObject);
+        _score += controller.PointsPerObject;
+        ScoreChangeNotify?.Invoke(_score);
     }        
 
     public void ObjectFellEventHandler(FallObjectController controller)
