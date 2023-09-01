@@ -14,6 +14,8 @@ namespace Player
         public event Action<float> OnChangeSpeed;
 
         public PlayerHpController PlayerHpController => _playerHpController;
+        
+        public const float DelayDestroyPlayer = 2f;
 
         private SoundController _soundController;
         private InputController _inputController;
@@ -82,7 +84,7 @@ namespace Player
 
             _playerAnimator.Death(setEndWindow);
             
-            Object.Destroy(_playerView.gameObject, 2f);
+            Object.Destroy(_playerView.gameObject, DelayDestroyPlayer);
             _playerView = null;
         }
     }
