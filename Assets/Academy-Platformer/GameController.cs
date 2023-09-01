@@ -43,7 +43,7 @@ public class GameController
             
         _mainMenuWindowController = new UIMainMenuController(_uiService, this);
         _gameWindowController = new UIGameWindowController(_uiService);
-        _endMenuWindowController = new UIEndGameWindowController(_uiService);
+        _endMenuWindowController = new UIEndGameWindowController(_uiService, this);
         _hudWindowController = new HUDWindowController(_uiService);
     }
 
@@ -72,7 +72,7 @@ public class GameController
 
     public void StopGame()
     {
-        _playerController.DestroyView();
+        _playerController.DestroyView(()=>_gameWindowController.ShowEndMenuWindow());
         _spawner.StopSpawn();
         TickableManager.TickableManager.UpdateNotify -= Update;
     }
