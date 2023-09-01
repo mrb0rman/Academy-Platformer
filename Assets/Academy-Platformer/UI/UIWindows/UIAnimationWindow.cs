@@ -14,7 +14,8 @@ namespace UI.UIWindows
             _showAnimation?.Kill();
             
             _showAnimation = transform
-                .DOMoveY(-5, Duration).SetEase(Ease.OutBack)
+                .DOMoveY(-5, Duration)
+                .SetEase(Ease.OutBack)
                 .OnComplete(() =>
                 {
                     OnShowEvent.Invoke();
@@ -24,11 +25,11 @@ namespace UI.UIWindows
 
         public override void Hide()
         {
-            var transformLocalPosition = transform.localPosition;
+            var transformPosition = transform.position;
             
             _hideAnimation?.Kill();
             _hideAnimation = transform
-                .DOMoveY(-transformLocalPosition.y*2, Duration)
+                .DOMoveY(-transformPosition.y*2, Duration)
                 .OnComplete(() =>
                 {
                     OnHideEvent.Invoke();
