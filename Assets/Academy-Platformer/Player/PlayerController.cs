@@ -14,6 +14,8 @@ namespace Player
         public event Action<float> OnChangeSpeed;
 
         public PlayerHpController PlayerHpController => _playerHpController;
+        
+        public const float DelayDestroyPlayer = 2f;
 
         private SoundController _soundController;
         private InputController _inputController;
@@ -73,14 +75,16 @@ namespace Player
             OnChangeSpeed?.Invoke(_currentSpeed);
         }
 
-        public void DestroyView()
+        public void DestroyView(DG.Tweening.TweenCallback setEndWindow = null)
         {
             OnDisposed?.Invoke();
             
             _soundController.Stop();
             _soundController.Play(SoundName.GameOver);
 
-            Object.Destroy(_playerView.gameObject);
+            _playerAnimator.Death(setEndWindow);
+            
+            Object.Destroy(_playerView.gameObject, DelayDestroyPlayer);
             _playerView = null;
         }
     }

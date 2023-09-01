@@ -38,6 +38,7 @@ public class FallObjectSpawner
 
     public void StartSpawn()
     {
+        _spawnPeriod = 6.5f;
         TickableManager.TickableManager.UpdateNotify += Update;
     }
 
