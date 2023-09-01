@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace UI.HUD
 {
     public class HUDWindowController
@@ -25,7 +27,7 @@ namespace UI.HUD
             _hudWindowWindow.ChangeScoreText(score);
         }
         
-        public void SetParameters(int score = 0, float healthPoint = 1f)
+        public void SetParameters(int score = 0, float healthPoint = 100f)
         {
             ChangeScore(score);
             
@@ -35,6 +37,9 @@ namespace UI.HUD
 
         private float ChekHPPoint(float healthPoint, float currentHP = 0)
         {
+            healthPoint /= 100;
+            currentHP /= 100;
+            
             if (healthPoint + currentHP > 1)
             {
                 currentHP = 1;

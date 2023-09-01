@@ -68,6 +68,7 @@ namespace FallObject
             if (_view.transform.position.y <= _minPositionY)
             {
                 ObjectFellNotify?.Invoke(this);
+                DamageToPlayerNotify?.Invoke(_damage);
             }
 
             _view.transform.position += _deltaVector * _fallSpeed;
