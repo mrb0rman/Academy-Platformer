@@ -57,13 +57,13 @@ public class GameController
     {
         _uiService.Show<UIMainMenuWindow>();
         
-        _soundController.Play(SoundName.BackStart);
+        _soundController.Play(SoundName.BackStart, loop:true);
     }
 
     public void StartGame()
     {
         _soundController.Stop();
-        _soundController.Play(SoundName.BackMain);
+        _soundController.Play(SoundName.BackMain, loop:true);
         
         _playerController.Spawn();
         _spawner.StartSpawn();

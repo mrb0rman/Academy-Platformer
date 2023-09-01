@@ -14,21 +14,19 @@ namespace Player
         private readonly Vector3 _rightPointStop;
         private readonly float _step;
 
-        public PlayerMovementController(InputController inputController, 
-            PlayerView playerView, 
-            PlayerController playerController)
+        public PlayerMovementController(InputController inputController, PlayerView playerView, PlayerController playerController)
         {
             _playerView = playerView;
+
             _inputController = inputController;
-            
+            playerController.OnDisposed += Disposed;
+
             _step = Speed * Time.deltaTime;
             _leftPointStop =  UnityEngine.Camera.main.ScreenToWorldPoint(new Vector3(0,0,0));
             _rightPointStop =  UnityEngine.Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
         
             _inputController.OnLeftEvent += MoveLeft;
             _inputController.OnRightEvent += MoveRight;
-
-            playerController.onDeath += Dispose;
         }
 
         private void MoveLeft()
@@ -43,7 +41,7 @@ namespace Player
 
         private void MoveRight()
         {
-            if (_playerView.transform.position.x < _rightPointStop.x - _playerView.SpriteRenderer.bounds.size.x/2f)
+            if (_playerView.transform.position.x < _rightPointStop.x - _playerView.SpriteRenderer.bounds.size.x / 2f)
             {
                 var position = _playerView.transform.position;
                 var target = position + Vector3.right;
@@ -51,7 +49,7 @@ namespace Player
             }
         }
 
-        private void Dispose()
+        public void Disposed()
         {
             _inputController.OnLeftEvent -= MoveLeft;
             _inputController.OnRightEvent -= MoveRight;

@@ -7,9 +7,9 @@ namespace Sounds
     [CreateAssetMenu(fileName = "SoundConfig", menuName = "Configs/SoundConfig", order = 1)]
     public class SoundConfig : ScriptableObject
     {
-        [SerializeField] private SoundModel[] soundModels;
+        [SerializeField] private SoundModels[] soundModels;
         
-        private Dictionary<SoundName, SoundModel> _dict = new();
+        private Dictionary<SoundName, AudioClip> _dict = new();
         
         [NonSerialized] private bool _inited;
 
@@ -17,12 +17,12 @@ namespace Sounds
         {
             foreach (var model in soundModels)
             {
-                _dict.Add(model.Name, model);
+                _dict.Add(model.Name, model.Clip);
             }
             _inited = true;
         }
 
-        public SoundModel Get(SoundName soundName)
+        public AudioClip Get(SoundName soundName)
         {
             if (!_inited)
             {
@@ -53,11 +53,9 @@ namespace Sounds
     }
 
     [Serializable]
-    public struct SoundModel
+    public struct SoundModels
     {
         public SoundName Name;
         public AudioClip Clip;
-        [Range(0, 1)]public float Volume;
-        public bool Loop;
     }
 }

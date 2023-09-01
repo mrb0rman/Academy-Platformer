@@ -9,14 +9,12 @@ namespace Player
 {
     public class PlayerController
     {
-        public event Action onDeath; 
-
+        public Action OnDisposed;
+        
         public event Action<float> OnChangeSpeed;
 
         public PlayerHpController PlayerHpController => _playerHpController;
 
-        public const float DelayDestroyPlayer = 2f;
-        
         private SoundController _soundController;
         private InputController _inputController;
         private PlayerConfig _playerConfig;
@@ -59,7 +57,7 @@ namespace Player
             _currentSpeed = model.Speed;
             _playerView = _factoryPlayer.Create(model, _playerView);
             
-            _playerAnimator = new PlayerAnimator(_playerView);
+            _playerAnimator = new PlayerAnimator(_playerView, _camera);
             _playerAnimator.Spawn();
             
             _playerStorage.Add(_playerView);
@@ -77,14 +75,14 @@ namespace Player
 
         public void DestroyView(DG.Tweening.TweenCallback setEndWindow = null)
         {
-            onDeath?.Invoke();
+            OnDisposed?.Invoke();
             
             _soundController.Stop();
             _soundController.Play(SoundName.GameOver);
-            
+
             _playerAnimator.Death(setEndWindow);
             
-            Object.Destroy(_playerView.gameObject, DelayDestroyPlayer);
+            Object.Destroy(_playerView.gameObject, 2f);
             _playerView = null;
         }
     }

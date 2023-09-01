@@ -28,20 +28,25 @@ namespace Player
         private const float DecreasePlayerDeath = 0f;
         private const int NumberRepetitionsGetDamage = 5;
         
-        public PlayerAnimator(PlayerView playerView)
+        public PlayerAnimator(PlayerView playerView, UnityEngine.Camera cameraView)
         {
             _playerView = playerView;
 
-            var camera = UnityEngine.Camera.main;
-            _startPositionPlayer = camera.ScreenToWorldPoint(new Vector3(
-                -FactorOffsetX*playerView.SpriteRenderer.size.x, 
-                camera.pixelHeight / FactorPixelHeight, 
-                -camera.transform.position.z));
-            _endPositionPlayer = camera.ScreenToWorldPoint(new Vector3(
-                camera.pixelWidth / FactorPixelWidth, 
-                camera.pixelHeight / FactorPixelHeight, 
-                -camera.transform.position.z));
-           
+            if (cameraView != null)
+            {
+                _startPositionPlayer = cameraView.ScreenToWorldPoint(new Vector3(
+                    -FactorOffsetX*playerView.SpriteRenderer.size.x, 
+                    cameraView.pixelHeight / FactorPixelHeight, 
+                    -cameraView.transform.position.z));
+                _endPositionPlayer =  cameraView.ScreenToWorldPoint(new Vector3(
+                    cameraView.pixelWidth / FactorPixelWidth, 
+                    cameraView.pixelHeight / FactorPixelHeight, 
+                    -cameraView.transform.position.z));
+            }
+            else
+            {
+                Debug.LogError("Component cameraView is null");
+            }
         }
         
         public void Spawn()

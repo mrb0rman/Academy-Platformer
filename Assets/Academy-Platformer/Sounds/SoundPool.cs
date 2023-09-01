@@ -30,15 +30,14 @@ namespace Sounds
             }
         }
 
-        public SoundView TakeFromPool(SoundName soundName)
+        public SoundView TakeFromPool(SoundName soundName, float volume, bool loop)
         {
             var sound = _listSoundViews[SearchEmptySoundView()];
 
-            var soundModel = _soundConfig.Get(soundName);
             sound.gameObject.SetActive(true);
-            sound.AudioSource.clip = soundModel.Clip;
-            sound.AudioSource.volume =  soundModel.Volume;
-            sound.AudioSource.loop = soundModel.Loop;
+            sound.AudioSource.clip = _soundConfig.Get(soundName);
+            sound.AudioSource.volume = volume;
+            sound.AudioSource.loop = loop;
 
             return sound;
         }
